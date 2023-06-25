@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{6d23e64f-7611-47d8-94b3-7f00c252c953}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CompilerHelper.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\BorlandToCdeclAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\CdeclToBorlandAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\CdeclToThiscallAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\ThiscallToCdeclAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CompilerHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CompilerType.h" />
+  </ItemGroup>
+</Project>
