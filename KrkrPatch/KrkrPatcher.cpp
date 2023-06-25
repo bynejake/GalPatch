@@ -93,7 +93,7 @@ wstring KrkrPatcher::PatchUrl(const ttstr& name)
 {
 	spdlog::debug(L"PatchUrl {}", name.c_str());
 
-	static const auto DIRECTORY = PathUtil::GetAppPath() + L"patch\\";
+	static const auto DIRECTORY = PathUtil::GetAppPath() + L"KrkrPatch\\";
 	if (GetFileAttributes(DIRECTORY.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
 	{
 		wstring _name = name.c_str();

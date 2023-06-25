@@ -4,7 +4,7 @@ Load patch for krkr game.
 
 ## Usage
  
-Put files into **`patch`** folder without directory structure.
+Put files into **`KrkrPatch`** folder without directory structure.
  
 Put **`version.dll`** into game folder.
 
