@@ -2,7 +2,7 @@
 
 enum class CompilerType
 {
-	Borland,
-	Msvc,
-	Unknown,
+    Borland,
+    Msvc,
+    Unknown
 };

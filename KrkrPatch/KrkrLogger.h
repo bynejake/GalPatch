@@ -9,16 +9,16 @@
 class KrkrLogger
 {
 public:
-	static void Start()
-	{
-		set_default_logger(spdlog::basic_logger_mt<spdlog::async_factory>("version", "version.log", true));
-		spdlog::set_level(spdlog::level::info);
-		spdlog::flush_every(std::chrono::seconds(5));
-	}
+    static void Start()
+    {
+        set_default_logger(spdlog::basic_logger_mt<spdlog::async_factory>("version", "version.log", true));
+        spdlog::set_level(spdlog::level::info);
+        spdlog::flush_every(std::chrono::seconds(5));
+    }
 
-	static void Stop()
-	{
-		spdlog::default_logger()->flush();
-		spdlog::shutdown();
-	}
+    static void Stop()
+    {
+        spdlog::default_logger()->flush();
+        spdlog::shutdown();
+    }
 };

@@ -5,5 +5,5 @@
 class PathUtil final
 {
 public:
-	static std::wstring GetAppPath();
+    static std::wstring GetAppPath();
 };
