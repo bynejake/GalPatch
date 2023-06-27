@@ -5,7 +5,6 @@ class KrkrPatcher
 public:
     static BOOL                             PatchSignVerify         (HMODULE hModule);
     static void                             PatchCreateStream       ();
-    static void                             Unpatch                 ();
 
 private:
     static BOOL                 __fastcall  PatchSignVerifyMsvc     (HMODULE hModule);

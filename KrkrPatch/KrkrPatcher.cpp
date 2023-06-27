@@ -66,11 +66,6 @@ void KrkrPatcher::PatchCreateStream()
     }
 }
 
-void KrkrPatcher::Unpatch()
-{
-    // TODO what?
-}
-
 BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE hModule)
 {
     return TRUE;

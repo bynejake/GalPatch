@@ -11,7 +11,7 @@
 
 #include "tp_stub.h"
 #include "KrkrLogger.h"
-#include "KrkrHooker.h"
+#include "KrkrInjector.h"
 #include "KrkrPatcher.h"
 
 #endif //PCH_H
