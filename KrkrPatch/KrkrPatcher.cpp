@@ -73,38 +73,41 @@ BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE hModule)
 
 tTJSBinaryStream* KrkrPatcher::PatchCreateStreamBorland(const ttstr& name, tjs_uint32 flags)
 {
-    return CompilerHelper::CallStaticFunc<tTJSBinaryStream*, &OriginalCreateStreamBorland, const ttstr&, tjs_uint32>(PatchUrl(name).c_str(), flags);
+    return CompilerHelper::CallStaticFunc<tTJSBinaryStream*, &OriginalCreateStreamBorland, const ttstr&, tjs_uint32>(PatchUrl(name, flags).c_str(), flags);
 }
 
 tTJSBinaryStream* KrkrPatcher::PatchCreateStreamMsvc(const ttstr& name, tjs_uint32 flags)
 {
-    return OriginalCreateStreamMsvc(PatchUrl(name).c_str(), flags);
+    return OriginalCreateStreamMsvc(PatchUrl(name, flags).c_str(), flags);
 }
 
-wstring KrkrPatcher::PatchUrl(const ttstr& name)
+wstring KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
 {
-    spdlog::debug(L"PatchUrl {}", name.c_str());
-
-    static const auto DIRECTORY = PathUtil::GetAppPath() + L"KrkrPatch\\";
-    if (GetFileAttributes(DIRECTORY.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+    if (flags == TJS_BS_READ)
     {
-        wstring _name = name.c_str();
+        spdlog::debug(L"PatchUrl {}", name.c_str());
 
-        auto pos = wstring::npos;
-        if (_name.starts_with(L"archive://./") || _name.starts_with(L"arc://./"))
-            pos = _name.find_last_of(L'/') + 1;
-        else if (_name.starts_with(L"file://./") && _name.contains(L".xp3>"))
-            pos = max(_name.find_last_of(L'/'), _name.find_last_of(L'>')) + 1;
-        else if (!_name.contains(L':'))
-            pos = 0;
-
-        _name.erase(0, pos);
-
-        auto url = DIRECTORY + _name;
-        if (TVPIsExistentStorageNoSearch(url.c_str()))
+        static const auto Directory = PathUtil::GetAppPath() + L"KrkrPatch\\";
+        if (GetFileAttributes(Directory.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
         {
-            spdlog::info(L"PatchUrl {} to {}", name.c_str(), url);
-            return url;
+            wstring _name = name.c_str();
+
+            auto pos = wstring::npos;
+            if (_name.starts_with(L"archive://./") || _name.starts_with(L"arc://./"))
+                pos = _name.find_last_of(L'/') + 1;
+            else if (_name.starts_with(L"file://./") && _name.contains(L".xp3>"))
+                pos = max(_name.find_last_of(L'/'), _name.find_last_of(L'>')) + 1;
+            else if (!_name.contains(L':'))
+                pos = 0;
+
+            _name.erase(0, pos);
+
+            auto url = Directory + _name;
+            if (TVPIsExistentStorageNoSearch(url.c_str()))
+            {
+                spdlog::info(L"PatchUrl {} to {}", name.c_str(), url);
+                return url;
+            }
         }
     }
     return name.c_str();
