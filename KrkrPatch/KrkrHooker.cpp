@@ -2,39 +2,32 @@
 
 using namespace std;
 
-void KrkrHooker::Hook(const std::function<BOOL(HMODULE)>& beforeV2LinkCallback, const std::function<void()>& afterV2LinkCallback)
+void KrkrHooker::Hook(const std::function<BOOL(HMODULE)>& beforeV2LinkCallback, const std::function<void()>& handleV2LinkCallback)
 {
     LoadLibHooker::Hook(LoadLibCallback);
-    BeforeV2LinkCallback    = beforeV2LinkCallback;
-    AfterV2LinkCallback     = afterV2LinkCallback;
+    BeforeV2LinkCallback = beforeV2LinkCallback;
+    HandleV2LinkCallback = handleV2LinkCallback;
 }
 
 void KrkrHooker::Unhook()
 {
-    // TODO what?
 }
 
 void KrkrHooker::LoadLibCallback(HMODULE hModule)
 {
-    if (BeforeV2LinkCallback == nullptr && AfterV2LinkCallback == nullptr)
+    if (BeforeV2LinkCallback == nullptr && HandleV2LinkCallback == nullptr)
         return;
 
     if (const auto pV2Link = DetoursHelper::FindExportEx(hModule, "V2Link"); pV2Link != nullptr)
     {
+        // find ImageUnload before find V2Link?
         if (DetoursHelper::FindImport(hModule, "ImageUnload"))
-        {
-            spdlog::info("Found ImageUnload, postpone HookV2Link");
-            OriginalImageUnload = ImageUnload;
-            DetoursHelper::Hook(pair(&OriginalImageUnload, HookImageUnload));
-            return;
-        }
+            return spdlog::info("Found ImageUnload, postpone Bypass & V2Link");
 
         if (BeforeV2LinkCallback != nullptr && BeforeV2LinkCallback(hModule))
-        {
             BeforeV2LinkCallback = nullptr;
-        }
 
-        if (AfterV2LinkCallback != nullptr)
+        if (HandleV2LinkCallback != nullptr)
         {
             OriginalV2Link = reinterpret_cast<decltype(HookV2Link)*>(pV2Link);
             DetoursHelper::Hook(pair(&OriginalV2Link, HookV2Link));
@@ -50,18 +43,8 @@ HRESULT KrkrHooker::HookV2Link(iTVPFunctionExporter* pExporter)
 
     TVPInitImportStub(pExporter);
 
-    AfterV2LinkCallback();
-    AfterV2LinkCallback = nullptr;
+    HandleV2LinkCallback();
+    HandleV2LinkCallback = nullptr;
 
-    const auto result = OriginalV2Link(pExporter);
-    OriginalV2Link = nullptr;
-    return result;
-}
-
-BOOL KrkrHooker::HookImageUnload(PLOADED_IMAGE ploadedImage)
-{
-    spdlog::info("HookImageUnload {}", ploadedImage->ModuleName);
-    DetoursHelper::Unhook(pair(&OriginalImageUnload, HookImageUnload));
-    OriginalImageUnload = nullptr;
-    return ImageUnload(ploadedImage);
+    return OriginalV2Link(pExporter);
 }
