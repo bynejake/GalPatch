@@ -12,6 +12,7 @@ private:
     static tTJSBinaryStream*    __fastcall  PatchCreateStreamMsvc   (const ttstr& name, tjs_uint32 flags);
 
     static std::wstring                     PatchUrl                (const ttstr& name, tjs_uint32 flags);
+    static std::wstring                     PatchName               (const ttstr& name);
 
     static inline decltype(PatchSignVerifyMsvc)*        OriginalSignVerifyMsvc;
     static inline decltype(PatchCreateStreamBorland)*   OriginalCreateStreamBorland;

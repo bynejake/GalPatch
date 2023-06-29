@@ -86,29 +86,36 @@ wstring KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
     if (flags == TJS_BS_READ)
     {
         spdlog::debug(L"PatchUrl {}", name.c_str());
-
-        static const auto Directory = PathUtil::GetAppPath() + L"KrkrPatch\\";
-        if (GetFileAttributes(Directory.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+        
+        static const auto patchDir = PathUtil::GetAppPath() + L"KrkrPatch\\";
+        if (GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
         {
-            wstring _name = name.c_str();
-
-            auto pos = wstring::npos;
-            if (_name.starts_with(L"archive://./") || _name.starts_with(L"arc://./"))
-                pos = _name.find_last_of(L'/') + 1;
-            else if (_name.starts_with(L"file://./") && _name.contains(L".xp3>"))
-                pos = max(_name.find_last_of(L'/'), _name.find_last_of(L'>')) + 1;
-            else if (!_name.contains(L':'))
-                pos = 0;
-
-            _name.erase(0, pos);
-
-            auto url = Directory + _name;
-            if (TVPIsExistentStorageNoSearch(url.c_str()))
+            if (const auto patchName = PatchName(name); !patchName.empty())
             {
-                spdlog::info(L"PatchUrl {} to {}", name.c_str(), url);
-                return url;
+                auto patchUrl = patchDir + patchName;
+                if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
+                {
+                    spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
+                    return patchUrl;
+                }
             }
         }
     }
     return name.c_str();
+}
+
+wstring KrkrPatcher::PatchName(const ttstr& name)
+{
+    wstring patchName = name.c_str();
+
+    auto pos = wstring::npos;
+    if (patchName.starts_with(L"archive://./") || patchName.starts_with(L"arc://./"))
+        pos = patchName.find_last_of(L'/') + 1;
+    else if (patchName.starts_with(L"file://./") && patchName.contains(L".xp3>"))
+        pos = max(patchName.find_last_of(L'/'), patchName.find_last_of(L'>')) + 1;
+    else if (!patchName.contains(L':'))
+        pos = 0;
+
+    patchName.erase(0, pos);
+    return patchName;
 }
