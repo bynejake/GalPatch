@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 class ThiscallToCdeclAdapterBase
 {
     static_assert(sizeof...(TArgs) > 0);
@@ -11,14 +11,14 @@ public:
 private:
     static constexpr auto   FuncPtrPtr              = TFuncPtrPtr + TFuncPtrIndex;
 
-    static constexpr int    NumCdeclStackArgs       = sizeof...(TArgs);
-    static constexpr int    CdeclStackArgsSize      = NumCdeclStackArgs * 4;
+    static constexpr size_t NumThiscallStackArgs    = sizeof...(TArgs) - 1;
+    static constexpr size_t ThiscallStackArgsSize   = NumThiscallStackArgs * 4;
 
-    static constexpr int    NumThiscallStackArgs    = sizeof...(TArgs) - 1;
-    static constexpr int    ThiscallStackArgsSize   = NumThiscallStackArgs * 4;
+    static constexpr size_t NumCdeclStackArgs       = sizeof...(TArgs);
+    static constexpr size_t CdeclStackArgsSize      = NumCdeclStackArgs * 4;
 };
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 __declspec(naked) TResult ThiscallToCdeclAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>::Call(TArgs...)
 {
     __asm
@@ -47,10 +47,10 @@ __declspec(naked) TResult ThiscallToCdeclAdapterBase<TResult, TFuncPtrPtr, TFunc
     }
 }
 
-template <typename TSign, auto** TFuncPtrPtr, int TFuncPtrIndex = 0>
+template <typename TSign, auto** TFuncPtrPtr, size_t TFuncPtrIndex = 0>
 class ThiscallToCdeclAdapter;
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 class ThiscallToCdeclAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public ThiscallToCdeclAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>
 {
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 class CdeclToBorlandAdapterBase
 {
 public:
@@ -9,14 +9,14 @@ public:
 private:
     static constexpr auto   FuncPtrPtr              = TFuncPtrPtr + TFuncPtrIndex;
 
-    static constexpr int    NumCdeclStackArgs       = sizeof...(TArgs);
-    static constexpr int    CdeclStackArgsSize      = NumCdeclStackArgs * 4;
+    static constexpr size_t NumCdeclStackArgs       = sizeof...(TArgs);
+    static constexpr size_t CdeclStackArgsSize      = NumCdeclStackArgs * 4;
 
-    static constexpr int    NumBorlandStackArgs     = sizeof...(TArgs) > 3 ? sizeof...(TArgs) - 3 : 0;
-    static constexpr int    BorlandStackArgsSize    = NumBorlandStackArgs * 4;
+    static constexpr size_t NumBorlandStackArgs     = sizeof...(TArgs) > 3 ? sizeof...(TArgs) - 3 : 0;
+    static constexpr size_t BorlandStackArgsSize    = NumBorlandStackArgs * 4;
 };
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 __declspec(naked) void CdeclToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>::Call()
 {
     __asm
@@ -82,10 +82,10 @@ __declspec(naked) void CdeclToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrI
     }
 }
 
-template <typename TSign, auto** TFuncPtrPtr, int TFuncPtrIndex = 0>
+template <typename TSign, auto** TFuncPtrPtr, size_t TFuncPtrIndex = 0>
 class CdeclToBorlandAdapter;
 
-template <typename TResult, auto** TFuncPtrPtr, int TFuncPtrIndex, typename... TArgs>
+template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
 class CdeclToBorlandAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public CdeclToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>
 {
 };

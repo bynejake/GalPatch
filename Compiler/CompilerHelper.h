@@ -1,12 +1,10 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN
-
 #include <exception>
 #include "CompilerType.h"
+#include "CallingConvention/BorlandToCdeclAdapter.h"
 #include "CallingConvention/CdeclToBorlandAdapter.h"
 #include "CallingConvention/CdeclToThiscallAdapter.h"
-#include "CallingConvention/BorlandToCdeclAdapter.h"
 #include "CallingConvention/ThiscallToCdeclAdapter.h"
 
 class CompilerHelper final
