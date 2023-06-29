@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\BorlandToCdeclAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\CdeclToBorlandAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\CdeclToThiscallAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\ThiscallToBorlandAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CallingConvention\ThiscallToCdeclAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CompilerHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CompilerType.h" />
