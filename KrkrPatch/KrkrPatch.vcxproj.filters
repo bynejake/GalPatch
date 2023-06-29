@@ -21,13 +21,13 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KrkrHooker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KrkrLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KrkrPatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KrkrInjector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KrkrHooker.cpp">
+    <ClCompile Include="KrkrPatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KrkrPatcher.cpp">
+    <ClCompile Include="KrkrInjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,4 @@
 ﻿.vs
 Build
 vcpkg_installed
-Common/Common.vcxitems.user
-Compiler/Compiler.vcxitems.user
-KrkrPatch/KrkrPatch.vcxproj.user
+*/*.user

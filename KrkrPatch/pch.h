@@ -8,8 +8,8 @@
 #include "PE.h"
 #include "CompilerHelper.h"
 #include "Common.h"
-
 #include "tp_stub.h"
+
 #include "KrkrLogger.h"
 #include "KrkrInjector.h"
 #include "KrkrPatcher.h"
