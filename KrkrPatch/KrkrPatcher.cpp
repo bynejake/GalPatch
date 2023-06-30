@@ -111,16 +111,29 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
     {
         spdlog::debug(L"PatchUrl {}", name.c_str());
 
-        static const auto patchArc = PathUtil::GetAppPath() + L"KrkrPatch.xp3";
-        if (GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
+        static const auto PATCH_APP = PathUtil::GetAppPath();
+        static const auto PATCH_DIR = PATCH_APP + L"KrkrPatch\\";
+        static const auto PATCH_ARC = PATCH_APP + L"KrkrPatch.xp3";
+
+        if (const auto patchName = PatchName(name); !patchName.empty())
         {
-            if (const auto patchName = PatchName(name); !patchName.empty())
+            if (GetFileAttributes(PATCH_DIR.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
             {
-                const auto patchUrl = patchArc + L">" + patchName;
+                const auto patchUrl = PATCH_DIR + patchName;
                 if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
-                    return { patchUrl, patchArc };
+                    return { patchUrl, L"" };
+                }
+            }
+
+            if (GetFileAttributes(PATCH_ARC.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
+            {
+                const auto patchUrl = PATCH_ARC + L">" + patchName;
+                if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
+                {
+                    spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
+                    return { patchUrl, PATCH_ARC };
                 }
             }
         }
