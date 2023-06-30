@@ -4,9 +4,9 @@ Load patch for krkr game.
 
 ## Usage
  
-Create **`KrkrPatch`** foler in game foler, then put patch files into it without directory structure.
+Create **`KrkrPatch.xp3`** without directory structure, use [GARbro](https://github.com/morkt/GARbro) or [Xp3Pack](https://github.com/arcusmaximus/KirikiriTools)
  
-Put **`version.dll`** into game folder.
+Put **`KrkrPatch.xp3`** & **`version.dll`** into game folder.
 
 ## Log
 

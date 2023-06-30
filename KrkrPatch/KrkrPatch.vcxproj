@@ -115,14 +115,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="KrkrDefinitions.h" />
     <ClInclude Include="KrkrInjector.h" />
     <ClInclude Include="KrkrLogger.h" />
+    <ClInclude Include="KrkrPatchArcStream.h" />
     <ClInclude Include="KrkrPatcher.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="KrkrInjector.cpp" />
+    <ClCompile Include="KrkrPatchArcStream.cpp" />
     <ClCompile Include="KrkrPatcher.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

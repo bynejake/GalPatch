@@ -12,6 +12,8 @@
 
 #include "KrkrLogger.h"
 #include "KrkrInjector.h"
+#include "KrkrDefinitions.h"
+#include "KrkrPatchArcStream.h"
 #include "KrkrPatcher.h"
 
 #endif //PCH_H

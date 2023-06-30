@@ -2,3 +2,4 @@
 Build
 vcpkg_installed
 */*.user
+KrkrPatch/version.log

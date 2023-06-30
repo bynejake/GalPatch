@@ -73,35 +73,59 @@ BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE hModule)
 
 tTJSBinaryStream* KrkrPatcher::PatchCreateStreamBorland(const ttstr& name, tjs_uint32 flags)
 {
-    return CompilerHelper::CallStaticFunc<tTJSBinaryStream*, &OriginalCreateStreamBorland, const ttstr&, tjs_uint32>(PatchUrl(name, flags).c_str(), flags);
+    return PatchCreateStream<tTVPXP3ArchiveStreamBorland, &OriginalCreateStreamBorland>(name, flags);
 }
 
 tTJSBinaryStream* KrkrPatcher::PatchCreateStreamMsvc(const ttstr& name, tjs_uint32 flags)
 {
-    return OriginalCreateStreamMsvc(PatchUrl(name, flags).c_str(), flags);
+    return PatchCreateStream<tTVPXP3ArchiveStreamMsvc, &OriginalCreateStreamMsvc>(name, flags);
 }
 
-wstring KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
+template <typename TArcStream, auto** TOriginalCreateStream>
+tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 flags)
+{
+    const auto [patchUrl, patchArc] = PatchUrl(name, flags);
+    const auto stream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, TOriginalCreateStream, const ttstr&, tjs_uint32>(patchUrl.c_str(), flags);
+
+    if (!patchArc.empty())
+    {
+        XP3ArchiveSegment* segment;
+        if (is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
+            segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(stream)->CurSegment;
+        else if (is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
+            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>(stream)->CurSegment;
+        else
+            throw exception("Unsupported CompilerType");
+
+        const auto patchArcStream = new KrkrPatchArcStream(patchArc, segment);
+        tTJSBinaryStream::ApplyWrapVTable(patchArcStream);
+        return patchArcStream;
+    }
+
+    return stream;
+}
+
+pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
 {
     if (flags == TJS_BS_READ)
     {
         spdlog::debug(L"PatchUrl {}", name.c_str());
-        
-        static const auto patchDir = PathUtil::GetAppPath() + L"KrkrPatch\\";
-        if (GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+
+        static const auto patchArc = PathUtil::GetAppPath() + L"KrkrPatch.xp3";
+        if (GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
         {
             if (const auto patchName = PatchName(name); !patchName.empty())
             {
-                auto patchUrl = patchDir + patchName;
+                const auto patchUrl = patchArc + L">" + patchName;
                 if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
-                    return patchUrl;
+                    return { patchUrl, patchArc };
                 }
             }
         }
     }
-    return name.c_str();
+    return { name.c_str(), L"" };
 }
 
 wstring KrkrPatcher::PatchName(const ttstr& name)

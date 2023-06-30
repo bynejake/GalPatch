@@ -30,6 +30,12 @@
     <ClInclude Include="KrkrInjector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="KrkrPatchArcStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KrkrDefinitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -42,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KrkrInjector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KrkrPatchArcStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
