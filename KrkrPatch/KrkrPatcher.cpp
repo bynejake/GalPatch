@@ -149,7 +149,7 @@ wstring KrkrPatcher::PatchName(const ttstr& name)
     if (patchName.starts_with(L"archive://./") || patchName.starts_with(L"arc://./"))
         pos = patchName.find_last_of(L'/') + 1;
     else if (patchName.starts_with(L"file://./") && patchName.contains(L".xp3>"))
-        pos = max(patchName.find_last_of(L'/'), patchName.find_last_of(L'>')) + 1;
+        pos = patchName.find_last_of(L"/>") + 1;
     else if (!patchName.contains(L':'))
         pos = 0;
 
