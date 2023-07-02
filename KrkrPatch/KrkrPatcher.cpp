@@ -112,8 +112,8 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
         spdlog::debug(L"PatchUrl {}", name.c_str());
 
         static const auto PATCH_APP = PathUtil::GetAppPath();
-        static const auto PATCH_DIR = PATCH_APP + L"KrkrPatch\\";
-        static const auto PATCH_ARC = PATCH_APP + L"KrkrPatch.xp3";
+        static const auto PATCH_DIR = PATCH_APP + L"unencrypted\\";
+        static const auto PATCH_ARC = PATCH_APP + L"unencrypted.xp3";
 
         if (const auto patchName = PatchName(name); !patchName.empty())
         {
