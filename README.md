@@ -12,4 +12,4 @@ Load patch for krkr game.
 
 ## Log
 
-Auto write log into **`version.log`**.
+Auto write log into **`version.log`**(only debug version)
