@@ -8,9 +8,12 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         Hijacker::Hijack(L"Krkr");
         LoadLibHooker::Hook();
         CompilerHelper::Init();
+
+#ifdef _DEBUG
         KrkrLogger::Start();
 
         spdlog::info("CompilerType {}", CompilerHelper::CompilerType == CompilerType::Borland ? "Borland" : "Msvc");
+#endif
 
         KrkrInjector::Init(
             [](HMODULE hModule)
@@ -23,7 +26,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
             });
         break;
     case DLL_PROCESS_DETACH:
+#ifdef _DEBUG
         KrkrLogger::Stop();
+#endif
+
         LoadLibHooker::Unhook();
         Hijacker::Release();
         break;

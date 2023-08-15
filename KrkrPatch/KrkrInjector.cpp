@@ -18,7 +18,12 @@ void KrkrInjector::LoadLibCallback(HMODULE hModule)
     {
         // find ImageUnload before find V2Link?
         if (DetoursHelper::FindImport(hModule, "ImageUnload"))
-            return spdlog::info("Found ImageUnload, postpone Inject");
+        {
+#ifdef _DEBUG
+            spdlog::info("Found ImageUnload, postpone Inject");
+#endif
+            return;
+        }
 
         if (BeforeInjectCallback != nullptr && BeforeInjectCallback(hModule))
             BeforeInjectCallback = nullptr;
@@ -33,7 +38,9 @@ void KrkrInjector::LoadLibCallback(HMODULE hModule)
 
 HRESULT KrkrInjector::InjectV2Link(iTVPFunctionExporter* pExporter)
 {
+#ifdef _DEBUG
     spdlog::info("InjectV2Link");
+#endif
 
     DetoursHelper::Unhook(pair(&OriginalV2Link, InjectV2Link));
 

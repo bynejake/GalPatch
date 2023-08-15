@@ -1,10 +1,12 @@
 #pragma once
 
+#ifdef _DEBUG
 #define SPDLOG_WCHAR_TO_UTF8_SUPPORT
 #include "spdlog/spdlog.h"
 #include "spdlog/common.h"
 #include "spdlog/async.h"
 #include "spdlog/sinks/basic_file_sink.h"
+
 
 class KrkrLogger
 {
@@ -22,3 +24,4 @@ public:
         spdlog::shutdown();
     }
 };
+#endif

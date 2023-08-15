@@ -15,7 +15,10 @@ BOOL KrkrPatcher::PatchSignVerify(HMODULE hModule)
             OriginalSignVerifyMsvc = reinterpret_cast<decltype(PatchSignVerifyMsvc)*>(PE::FindData(hModule, PATTERN_SIGN_VERIFY_MSVC, strlen(PATTERN_SIGN_VERIFY_MSVC)));
             if (OriginalSignVerifyMsvc != nullptr)
             {
+#ifdef _DEBUG
                 spdlog::info("PatchSignVerify Msvc success!");
+#endif
+
                 DetoursHelper::Hook(pair(&OriginalSignVerifyMsvc, PatchSignVerifyMsvc));
                 return TRUE;
             }
@@ -38,12 +41,17 @@ void KrkrPatcher::PatchCreateStream()
         OriginalCreateStreamBorland = reinterpret_cast<decltype(PatchCreateStreamBorland)*>(PE::FindData(PATTERN_CREATE_STREAM_BORLAND, strlen(PATTERN_CREATE_STREAM_BORLAND)));
         if (OriginalCreateStreamBorland != nullptr)
         {
+#ifdef _DEBUG
             spdlog::info("PatchCreateStream Borland success");
+#endif
+
             DetoursHelper::Hook(pair(&OriginalCreateStreamBorland, CompilerHelper::WrapAsStaticFunc<tTJSBinaryStream*, PatchCreateStreamBorland, const ttstr&, tjs_uint32>()));
             return;
         }
 
+#ifdef _DEBUG
         spdlog::error("PatchCreateStream Borland fail");
+#endif
     }
     break;
     case CompilerType::Msvc:
@@ -53,12 +61,17 @@ void KrkrPatcher::PatchCreateStream()
         OriginalCreateStreamMsvc = reinterpret_cast<decltype(PatchCreateStreamMsvc)*>(PE::FindData(PATTERN_CREATE_STREAM_MSVC, strlen(PATTERN_CREATE_STREAM_MSVC)));
         if (OriginalCreateStreamMsvc != nullptr)
         {
+#ifdef _DEBUG
             spdlog::info("PatchCreateStream Msvc success");
+#endif
+
             DetoursHelper::Hook(pair(&OriginalCreateStreamMsvc, PatchCreateStreamMsvc));
             return;
         }
 
+#ifdef _DEBUG
         spdlog::error("PatchCreateStream Msvc fail");
+#endif
     }
     break;
     default:
@@ -109,7 +122,9 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
 {
     if (flags == TJS_BS_READ)
     {
+#ifdef _DEBUG
         spdlog::debug(L"PatchUrl {}", name.c_str());
+#endif
 
         static const auto PATCH_APP = PathUtil::GetAppPath();
         static const auto PATCH_DIR = PATCH_APP + L"unencrypted\\";
@@ -122,7 +137,10 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
                 const auto patchUrl = PATCH_DIR + patchName;
                 if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
+#ifdef _DEBUG
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
+#endif
+
                     return { patchUrl, L"" };
                 }
             }
@@ -132,7 +150,10 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
                 const auto patchUrl = PATCH_ARC + L">" + patchName;
                 if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
+#ifdef _DEBUG
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
+#endif
+
                     return { patchUrl, PATCH_ARC };
                 }
             }

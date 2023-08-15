@@ -10,7 +10,10 @@
 #include "Common.h"
 #include "tp_stub.h"
 
+#ifdef _DEBUG
 #include "KrkrLogger.h"
+#endif
+
 #include "KrkrInjector.h"
 #include "KrkrDefinitions.h"
 #include "KrkrPatchArcStream.h"
