@@ -3,6 +3,7 @@
 Load patch for krkr game.
 
 ## Usage
+- Download [latest release](https://github.com/bynejake/KrkrPatch/releases/latest), rename **`version-(debug/release).dll`** to **`version.dll`**.
 
 - Put patch files into **`unencrypted`** folder without directory structure.
 
