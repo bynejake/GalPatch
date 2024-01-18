@@ -118,7 +118,7 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 f
     return stream;
 }
 
-pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
+std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
 {
     if (flags == TJS_BS_READ)
     {
@@ -126,16 +126,13 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
         spdlog::debug(L"PatchUrl {}", name.c_str());
 #endif
 
-        static const auto PATCH_APP = PathUtil::GetAppPath();
-        static const auto PATCH_DIR = PATCH_APP + L"unencrypted\\";
-        static const auto PATCH_ARC = PATCH_APP + L"unencrypted.xp3";
-
         if (const auto patchName = PatchName(name); !patchName.empty())
         {
-            if (GetFileAttributes(PATCH_DIR.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+            static const auto [PATCH_DIRS, PATCH_ARCS] = PatchPathes();
+
+            for (auto& patchDir : PATCH_DIRS)
             {
-                const auto patchUrl = PATCH_DIR + patchName;
-                if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
+                if (const auto patchUrl = patchDir + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
 #ifdef _DEBUG
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
@@ -145,24 +142,24 @@ pair<wstring, wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags
                 }
             }
 
-            if (GetFileAttributes(PATCH_ARC.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
+            for (auto& patchArc : PATCH_ARCS)
             {
-                const auto patchUrl = PATCH_ARC + L">" + patchName;
-                if (TVPIsExistentStorageNoSearch(patchUrl.c_str()))
+                if (const auto patchUrl = patchArc + L">" + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
 #ifdef _DEBUG
                     spdlog::info(L"PatchUrl {} to {}", name.c_str(), patchUrl);
 #endif
 
-                    return { patchUrl, PATCH_ARC };
+                    return { patchUrl, patchArc };
                 }
             }
         }
     }
+
     return { name.c_str(), L"" };
 }
 
-wstring KrkrPatcher::PatchName(const ttstr& name)
+std::wstring KrkrPatcher::PatchName(const ttstr& name)
 {
     wstring patchName = name.c_str();
 
@@ -176,4 +173,26 @@ wstring KrkrPatcher::PatchName(const ttstr& name)
 
     patchName.erase(0, pos);
     return patchName;
+}
+
+std::pair<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::PatchPathes()
+{
+    const auto appPath = PathUtil::GetAppPath();
+
+    vector<wstring> patchDirs;
+    vector<wstring> patchArcs;
+
+    static constexpr auto PATCH_COUNT = 9;
+    for (int num = PATCH_COUNT; num > 0; --num)
+    {
+        const auto patchPathPrefix = appPath + L"unencrypted" + (num == 1 ? L"" : std::to_wstring(num));
+
+        if (const auto patchDir = patchPathPrefix + L"\\"; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+            patchDirs.emplace_back(patchDir);
+
+        if (const auto patchArc = patchPathPrefix + L".xp3"; GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
+            patchArcs.emplace_back(patchArc);
+    }
+
+    return { patchDirs , patchArcs };
 }
