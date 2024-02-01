@@ -5,15 +5,11 @@
 #include "Hijacker.h"
 #include "DetoursHelper.h"
 #include "LoadLibHooker.h"
-#include "PE.h"
+#include "Pe.h"
 #include "CompilerHelper.h"
 #include "Common.h"
-#include "tp_stub.h"
 
-#ifdef _DEBUG
-#include "KrkrLogger.h"
-#endif
-
+#include "KrkrPlugin/tp_stub.h"
 #include "KrkrInjector.h"
 #include "KrkrDefinitions.h"
 #include "KrkrPatchArcStream.h"

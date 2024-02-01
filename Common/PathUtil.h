@@ -5,5 +5,12 @@
 class PathUtil final
 {
 public:
-    static std::wstring GetAppPath();
+    static std::string  GetAppPathA();
+    static std::wstring GetAppPathW();
+
+#ifdef UNICODE
+#define GetAppPath GetAppPathW
+#else
+#define GetAppPath GetAppPathA
+#endif // !UNICODE
 };

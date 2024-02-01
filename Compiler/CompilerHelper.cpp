@@ -1,9 +1,9 @@
 #include "CompilerHelper.h"
-#include "PE.h"
+#include "Pe.h"
 
-void CompilerHelper::Init()
+void CompilerHelper::Analyze()
 {
-    if (static constexpr auto PATTERN_BORLAND = "Borland"; PE::FindData(PATTERN_BORLAND, strlen(PATTERN_BORLAND), TRUE))
+    if (static constexpr auto PATTERN_BORLAND = "Borland"; Pe::FindData(PATTERN_BORLAND, strlen(PATTERN_BORLAND), TRUE))
         CompilerType = CompilerType::Borland;
     else
         CompilerType = CompilerType::Msvc;

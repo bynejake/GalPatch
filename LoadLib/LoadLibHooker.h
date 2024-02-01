@@ -10,6 +10,7 @@ class LoadLibHooker final
 public:
     static void                     Hook                (const std::function<void(HMODULE)>& callback = nullptr);
     static void                     Unhook              ();
+    //TODO static void Unhook (const std::function<void(HMODULE)>& callback = nullptr); (care function cannot compare)
 
 private:
     static inline HMODULE   WINAPI  HookLoadLibraryA    (LPCSTR  lpLibFileName);

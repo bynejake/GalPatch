@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #define WIN32_LEAN_AND_MEAN
 
@@ -10,13 +10,13 @@ class DetoursHelper final
 {
 public:
     template <typename... T>
-    static void             Hook            (std::pair<T**, T*>... pairFucs)
+    static void             Hook            (const std::pair<T**, T*>... pairFucs)
     {
         InvokeDetourFunc(DetourAttach, pairFucs...);
     }
 
     template <typename... T>
-    static void             Unhook          (std::pair<T**, T*>... pairFucs)
+    static void             Unhook          (const std::pair<T**, T*>... pairFucs)
     {
         InvokeDetourFunc(DetourDetach, pairFucs...);
     }
@@ -28,7 +28,7 @@ public:
 
 private:
     template <typename... T>
-    static void             InvokeDetourFunc(decltype(DetourAttach) pDetourFunc, std::pair<T**, T*>... pairFucs)
+    static void             InvokeDetourFunc(decltype(DetourAttach)& pDetourFunc, const std::pair<T**, T*>... pairFucs)
     {
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());

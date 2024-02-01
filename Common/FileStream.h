@@ -13,7 +13,7 @@ public:
 
     ~FileStream();
 
-    void    Seek        (INT64 offset)const;
+    void    Seek        (INT64 offset) const;
     void    SetPos      (INT64 pos) const;
     INT64   GetPos      () const;
     void    ReadBytes   (PVOID pBuffer, size_t size) const;

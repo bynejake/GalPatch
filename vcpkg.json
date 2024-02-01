@@ -1,6 +1,5 @@
 {
   "dependencies": [
-    "detours",
-    "spdlog"
+    "detours"
   ]
 }

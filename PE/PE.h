@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <vector>
 
-class PE final
+class Pe final
 {
 public:
     static PVOID                FindData    (                           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
@@ -14,10 +14,10 @@ public:
 private:
     struct Section
     {
-        BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
-        DWORD   Address;
-        DWORD   Size;
-        DWORD   Characteristics;
+        BYTE    name[IMAGE_SIZEOF_SHORT_NAME];
+        DWORD   address;
+        DWORD   size;
+        DWORD   characteristics;
     };
 
     static std::vector<Section> GetSections (HMODULE hModule);

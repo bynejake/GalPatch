@@ -1,12 +1,9 @@
-# GalPatch
-patch for krkr and waffle game.
-
 # KrkrPatch
 
-Load patch for krkr game.
+Auto load patch for krkr game.
 
-## Usage
-- Download [latest release](https://github.com/bynejake/KrkrPatch/releases/latest), rename **`version-(debug/release).dll`** to **`version.dll`**.
+### Usage
+- Rename **`krkr-version.dll`** to **`version.dll`** then put into game root dir.
 
 - Put patch files into **`unencrypted`** folder without directory structure.
 
@@ -18,15 +15,14 @@ Load patch for krkr game.
 
     - Picontinuous sequences are not necessary and dir & xp3 mixed supported, sample : **`unencrypted3, unencrypted5.xp3, unencrypted9`**.
 
-## Log
-
-Auto write log into **`version.log`**(only debug version)
-
 # WafflePatch
 
 Patch for waffle game to prevent crashes.
 
-## Usage
-- Download [latest release](https://github.com/bynejake/KrkrPatch/releases/latest).
+### Usage
 
-- Put **`version.dll`** into game root dir.
+- Rename **`waffle-version.dll`** to **`version.dll`** then put into game root dir.
+
+# Merged
+- [KrkrPatch](https://github.com/bynejake/KrkrPatch)
+- [WafflePatch](https://github.com/bynejake/WafflePatch)

@@ -1,23 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.6.33723.286
+VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KrkrPatch", "KrkrPatch\KrkrPatch.vcxproj", "{378B59BC-5957-4E2D-8A30-EE8C659021CD}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hijacker", "Hijacker\Hijacker.vcxitems", "{D5F916DC-4659-44BB-82B5-4E1227C04AC7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Detours", "Detours\Detours.vcxitems", "{AA355A01-4E65-420D-96DC-2497033C5FE2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoadLib", "LoadLib\LoadLib.vcxitems", "{A59B30BD-A94D-4F62-8C81-52D8FDFCDE91}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PE", "PE\PE.vcxitems", "{C760FB7A-DE55-4578-9B29-4ABD2BF9770D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pe", "Pe\Pe.vcxitems", "{C760FB7A-DE55-4578-9B29-4ABD2BF9770D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compiler", "Compiler\Compiler.vcxitems", "{6D23E64F-7611-47D8-94B3-7F00C252C953}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KrkrPlugin", "KrkrPlugin\KrkrPlugin.vcxitems", "{F21CF617-A967-4DD6-9E8C-1574F65CF983}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxitems", "{BF6DD8EF-C0AB-449C-B58E-A66BF73E300C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KrkrPatch", "KrkrPatch\KrkrPatch.vcxproj", "{378B59BC-5957-4E2D-8A30-EE8C659021CD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WafflePatch", "WafflePatch\WafflePatch.vcxproj", "{9CA7B27F-EDED-4ECA-BEDE-E7865FACCCD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,27 +29,33 @@ Global
 		{378B59BC-5957-4E2D-8A30-EE8C659021CD}.Debug|x86.Build.0 = Debug|Win32
 		{378B59BC-5957-4E2D-8A30-EE8C659021CD}.Release|x86.ActiveCfg = Release|Win32
 		{378B59BC-5957-4E2D-8A30-EE8C659021CD}.Release|x86.Build.0 = Release|Win32
+		{9CA7B27F-EDED-4ECA-BEDE-E7865FACCCD1}.Debug|x86.ActiveCfg = Debug|Win32
+		{9CA7B27F-EDED-4ECA-BEDE-E7865FACCCD1}.Debug|x86.Build.0 = Debug|Win32
+		{9CA7B27F-EDED-4ECA-BEDE-E7865FACCCD1}.Release|x86.ActiveCfg = Release|Win32
+		{9CA7B27F-EDED-4ECA-BEDE-E7865FACCCD1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6B55DCB6-998D-460A-A356-C6CF56C6D507}
+		SolutionGuid = {467838FA-F0B0-48D6-91D2-C1B3D61D8EB2}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
 		Compiler\Compiler.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
 		Detours\Detours.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
 		Hijacker\Hijacker.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
-		KrkrPlugin\KrkrPlugin.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
 		LoadLib\LoadLib.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
-		PE\PE.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
+		Pe\Pe.vcxitems*{378b59bc-5957-4e2d-8a30-ee8c659021cd}*SharedItemsImports = 4
 		Compiler\Compiler.vcxitems*{6d23e64f-7611-47d8-94b3-7f00c252c953}*SharedItemsImports = 9
+		Common\Common.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
+		Detours\Detours.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
+		Hijacker\Hijacker.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
+		LoadLib\LoadLib.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
 		LoadLib\LoadLib.vcxitems*{a59b30bd-a94d-4f62-8c81-52d8fdfcde91}*SharedItemsImports = 9
 		Detours\Detours.vcxitems*{aa355a01-4e65-420d-96dc-2497033c5fe2}*SharedItemsImports = 9
 		Common\Common.vcxitems*{bf6dd8ef-c0ab-449c-b58e-a66bf73e300c}*SharedItemsImports = 9
-		PE\PE.vcxitems*{c760fb7a-de55-4578-9b29-4abd2bf9770d}*SharedItemsImports = 9
+		Pe\Pe.vcxitems*{c760fb7a-de55-4578-9b29-4abd2bf9770d}*SharedItemsImports = 9
 		Hijacker\Hijacker.vcxitems*{d5f916dc-4659-44bb-82b5-4e1227c04ac7}*SharedItemsImports = 9
-		KrkrPlugin\KrkrPlugin.vcxitems*{f21cf617-a967-4dd6-9e8c-1574f65cf983}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal

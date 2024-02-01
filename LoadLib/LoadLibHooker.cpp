@@ -78,7 +78,5 @@ void LoadLibHooker::InvokeCallbacks(HMODULE hModule)
 {
     if (hModule != nullptr)
         for (const auto& callback : Callbacks)
-        {
             callback(hModule);
-        }
 }

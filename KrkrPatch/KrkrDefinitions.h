@@ -23,8 +23,8 @@ public:
             (pStream);
     }
 
-    static inline CompilerHelper::VFuncTypeNoChange NoChange;
-    static inline CompilerHelper::VFuncTypeDestructor Destructor;
+    static inline CompilerHelper::VirFuncTypeNoChange NoChange;
+    static inline CompilerHelper::VirFuncTypeDestructor Destructor;
 };
 
 struct XP3ArchiveSegment

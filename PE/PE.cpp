@@ -1,13 +1,13 @@
-#include "PE.h"
+#include "Pe.h"
 
 using namespace std;
 
-PVOID PE::FindData(LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
+PVOID Pe::FindData(LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 {
     return FindData(GetModuleHandle(nullptr), lpPattern, patternLen, onlyOnce);
 }
 
-PVOID PE::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
+PVOID Pe::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 {
     for (const auto sections = GetSections(hModule); const auto& section : sections)
     {
@@ -20,7 +20,7 @@ PVOID PE::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL on
     return nullptr;
 }
 
-vector<PE::Section> PE::GetSections(HMODULE hModule)
+std::vector<Pe::Section> Pe::GetSections(HMODULE hModule)
 {
     const auto pDosHeader       = reinterpret_cast<PIMAGE_DOS_HEADER>(hModule);
     const auto pNtHeaders       = reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<DWORD>(hModule) + pDosHeader->e_lfanew);
@@ -31,20 +31,20 @@ vector<PE::Section> PE::GetSections(HMODULE hModule)
     {
         Section section
         {
-            .Address            = reinterpret_cast<DWORD>(hModule) + pSectionHeaders[i].VirtualAddress,
-            .Size               = pSectionHeaders[i].SizeOfRawData,
-            .Characteristics    = pSectionHeaders[i].Characteristics
+            .address            = reinterpret_cast<DWORD>(hModule) + pSectionHeaders[i].VirtualAddress,
+            .size               = pSectionHeaders[i].SizeOfRawData,
+            .characteristics    = pSectionHeaders[i].Characteristics
         };
-        memcpy(section.Name, pSectionHeaders[i].Name, IMAGE_SIZEOF_SHORT_NAME);
+        memcpy(section.name, pSectionHeaders[i].Name, IMAGE_SIZEOF_SHORT_NAME);
         sections.emplace_back(section);
     }
     return sections;
 }
 
-PVOID PE::FindData(const Section& section, LPCSTR pPattern, size_t patternLen)
+PVOID Pe::FindData(const Section& section, LPCSTR pPattern, size_t patternLen)
 {
-    auto addr = section.Address;
-    for (const auto end = addr + section.Size - patternLen; addr <= end; addr++)
+    auto addr = section.address;
+    for (const auto end = addr + section.size - patternLen; addr <= end; addr++)
     {
         BOOL failed = FALSE;
         for (size_t offset = 0; offset < patternLen; offset++)

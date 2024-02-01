@@ -5,6 +5,7 @@
 #include "Hijacker.h"
 #include "DetoursHelper.h"
 #include "LoadLibHooker.h"
+#include "Common.h"
 
 #include "WaffleInjector.h"
 #include "WafflePatcher.h"

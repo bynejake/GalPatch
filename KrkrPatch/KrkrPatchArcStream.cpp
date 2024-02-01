@@ -59,12 +59,12 @@ tjs_uint KrkrPatchArcStream::Read(void* buffer, tjs_uint read_size)
 
 tjs_uint KrkrPatchArcStream::Write(const void* buffer, tjs_uint write_size)
 {
-    throw exception("Not implemented");
+    throw exception("Not implemented!");
 }
 
 void KrkrPatchArcStream::SetEndOfStorage()
 {
-    throw exception("Not implemented");
+    throw exception("Not implemented!");
 }
 
 tjs_uint64 KrkrPatchArcStream::GetSize()

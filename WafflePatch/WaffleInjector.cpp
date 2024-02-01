@@ -1,19 +1,19 @@
 #include "pch.h"
 
-void WaffleInjector::Inject(const std::function<void()>& injectCallback)
+void WaffleInjector::Inject(const std::function<void()>& callback)
 {
     LoadLibHooker::Hook(LoadLibCallback);
-    InjectCallback = injectCallback;
+    Callback = callback;
 }
 
 void WaffleInjector::Eject()
 {
-    InjectCallback = nullptr;
-    //LoadLibHooker::Unhook();
+    Callback = nullptr;
+    //TODO LoadLibHooker::Unhook(LoadLibCallback);
 }
 
 void WaffleInjector::LoadLibCallback(HMODULE hModule)
 {
-    if (InjectCallback != nullptr)
-        InjectCallback();
+    if (Callback != nullptr)
+        Callback();
 }

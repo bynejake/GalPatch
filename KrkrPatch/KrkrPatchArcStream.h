@@ -1,6 +1,6 @@
 #pragma once
 
-class KrkrPatchArcStream : public tTJSBinaryStream
+class KrkrPatchArcStream final : public tTJSBinaryStream
 {
 public:
     KrkrPatchArcStream(const std::wstring& patchArc, const XP3ArchiveSegment* segment);

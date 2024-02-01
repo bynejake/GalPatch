@@ -23,7 +23,10 @@ void WafflePatcher::Unpatch()
 BOOL WafflePatcher::PatchGetTextExtentPoint32A(HDC hdc, LPCSTR lpString, int c, LPSIZE lpsz)
 {
     if (strcmp(lpString, "\t") == 0)
+    {
+        LOG(L"WafflePatch: Found tab character!");
         lpString = " ";
+    }
 
     return OriginalGetTextExtentPoint32A(hdc, lpString, c, lpsz);
 }

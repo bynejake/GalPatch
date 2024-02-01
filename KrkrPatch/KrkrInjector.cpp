@@ -2,16 +2,23 @@
 
 using namespace std;
 
-void KrkrInjector::Init(const std::function<BOOL(HMODULE)>& beforeInjectCallback, const std::function<void()>& handleInjectCallback)
+void KrkrInjector::Inject(const std::function<BOOL(HMODULE)>& foundV2Callback, const std::function<void()>& handleV2Callback)
 {
     LoadLibHooker::Hook(LoadLibCallback);
-    BeforeInjectCallback = beforeInjectCallback;
-    HandleInjectCallback = handleInjectCallback;
+    FoundV2Callback = foundV2Callback;
+    HandleV2Callback = handleV2Callback;
+}
+
+void KrkrInjector::Eject()
+{
+    FoundV2Callback = nullptr;
+    HandleV2Callback = nullptr;
+    //TODO LoadLibHooker::Unhook(LoadLibCallback);
 }
 
 void KrkrInjector::LoadLibCallback(HMODULE hModule)
 {
-    if (BeforeInjectCallback == nullptr && HandleInjectCallback == nullptr)
+    if (FoundV2Callback == nullptr && HandleV2Callback == nullptr)
         return;
 
     if (const auto pV2Link = DetoursHelper::FindExportEx(hModule, "V2Link"); pV2Link != nullptr)
@@ -19,16 +26,14 @@ void KrkrInjector::LoadLibCallback(HMODULE hModule)
         // find ImageUnload before find V2Link?
         if (DetoursHelper::FindImport(hModule, "ImageUnload"))
         {
-#ifdef _DEBUG
-            spdlog::info("Found ImageUnload, postpone Inject");
-#endif
+            LOG(L"KrkrPatch: Found ImageUnload, postpone Inject!");
             return;
         }
 
-        if (BeforeInjectCallback != nullptr && BeforeInjectCallback(hModule))
-            BeforeInjectCallback = nullptr;
+        if (FoundV2Callback != nullptr && FoundV2Callback(hModule))
+            FoundV2Callback = nullptr;
 
-        if (HandleInjectCallback != nullptr)
+        if (HandleV2Callback != nullptr)
         {
             OriginalV2Link = reinterpret_cast<decltype(InjectV2Link)*>(pV2Link);
             DetoursHelper::Hook(pair(&OriginalV2Link, InjectV2Link));
@@ -38,16 +43,14 @@ void KrkrInjector::LoadLibCallback(HMODULE hModule)
 
 HRESULT KrkrInjector::InjectV2Link(iTVPFunctionExporter* pExporter)
 {
-#ifdef _DEBUG
-    spdlog::info("InjectV2Link");
-#endif
+    LOG(L"KrkrPatch: InjectV2Link!");
 
     DetoursHelper::Unhook(pair(&OriginalV2Link, InjectV2Link));
 
     TVPInitImportStub(pExporter);
 
-    HandleInjectCallback();
-    HandleInjectCallback = nullptr;
+    HandleV2Callback();
+    HandleV2Callback = nullptr;
 
     return OriginalV2Link(pExporter);
 }

@@ -1,4 +1,4 @@
-﻿#include "DetoursHelper.h"
+#include "DetoursHelper.h"
 
 BOOL DetoursHelper::FindExport(HMODULE hModule, LPCSTR pszName)
 {
@@ -15,6 +15,7 @@ PVOID DetoursHelper::FindExportEx(HMODULE hModule, LPCSTR pszName)
         .pszName = pszName
     };
     DetourEnumerateExports(hModule, &findExportContext, CheckExport);
+
     return findExportContext.pvFunc;
 }
 
@@ -33,6 +34,7 @@ PVOID* DetoursHelper::FindImportEx(HMODULE hModule, LPCSTR pszName)
         .pszName = pszName
     };
     DetourEnumerateImportsEx(hModule, &findImportContext, nullptr, CheckImport);
+
     return findImportContext.ppvFunc;
 }
 
