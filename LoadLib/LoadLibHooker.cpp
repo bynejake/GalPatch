@@ -25,12 +25,21 @@ void LoadLibHooker::Hook(const function<void(HMODULE)>& callback)
     );
 }
 
-void LoadLibHooker::Unhook()
+void LoadLibHooker::Unhook(const std::function<void(HMODULE)>& callback)
 {
-    if (OriginalLoadLibraryA == nullptr)
-        return;
+	if (OriginalLoadLibraryA == nullptr)
+		return;
 
-    Callbacks.clear();
+	if (callback != nullptr)
+		std::erase_if(Callbacks, [callback](std::function<void(HMODULE)>& it)
+		{
+			return *it.target<void(*)(HMODULE)>() == *callback.target<void(*)(HMODULE)>();
+		});
+	else
+		Callbacks.clear();
+
+	if (!Callbacks.empty())
+		return;
 
     DetoursHelper::Unhook
     (

@@ -41,7 +41,7 @@ std::vector<Pe::Section> Pe::GetSections(HMODULE hModule)
     return sections;
 }
 
-PVOID Pe::FindData(const Section& section, LPCSTR pPattern, size_t patternLen)
+PVOID Pe::FindData(const Section& section, LPCSTR lpPattern, size_t patternLen)
 {
     auto addr = section.address;
     for (const auto end = addr + section.size - patternLen; addr <= end; addr++)
@@ -49,7 +49,7 @@ PVOID Pe::FindData(const Section& section, LPCSTR pPattern, size_t patternLen)
         BOOL failed = FALSE;
         for (size_t offset = 0; offset < patternLen; offset++)
         {
-            if (const auto code = *reinterpret_cast<PCHAR>(addr + offset); pPattern[offset] != 0x2A && pPattern[offset] != code)
+            if (const auto code = *reinterpret_cast<PCHAR>(addr + offset); lpPattern[offset] != 0x2A && lpPattern[offset] != code)
             {
                 failed = TRUE;
                 break;

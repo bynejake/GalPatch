@@ -9,7 +9,7 @@ void WaffleInjector::Inject(const std::function<void()>& callback)
 void WaffleInjector::Eject()
 {
     Callback = nullptr;
-    //TODO LoadLibHooker::Unhook(LoadLibCallback);
+    LoadLibHooker::Unhook(LoadLibCallback);
 }
 
 void WaffleInjector::LoadLibCallback(HMODULE hModule)

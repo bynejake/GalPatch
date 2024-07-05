@@ -18,7 +18,7 @@ class CompilerHelper final
 public:
     static void                 Analyze             ();
 
-    static inline CompilerType CompilerType = CompilerType::Unknown;
+    static inline auto CompilerType = CompilerType::Unknown;
 
     template <typename TResult, auto* TFuncPtr, typename... TArgs>
     static decltype(TFuncPtr)   WrapAsStaticFunc    ()
@@ -112,8 +112,7 @@ private:
     template <auto* TVirFuncTypePtr>
     static void                 AssertVirFuncType     ()
     {
-        static_assert(
-            dynamic_cast<VirFuncTypeNoChange*>(TVirFuncTypePtr) || dynamic_cast<VirFuncTypeDestructor*>(TVirFuncTypePtr));
+        static_assert(dynamic_cast<VirFuncTypeNoChange*>(TVirFuncTypePtr) || dynamic_cast<VirFuncTypeDestructor*>(TVirFuncTypePtr));
     }
 
     template <auto*... TVirFuncTypePtrs>

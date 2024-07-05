@@ -5,15 +5,17 @@ using namespace std;
 void KrkrInjector::Inject(const std::function<BOOL(HMODULE)>& foundV2Callback, const std::function<void()>& handleV2Callback)
 {
     LoadLibHooker::Hook(LoadLibCallback);
-    FoundV2Callback = foundV2Callback;
-    HandleV2Callback = handleV2Callback;
+
+    FoundV2Callback     = foundV2Callback;
+    HandleV2Callback    = handleV2Callback;
 }
 
 void KrkrInjector::Eject()
 {
-    FoundV2Callback = nullptr;
-    HandleV2Callback = nullptr;
-    //TODO LoadLibHooker::Unhook(LoadLibCallback);
+    FoundV2Callback     = nullptr;
+    HandleV2Callback    = nullptr;
+
+    LoadLibHooker::Unhook(LoadLibCallback);
 }
 
 void KrkrInjector::LoadLibCallback(HMODULE hModule)

@@ -23,7 +23,7 @@ public:
             (pStream);
     }
 
-    static inline CompilerHelper::VirFuncTypeNoChange NoChange;
+    static inline CompilerHelper::VirFuncTypeNoChange   NoChange;
     static inline CompilerHelper::VirFuncTypeDestructor Destructor;
 };
 

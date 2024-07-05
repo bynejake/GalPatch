@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <string>
 
-class FileStream
+class FileStream final
 {
 public:
     FileStream(const std::string&   path, const char*    mode);
