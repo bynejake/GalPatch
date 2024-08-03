@@ -1,9 +1,7 @@
 #include "LoadLibHooker.h"
 #include "DetoursHelper.h"
 
-using namespace std;
-
-void LoadLibHooker::Hook(const function<void(HMODULE)>& callback)
+void LoadLibHooker::Hook(const std::function<void(HMODULE)>& callback)
 {
     if (callback != nullptr)
         Callbacks.emplace_back(callback);
@@ -18,10 +16,10 @@ void LoadLibHooker::Hook(const function<void(HMODULE)>& callback)
 
     DetoursHelper::Hook
     (
-        pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
-        pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
-        pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
-        pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
+        std::pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
+        std::pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
+        std::pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
+        std::pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
     );
 }
 
@@ -43,10 +41,10 @@ void LoadLibHooker::Unhook(const std::function<void(HMODULE)>& callback)
 
     DetoursHelper::Unhook
     (
-        pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
-        pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
-        pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
-        pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
+        std::pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
+        std::pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
+        std::pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
+        std::pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
     );
 
     OriginalLoadLibraryA    = nullptr;

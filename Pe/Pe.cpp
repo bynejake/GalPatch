@@ -1,7 +1,5 @@
 #include "Pe.h"
 
-using namespace std;
-
 PVOID Pe::FindData(LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 {
     return FindData(GetModuleHandle(nullptr), lpPattern, patternLen, onlyOnce);
@@ -26,7 +24,7 @@ std::vector<Pe::Section> Pe::GetSections(HMODULE hModule)
     const auto pNtHeaders       = reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<DWORD>(hModule) + pDosHeader->e_lfanew);
     const auto pSectionHeaders  = IMAGE_FIRST_SECTION(pNtHeaders);
 
-    vector<Section> sections;
+    std::vector<Section> sections;
     for (int i = 0; i < pNtHeaders->FileHeader.NumberOfSections; i++)
     {
         Section section

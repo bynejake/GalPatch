@@ -1,14 +1,12 @@
 #include "pch.h"
 
-using namespace std;
-
 void WafflePatcher::Patch()
 {
     if (OriginalGetTextExtentPoint32A != nullptr)
         return;
 
     OriginalGetTextExtentPoint32A = GetTextExtentPoint32A;
-    DetoursHelper::Hook(pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
+    DetoursHelper::Hook(std::pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
 }
 
 void WafflePatcher::Unpatch()
@@ -16,7 +14,7 @@ void WafflePatcher::Unpatch()
     if (OriginalGetTextExtentPoint32A == nullptr)
         return;
 
-    DetoursHelper::Unhook(pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
+    DetoursHelper::Unhook(std::pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
     OriginalGetTextExtentPoint32A = nullptr;
 }
 

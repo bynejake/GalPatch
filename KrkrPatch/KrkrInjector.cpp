@@ -1,7 +1,5 @@
 #include "pch.h"
 
-using namespace std;
-
 void KrkrInjector::Inject(const std::function<BOOL(HMODULE)>& foundV2Callback, const std::function<void()>& handleV2Callback)
 {
     LoadLibHooker::Hook(LoadLibCallback);
@@ -38,7 +36,7 @@ void KrkrInjector::LoadLibCallback(HMODULE hModule)
         if (HandleV2Callback != nullptr)
         {
             OriginalV2Link = reinterpret_cast<decltype(InjectV2Link)*>(pV2Link);
-            DetoursHelper::Hook(pair(&OriginalV2Link, InjectV2Link));
+            DetoursHelper::Hook(std::pair(&OriginalV2Link, InjectV2Link));
         }
     }
 }
@@ -47,7 +45,7 @@ HRESULT KrkrInjector::InjectV2Link(iTVPFunctionExporter* pExporter)
 {
     LOG(L"KrkrPatch: InjectV2Link!");
 
-    DetoursHelper::Unhook(pair(&OriginalV2Link, InjectV2Link));
+    DetoursHelper::Unhook(std::pair(&OriginalV2Link, InjectV2Link));
 
     TVPInitImportStub(pExporter);
 

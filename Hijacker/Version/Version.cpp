@@ -1,23 +1,13 @@
+#ifdef VERSION
+
+#include "Version.h"
+
 #include <tchar.h>
-#include "Hijacker.h"
 
 void Hijacker::Hijack(LPCTSTR lpSrc)
 {
-    if (RealDll != nullptr)
-        return;
+    Core::Hijack(_T("version.dll"), lpSrc);
 
-    TCHAR realDllPath[MAX_PATH];
-    GetSystemDirectory(realDllPath, MAX_PATH);
-    _tcscat_s(realDllPath, _T("\\version.dll"));
-
-    RealDll = LoadLibrary(realDllPath);
-    if (RealDll == nullptr)
-    {
-        MessageBox(nullptr, _T("Cannot load Original version.dll library"), lpSrc, MB_ICONERROR);
-        ExitProcess(0);
-    }
-
-#define RESOLVE(fn) Original##fn = reinterpret_cast<decltype(Original##fn)>(GetProcAddress(RealDll, #fn))
     RESOLVE(GetFileVersionInfoA);
     RESOLVE(GetFileVersionInfoByHandle);
     RESOLVE(GetFileVersionInfoExA);
@@ -35,16 +25,11 @@ void Hijacker::Hijack(LPCTSTR lpSrc)
     RESOLVE(VerLanguageNameW);
     RESOLVE(VerQueryValueA);
     RESOLVE(VerQueryValueW);
-#undef RESOLVE
 }
 
 void Hijacker::Release()
 {
-    if (RealDll == nullptr)
-        return;
-
-    FreeLibrary(RealDll);
-    RealDll = nullptr;
+    Core::Release();
 }
 
 EXTERN_C _declspec(naked) void FakeGetFileVersionInfoA()        { __asm { jmp[Hijacker::OriginalGetFileVersionInfoA] } }
@@ -82,3 +67,5 @@ EXTERN_C _declspec(naked) void FakeVerQueryValueW()             { __asm { jmp[Hi
 #pragma comment(linker, "/EXPORT:VerLanguageNameW=_FakeVerLanguageNameW,@15")
 #pragma comment(linker, "/EXPORT:VerQueryValueA=_FakeVerQueryValueA,@16")
 #pragma comment(linker, "/EXPORT:VerQueryValueW=_FakeVerQueryValueW,@17")
+
+#endif

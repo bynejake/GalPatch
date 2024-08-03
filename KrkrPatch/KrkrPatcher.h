@@ -19,6 +19,9 @@ private:
     static std::wstring                                                     PatchName               (const ttstr& name);
     static std::pair<std::vector<std::wstring>, std::vector<std::wstring>>  PatchPathes             ();
 
+    // temp for test
+    //static void decrypt(tTJSBinaryStream* stream, std::vector<BYTE>& output);
+
     static inline decltype(PatchSignVerifyMsvc)*        OriginalSignVerifyMsvc;
     static inline decltype(PatchCreateStreamBorland)*   OriginalCreateStreamBorland;
     static inline decltype(PatchCreateStreamMsvc)*      OriginalCreateStreamMsvc;

@@ -4,8 +4,6 @@
 #pragma warning(disable : 4244)
 #endif
 
-using namespace std;
-
 KrkrPatchArcStream::KrkrPatchArcStream(const std::wstring& patchArc, const XP3ArchiveSegment* segment)
 {
     data.resize(segment->OrgSize);
@@ -16,7 +14,7 @@ KrkrPatchArcStream::KrkrPatchArcStream(const std::wstring& patchArc, const XP3Ar
 
     if (segment->IsCompressed)
     {
-        vector<BYTE> compressedData(segment->ArcSize);
+        std::vector<BYTE> compressedData(segment->ArcSize);
         fs.ReadBytes(compressedData.data(), compressedData.size());
 
         DWORD originalSize = data.size();
@@ -59,12 +57,12 @@ tjs_uint KrkrPatchArcStream::Read(void* buffer, tjs_uint read_size)
 
 tjs_uint KrkrPatchArcStream::Write(const void* buffer, tjs_uint write_size)
 {
-    throw exception("Not implemented!");
+    throw std::exception("Not implemented!");
 }
 
 void KrkrPatchArcStream::SetEndOfStorage()
 {
-    throw exception("Not implemented!");
+    throw std::exception("Not implemented!");
 }
 
 tjs_uint64 KrkrPatchArcStream::GetSize()

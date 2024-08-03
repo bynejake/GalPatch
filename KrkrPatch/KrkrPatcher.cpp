@@ -1,7 +1,5 @@
 #include "pch.h"
 
-using namespace std;
-
 BOOL KrkrPatcher::PatchSignVerify(HMODULE hModule)
 {
     switch (CompilerHelper::CompilerType)
@@ -17,7 +15,7 @@ BOOL KrkrPatcher::PatchSignVerify(HMODULE hModule)
             {
                 LOG(L"KrkrPatch: PatchSignVerify Msvc success!");
 
-                DetoursHelper::Hook(pair(&OriginalSignVerifyMsvc, PatchSignVerifyMsvc));
+                DetoursHelper::Hook(std::pair(&OriginalSignVerifyMsvc, PatchSignVerifyMsvc));
                 return TRUE;
             }
         }
@@ -41,11 +39,11 @@ void KrkrPatcher::PatchCreateStream()
         {
             LOG(L"KrkrPatch: PatchCreateStream Borland success!");
 
-            DetoursHelper::Hook(pair(&OriginalCreateStreamBorland, CompilerHelper::WrapAsStaticFunc<tTJSBinaryStream*, PatchCreateStreamBorland, const ttstr&, tjs_uint32>()));
+            DetoursHelper::Hook(std::pair(&OriginalCreateStreamBorland, CompilerHelper::WrapAsStaticFunc<tTJSBinaryStream*, PatchCreateStreamBorland, const ttstr&, tjs_uint32>()));
             return;
         }
 
-        throw exception("PatchCreateStream Borland fail!");
+        throw std::exception("PatchCreateStream Borland fail!");
     }
     case CompilerType::Msvc:
     {
@@ -56,11 +54,11 @@ void KrkrPatcher::PatchCreateStream()
         {
             LOG(L"KrkrPatch: PatchCreateStream Msvc success!");
 
-            DetoursHelper::Hook(pair(&OriginalCreateStreamMsvc, PatchCreateStreamMsvc));
+            DetoursHelper::Hook(std::pair(&OriginalCreateStreamMsvc, PatchCreateStreamMsvc));
             return;
         }
 
-        throw exception("PatchCreateStream Msvc fail!");
+        throw std::exception("PatchCreateStream Msvc fail!");
     }
     default:
         break;
@@ -71,19 +69,19 @@ void KrkrPatcher::Unpatch()
 {
     if (OriginalSignVerifyMsvc != nullptr)
     {
-        DetoursHelper::Unhook(pair(&OriginalSignVerifyMsvc, PatchSignVerifyMsvc));
+        DetoursHelper::Unhook(std::pair(&OriginalSignVerifyMsvc, PatchSignVerifyMsvc));
         OriginalSignVerifyMsvc = nullptr;
     }
 
     if (OriginalCreateStreamBorland != nullptr)
     {
-        DetoursHelper::Unhook(pair(&OriginalCreateStreamBorland, PatchCreateStreamBorland));
+        DetoursHelper::Unhook(std::pair(&OriginalCreateStreamBorland, PatchCreateStreamBorland));
         OriginalCreateStreamBorland = nullptr;
     }
 
     if (OriginalCreateStreamMsvc != nullptr)
     {
-        DetoursHelper::Unhook(pair(&OriginalCreateStreamMsvc, PatchCreateStreamMsvc));
+        DetoursHelper::Unhook(std::pair(&OriginalCreateStreamMsvc, PatchCreateStreamMsvc));
         OriginalCreateStreamMsvc = nullptr;
     }
 }
@@ -112,12 +110,12 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 f
     if (!patchArc.empty())
     {
         XP3ArchiveSegment* segment;
-        if (is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
+        if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
             segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(stream)->CurSegment;
-        else if (is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
+        else if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
             segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>(stream)->CurSegment;
         else
-            throw exception("Unsupported CompilerType!");
+            throw std::exception("Unsupported CompilerType!");
 
         const auto patchArcStream = new KrkrPatchArcStream(patchArc, segment);
         tTJSBinaryStream::ApplyWrapVTable(patchArcStream);
@@ -154,17 +152,178 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
                     return {patchUrl, patchArc};
                 }
             }
+
+            // temp for test
+            /*LOG(L"KrkrPatch: PatchUrl org {}", name.c_str());
+            std::wstring a = name.c_str();
+            if (a.starts_with(L"arc://./") || !a.starts_with(L"file://./"))
+            {
+                const auto stream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, &OriginalCreateStreamMsvc, const ttstr&, tjs_uint32>(name.c_str(), flags);
+                const auto b = PatchName(name);
+
+                std::vector<BYTE> data;
+                data.resize(stream->GetSize());
+                stream->Read(data.data(), data.size());
+                stream->Seek(0, SEEK_SET);
+
+                decrypt(stream, data);
+
+                const auto filePath = PathUtil::GetAppPath() + L"dump\\" + b;
+
+                LOG(L"KrkrPatch: PatchUrl dump {}", filePath);
+
+                FileStream fileStream(filePath, L"wb+");
+                fileStream.WriteBytes(data.data(), data.size());
+            }*/
         }
     }
 
     return {name.c_str(), L""};
 }
 
+// temp for test
+//void KrkrPatcher::decrypt(tTJSBinaryStream* stream, std::vector<BYTE>& output)
+//{
+//    try
+//    {
+//        uint8_t mark[2];
+//
+//        memset(mark, 0, sizeof(mark));
+//        stream->Read(mark, 2);
+//
+//        if (mark[0] == 0xfe && mark[1] == 0xfe)
+//        {
+//            uint8_t mode;
+//
+//            stream->Read(&mode, 1);
+//
+//            if (mode != 0 && mode != 1 && mode != 2)
+//            {
+//                return;
+//            }
+//
+//            memset(mark, 0, sizeof(mark));
+//            stream->Read(mark, 2);
+//
+//            if (mark[0] != 0xff || mark[1] != 0xfe)
+//            {
+//                return;
+//            }
+//
+//            if (mode == 2)
+//            {
+//                tjs_int64 compressed = 0;
+//                tjs_int64 uncompressed = 0;
+//
+//                stream->Read(&compressed, sizeof(tjs_int64));
+//                stream->Read(&uncompressed, sizeof(tjs_int64));
+//
+//                if (compressed <= 0 || compressed >= INT_MAX || uncompressed <= 0 || uncompressed >= INT_MAX)
+//                {
+//                    return;
+//                }
+//
+//                std::vector<uint8_t> data((size_t)compressed);
+//
+//                if (stream->Read(data.data(), (tjs_uint)compressed) != compressed)
+//                {
+//                    return;
+//                }
+//
+//                size_t count = (size_t)uncompressed;
+//
+//                std::vector<uint8_t> buffer(count + 2);
+//
+//                buffer[0] = mark[0];
+//                buffer[1] = mark[1];
+//
+//                BYTE* dest = buffer.data() + 2;
+//                DWORD destLen = uncompressed;
+//
+//                int result = 0;
+//
+//                try
+//                {
+//                    result = ZLIB_uncompress(dest, &destLen, data.data(), (LONG64)compressed);
+//                }
+//                catch (...)
+//                {
+//                    return;
+//                }
+//
+//                if (result != 0 || destLen != uncompressed)
+//                {
+//                    return;
+//                }
+//
+//                output = std::move(buffer);
+//            }
+//            else
+//            {
+//                tjs_int64 startpos = (tjs_int64)stream->Seek(0, TJS_BS_SEEK_CUR);
+//                tjs_int64 endpos = (tjs_int64)stream->Seek(0, TJS_BS_SEEK_END);
+//
+//                stream->Seek(startpos, TJS_BS_SEEK_SET);
+//
+//                tjs_int64 size = endpos - startpos;
+//
+//                if (size <= 0 || size >= INT_MAX)
+//                {
+//                    return;
+//                }
+//
+//                size_t count = (size_t)(size / sizeof(tjs_char));
+//
+//                if (count == 0)
+//                {
+//                    return;
+//                }
+//
+//                std::vector<tjs_char> buffer(count);
+//
+//                tjs_uint sizeToRead = (tjs_uint)size;
+//
+//                stream->Read(buffer.data(), sizeToRead);
+//
+//                if (mode == 0)
+//                {
+//                    for (size_t i = 0; i < count; i++)
+//                    {
+//                        tjs_char ch = buffer[i];
+//                        if (ch >= 0x20) buffer[i] = ch ^ (((ch & 0xfe) << 8) ^ 1);
+//                    }
+//                }
+//                else if (mode == 1)
+//                {
+//                    for (size_t i = 0; i < count; i++)
+//                    {
+//                        tjs_char ch = buffer[i];
+//                        ch = ((ch & 0xaaaaaaaa) >> 1) | ((ch & 0x55555555) << 1);
+//                        buffer[i] = ch;
+//                    }
+//                }
+//
+//                size_t sizeToCopy = count * sizeof(tjs_char);
+//
+//                output.resize(sizeToCopy + 2);
+//
+//                output[0] = mark[0];
+//                output[1] = mark[1];
+//
+//                memcpy(output.data() + 2, buffer.data(), sizeToCopy);
+//            }
+//        }
+//    }
+//    catch (...)
+//    {
+//    }
+//}
+
 std::wstring KrkrPatcher::PatchName(const ttstr& name)
 {
-    wstring patchName = name.c_str();
+    std::wstring patchName = name.c_str();
 
-    auto pos = wstring::npos;
+    auto pos = std::wstring::npos;
     if (patchName.starts_with(L"archive://./") || patchName.starts_with(L"arc://./"))
         pos = patchName.find_last_of(L'/') + 1;
     else if (patchName.starts_with(L"file://./") && patchName.contains(L".xp3>"))
@@ -180,8 +339,8 @@ std::pair<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::Pat
 {
     const auto appPath = PathUtil::GetAppPath();
 
-    vector<wstring> patchDirs;
-    vector<wstring> patchArcs;
+    std::vector<std::wstring> patchDirs;
+    std::vector<std::wstring> patchArcs;
 
     static constexpr auto PATCH_COUNT = 9;
     for (int num = PATCH_COUNT; num > 0; --num)
