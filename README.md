@@ -7,13 +7,13 @@ Auto load patch for krkr game.
 
 - Put patch files into **`unencrypted`** folder without directory structure.
 
-    - (Optional) Pack **`unencrypted`** folder to **`unencrypted.xp3`** archive, use [GARbro](https://github.com/morkt/GARbro) or [Xp3Pack](https://github.com/arcusmaximus/KirikiriTools)
+    - Multiple patches supported: **`unencrypted, unencrypted2~9 (larger seq, higher priority)`**.
 
-- Put **`unencrypted | unencrypted.xp3 | both(priority : folder > archive)`** into game root dir.
+    - Picontinuous sequences are not necessary, sample : **`unencrypted3, unencrypted7`**.
 
-- Supports multiple patches : **`unencrypted, unencrypted2~9 (larger seq, higher priority)`**.
+    - (Optional) Pack **`unencrypted`** folder to **`unencrypted.xp3`** archive **`(priority : folder > archive)`**.
 
-    - Picontinuous sequences are not necessary, sample : **`unencrypted3.xp3, unencrypted7`**.
+        - use [GARbro](https://github.com/morkt/GARbro) or [Xp3Pack](https://github.com/arcusmaximus/KirikiriTools)
 
 # WafflePatch
 
