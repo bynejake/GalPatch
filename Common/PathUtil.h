@@ -12,5 +12,5 @@ public:
 #define GetAppPath GetAppPathW
 #else
 #define GetAppPath GetAppPathA
-#endif // !UNICODE
+#endif
 };

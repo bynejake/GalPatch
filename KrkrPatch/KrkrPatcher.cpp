@@ -105,15 +105,15 @@ template <typename TArcStream, auto** TOriginalCreateStream>
 tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 flags)
 {
     const auto [patchUrl, patchArc] = PatchUrl(name, flags);
-    const auto stream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, TOriginalCreateStream, const ttstr&, tjs_uint32>(patchUrl.c_str(), flags);
+    const auto patchUrlStream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, TOriginalCreateStream, const ttstr&, tjs_uint32>(patchUrl.c_str(), flags);
 
     if (!patchArc.empty())
     {
         XP3ArchiveSegment* segment;
         if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
-            segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(stream)->CurSegment;
+            segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(patchUrlStream)->CurSegment;
         else if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
-            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>(stream)->CurSegment;
+            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>(patchUrlStream)->CurSegment;
         else
             throw std::exception("Unsupported CompilerType!");
 
@@ -122,7 +122,7 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 f
         return patchArcStream;
     }
 
-    return stream;
+    return patchUrlStream;
 }
 
 std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, tjs_uint32 flags)
@@ -137,7 +137,7 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
 
             for (auto& patchDir : PATCH_DIRS)
             {
-                if (const auto patchUrl = patchDir + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
+                if (const auto patchUrl = patchDir + L"\\" + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
                     LOG(L"KrkrPatch: PatchUrl redirect {}", patchUrl);
                     return {patchUrl, L""};
@@ -347,7 +347,7 @@ std::pair<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::Pat
     {
         const auto patchPathPrefix = appPath + L"unencrypted" + (num == 1 ? L"" : std::to_wstring(num));
 
-        if (const auto patchDir = patchPathPrefix + L"\\"; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+        if (const auto patchDir = patchPathPrefix; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
             patchDirs.emplace_back(patchDir);
 
         if (const auto patchArc = patchPathPrefix + L".xp3"; GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
