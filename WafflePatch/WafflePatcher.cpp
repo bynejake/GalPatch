@@ -11,7 +11,7 @@ void WafflePatcher::Patch()
     DetoursHelper::Hook(std::pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
 }
 
-// Now only applicable to game : ¥Ê¥¤¥·¥ç¤ÎŠ¦Òù¡«ÕæÏÄ¤Îº¹¤À¤¯½»Î²¡« 
+// Now only applicable to game : ãƒŠã‚¤ã‚·ãƒ§ã®å§¦æ·«ï½çœŸå¤ã®æ±—ã ãäº¤å°¾ï½ 
 //void WafflePatcher::PatchProtectedExeEncode()
 //{
 //    struct MemoryPatch
