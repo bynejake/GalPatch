@@ -133,9 +133,9 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
 
         if (const auto patchName = PatchName(name); !patchName.empty())
         {
-            static const auto [PATCH_DIRS, PATCH_ARCS] = PatchPathes();
+            static const auto [PatchDirs, PatchArcs] = PatchPathes();
 
-            for (auto& patchDir : PATCH_DIRS)
+            for (auto& patchDir : PatchDirs)
             {
                 if (const auto patchUrl = patchDir + L"\\" + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
@@ -144,7 +144,7 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
                 }
             }
 
-            for (auto& patchArc : PATCH_ARCS)
+            for (auto& patchArc : PatchArcs)
             {
                 if (const auto patchUrl = patchArc + L">" + patchName; TVPIsExistentStorageNoSearch(patchUrl.c_str()))
                 {
