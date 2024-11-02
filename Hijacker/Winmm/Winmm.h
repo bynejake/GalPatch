@@ -11,190 +11,190 @@
 class Hijacker final : Core
 {
 public:
-    static void Hijack  (LPCTSTR lpSrc);
-    static void Release ();
+    static void Hijack(LPCWSTR lpSrc);
+    static void Release();
 
 private:
-    static inline PVOID OriginalCloseDriver;
-    static inline PVOID OriginalDefDriverProc;
-    static inline PVOID OriginalDriverCallback;
-    static inline PVOID OriginalDrvGetModuleHandle;
-    static inline PVOID OriginalGetDriverModuleHandle;
-    static inline PVOID OriginalOpenDriver;
-    static inline PVOID OriginalPlaySound;
-    static inline PVOID OriginalPlaySoundA;
-    static inline PVOID OriginalPlaySoundW;
-    static inline PVOID OriginalSendDriverMessage;
-    static inline PVOID OriginalWOWAppExit;
-    static inline PVOID OriginalauxGetDevCapsA;
-    static inline PVOID OriginalauxGetDevCapsW;
-    static inline PVOID OriginalauxGetNumDevs;
-    static inline PVOID OriginalauxGetVolume;
-    static inline PVOID OriginalauxOutMessage;
-    static inline PVOID OriginalauxSetVolume;
-    static inline PVOID OriginaljoyConfigChanged;
-    static inline PVOID OriginaljoyGetDevCapsA;
-    static inline PVOID OriginaljoyGetDevCapsW;
-    static inline PVOID OriginaljoyGetNumDevs;
-    static inline PVOID OriginaljoyGetPos;
-    static inline PVOID OriginaljoyGetPosEx;
-    static inline PVOID OriginaljoyGetThreshold;
-    static inline PVOID OriginaljoyReleaseCapture;
-    static inline PVOID OriginaljoySetCapture;
-    static inline PVOID OriginaljoySetThreshold;
-    static inline PVOID OriginalmciDriverNotify;
-    static inline PVOID OriginalmciDriverYield;
-    static inline PVOID OriginalmciExecute;
-    static inline PVOID OriginalmciFreeCommandResource;
-    static inline PVOID OriginalmciGetCreatorTask;
-    static inline PVOID OriginalmciGetDeviceIDA;
-    static inline PVOID OriginalmciGetDeviceIDFromElementIDA;
-    static inline PVOID OriginalmciGetDeviceIDFromElementIDW;
-    static inline PVOID OriginalmciGetDeviceIDW;
-    static inline PVOID OriginalmciGetDriverData;
-    static inline PVOID OriginalmciGetErrorStringA;
-    static inline PVOID OriginalmciGetErrorStringW;
-    static inline PVOID OriginalmciGetYieldProc;
-    static inline PVOID OriginalmciLoadCommandResource;
-    static inline PVOID OriginalmciSendCommandA;
-    static inline PVOID OriginalmciSendCommandW;
-    static inline PVOID OriginalmciSendStringA;
-    static inline PVOID OriginalmciSendStringW;
-    static inline PVOID OriginalmciSetDriverData;
-    static inline PVOID OriginalmciSetYieldProc;
-    static inline PVOID OriginalmidiConnect;
-    static inline PVOID OriginalmidiDisconnect;
-    static inline PVOID OriginalmidiInAddBuffer;
-    static inline PVOID OriginalmidiInClose;
-    static inline PVOID OriginalmidiInGetDevCapsA;
-    static inline PVOID OriginalmidiInGetDevCapsW;
-    static inline PVOID OriginalmidiInGetErrorTextA;
-    static inline PVOID OriginalmidiInGetErrorTextW;
-    static inline PVOID OriginalmidiInGetID;
-    static inline PVOID OriginalmidiInGetNumDevs;
-    static inline PVOID OriginalmidiInMessage;
-    static inline PVOID OriginalmidiInOpen;
-    static inline PVOID OriginalmidiInPrepareHeader;
-    static inline PVOID OriginalmidiInReset;
-    static inline PVOID OriginalmidiInStart;
-    static inline PVOID OriginalmidiInStop;
-    static inline PVOID OriginalmidiInUnprepareHeader;
-    static inline PVOID OriginalmidiOutCacheDrumPatches;
-    static inline PVOID OriginalmidiOutCachePatches;
-    static inline PVOID OriginalmidiOutClose;
-    static inline PVOID OriginalmidiOutGetDevCapsA;
-    static inline PVOID OriginalmidiOutGetDevCapsW;
-    static inline PVOID OriginalmidiOutGetErrorTextA;
-    static inline PVOID OriginalmidiOutGetErrorTextW;
-    static inline PVOID OriginalmidiOutGetID;
-    static inline PVOID OriginalmidiOutGetNumDevs;
-    static inline PVOID OriginalmidiOutGetVolume;
-    static inline PVOID OriginalmidiOutLongMsg;
-    static inline PVOID OriginalmidiOutMessage;
-    static inline PVOID OriginalmidiOutOpen;
-    static inline PVOID OriginalmidiOutPrepareHeader;
-    static inline PVOID OriginalmidiOutReset;
-    static inline PVOID OriginalmidiOutSetVolume;
-    static inline PVOID OriginalmidiOutShortMsg;
-    static inline PVOID OriginalmidiOutUnprepareHeader;
-    static inline PVOID OriginalmidiStreamClose;
-    static inline PVOID OriginalmidiStreamOpen;
-    static inline PVOID OriginalmidiStreamOut;
-    static inline PVOID OriginalmidiStreamPause;
-    static inline PVOID OriginalmidiStreamPosition;
-    static inline PVOID OriginalmidiStreamProperty;
-    static inline PVOID OriginalmidiStreamRestart;
-    static inline PVOID OriginalmidiStreamStop;
-    static inline PVOID OriginalmixerClose;
-    static inline PVOID OriginalmixerGetControlDetailsA;
-    static inline PVOID OriginalmixerGetControlDetailsW;
-    static inline PVOID OriginalmixerGetDevCapsA;
-    static inline PVOID OriginalmixerGetDevCapsW;
-    static inline PVOID OriginalmixerGetID;
-    static inline PVOID OriginalmixerGetLineControlsA;
-    static inline PVOID OriginalmixerGetLineControlsW;
-    static inline PVOID OriginalmixerGetLineInfoA;
-    static inline PVOID OriginalmixerGetLineInfoW;
-    static inline PVOID OriginalmixerGetNumDevs;
-    static inline PVOID OriginalmixerMessage;
-    static inline PVOID OriginalmixerOpen;
-    static inline PVOID OriginalmixerSetControlDetails;
-    static inline PVOID OriginalmmDrvInstall;
-    static inline PVOID OriginalmmGetCurrentTask;
-    static inline PVOID OriginalmmTaskBlock;
-    static inline PVOID OriginalmmTaskCreate;
-    static inline PVOID OriginalmmTaskSignal;
-    static inline PVOID OriginalmmTaskYield;
-    static inline PVOID OriginalmmioAdvance;
-    static inline PVOID OriginalmmioAscend;
-    static inline PVOID OriginalmmioClose;
-    static inline PVOID OriginalmmioCreateChunk;
-    static inline PVOID OriginalmmioDescend;
-    static inline PVOID OriginalmmioFlush;
-    static inline PVOID OriginalmmioGetInfo;
-    static inline PVOID OriginalmmioInstallIOProcA;
-    static inline PVOID OriginalmmioInstallIOProcW;
-    static inline PVOID OriginalmmioOpenA;
-    static inline PVOID OriginalmmioOpenW;
-    static inline PVOID OriginalmmioRead;
-    static inline PVOID OriginalmmioRenameA;
-    static inline PVOID OriginalmmioRenameW;
-    static inline PVOID OriginalmmioSeek;
-    static inline PVOID OriginalmmioSendMessage;
-    static inline PVOID OriginalmmioSetBuffer;
-    static inline PVOID OriginalmmioSetInfo;
-    static inline PVOID OriginalmmioStringToFOURCCA;
-    static inline PVOID OriginalmmioStringToFOURCCW;
-    static inline PVOID OriginalmmioWrite;
-    static inline PVOID OriginalmmsystemGetVersion;
-    static inline PVOID OriginalsndPlaySoundA;
-    static inline PVOID OriginalsndPlaySoundW;
-    static inline PVOID OriginaltimeBeginPeriod;
-    static inline PVOID OriginaltimeEndPeriod;
-    static inline PVOID OriginaltimeGetDevCaps;
-    static inline PVOID OriginaltimeGetSystemTime;
-    static inline PVOID OriginaltimeGetTime;
-    static inline PVOID OriginaltimeKillEvent;
-    static inline PVOID OriginaltimeSetEvent;
-    static inline PVOID OriginalwaveInAddBuffer;
-    static inline PVOID OriginalwaveInClose;
-    static inline PVOID OriginalwaveInGetDevCapsA;
-    static inline PVOID OriginalwaveInGetDevCapsW;
-    static inline PVOID OriginalwaveInGetErrorTextA;
-    static inline PVOID OriginalwaveInGetErrorTextW;
-    static inline PVOID OriginalwaveInGetID;
-    static inline PVOID OriginalwaveInGetNumDevs;
-    static inline PVOID OriginalwaveInGetPosition;
-    static inline PVOID OriginalwaveInMessage;
-    static inline PVOID OriginalwaveInOpen;
-    static inline PVOID OriginalwaveInPrepareHeader;
-    static inline PVOID OriginalwaveInReset;
-    static inline PVOID OriginalwaveInStart;
-    static inline PVOID OriginalwaveInStop;
-    static inline PVOID OriginalwaveInUnprepareHeader;
-    static inline PVOID OriginalwaveOutBreakLoop;
-    static inline PVOID OriginalwaveOutClose;
-    static inline PVOID OriginalwaveOutGetDevCapsA;
-    static inline PVOID OriginalwaveOutGetDevCapsW;
-    static inline PVOID OriginalwaveOutGetErrorTextA;
-    static inline PVOID OriginalwaveOutGetErrorTextW;
-    static inline PVOID OriginalwaveOutGetID;
-    static inline PVOID OriginalwaveOutGetNumDevs;
-    static inline PVOID OriginalwaveOutGetPitch;
-    static inline PVOID OriginalwaveOutGetPlaybackRate;
-    static inline PVOID OriginalwaveOutGetPosition;
-    static inline PVOID OriginalwaveOutGetVolume;
-    static inline PVOID OriginalwaveOutMessage;
-    static inline PVOID OriginalwaveOutOpen;
-    static inline PVOID OriginalwaveOutPause;
-    static inline PVOID OriginalwaveOutPrepareHeader;
-    static inline PVOID OriginalwaveOutReset;
-    static inline PVOID OriginalwaveOutRestart;
-    static inline PVOID OriginalwaveOutSetPitch;
-    static inline PVOID OriginalwaveOutSetPlaybackRate;
-    static inline PVOID OriginalwaveOutSetVolume;
-    static inline PVOID OriginalwaveOutUnprepareHeader;
-    static inline PVOID OriginalwaveOutWrite;
-};
+    DECLARE_ORIGINAL_FUNC(CloseDriver)
+    DECLARE_ORIGINAL_FUNC(DefDriverProc)
+    DECLARE_ORIGINAL_FUNC(DriverCallback)
+    DECLARE_ORIGINAL_FUNC(DrvGetModuleHandle)
+    DECLARE_ORIGINAL_FUNC(GetDriverModuleHandle)
+    DECLARE_ORIGINAL_FUNC(OpenDriver)
+    DECLARE_ORIGINAL_FUNC(PlaySound)
+    DECLARE_ORIGINAL_FUNC(PlaySoundA)
+    DECLARE_ORIGINAL_FUNC(PlaySoundW)
+    DECLARE_ORIGINAL_FUNC(SendDriverMessage)
+    DECLARE_ORIGINAL_FUNC(WOWAppExit)
+    DECLARE_ORIGINAL_FUNC(auxGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(auxGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(auxGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(auxGetVolume)
+    DECLARE_ORIGINAL_FUNC(auxOutMessage)
+    DECLARE_ORIGINAL_FUNC(auxSetVolume)
+    DECLARE_ORIGINAL_FUNC(joyConfigChanged)
+    DECLARE_ORIGINAL_FUNC(joyGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(joyGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(joyGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(joyGetPos)
+    DECLARE_ORIGINAL_FUNC(joyGetPosEx)
+    DECLARE_ORIGINAL_FUNC(joyGetThreshold)
+    DECLARE_ORIGINAL_FUNC(joyReleaseCapture)
+    DECLARE_ORIGINAL_FUNC(joySetCapture)
+    DECLARE_ORIGINAL_FUNC(joySetThreshold)
+    DECLARE_ORIGINAL_FUNC(mciDriverNotify)
+    DECLARE_ORIGINAL_FUNC(mciDriverYield)
+    DECLARE_ORIGINAL_FUNC(mciExecute)
+    DECLARE_ORIGINAL_FUNC(mciFreeCommandResource)
+    DECLARE_ORIGINAL_FUNC(mciGetCreatorTask)
+    DECLARE_ORIGINAL_FUNC(mciGetDeviceIDA)
+    DECLARE_ORIGINAL_FUNC(mciGetDeviceIDFromElementIDA)
+    DECLARE_ORIGINAL_FUNC(mciGetDeviceIDFromElementIDW)
+    DECLARE_ORIGINAL_FUNC(mciGetDeviceIDW)
+    DECLARE_ORIGINAL_FUNC(mciGetDriverData)
+    DECLARE_ORIGINAL_FUNC(mciGetErrorStringA)
+    DECLARE_ORIGINAL_FUNC(mciGetErrorStringW)
+    DECLARE_ORIGINAL_FUNC(mciGetYieldProc)
+    DECLARE_ORIGINAL_FUNC(mciLoadCommandResource)
+    DECLARE_ORIGINAL_FUNC(mciSendCommandA)
+    DECLARE_ORIGINAL_FUNC(mciSendCommandW)
+    DECLARE_ORIGINAL_FUNC(mciSendStringA)
+    DECLARE_ORIGINAL_FUNC(mciSendStringW)
+    DECLARE_ORIGINAL_FUNC(mciSetDriverData)
+    DECLARE_ORIGINAL_FUNC(mciSetYieldProc)
+    DECLARE_ORIGINAL_FUNC(midiConnect)
+    DECLARE_ORIGINAL_FUNC(midiDisconnect)
+    DECLARE_ORIGINAL_FUNC(midiInAddBuffer)
+    DECLARE_ORIGINAL_FUNC(midiInClose)
+    DECLARE_ORIGINAL_FUNC(midiInGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(midiInGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(midiInGetErrorTextA)
+    DECLARE_ORIGINAL_FUNC(midiInGetErrorTextW)
+    DECLARE_ORIGINAL_FUNC(midiInGetID)
+    DECLARE_ORIGINAL_FUNC(midiInGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(midiInMessage)
+    DECLARE_ORIGINAL_FUNC(midiInOpen)
+    DECLARE_ORIGINAL_FUNC(midiInPrepareHeader)
+    DECLARE_ORIGINAL_FUNC(midiInReset)
+    DECLARE_ORIGINAL_FUNC(midiInStart)
+    DECLARE_ORIGINAL_FUNC(midiInStop)
+    DECLARE_ORIGINAL_FUNC(midiInUnprepareHeader)
+    DECLARE_ORIGINAL_FUNC(midiOutCacheDrumPatches)
+    DECLARE_ORIGINAL_FUNC(midiOutCachePatches)
+    DECLARE_ORIGINAL_FUNC(midiOutClose)
+    DECLARE_ORIGINAL_FUNC(midiOutGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(midiOutGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(midiOutGetErrorTextA)
+    DECLARE_ORIGINAL_FUNC(midiOutGetErrorTextW)
+    DECLARE_ORIGINAL_FUNC(midiOutGetID)
+    DECLARE_ORIGINAL_FUNC(midiOutGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(midiOutGetVolume)
+    DECLARE_ORIGINAL_FUNC(midiOutLongMsg)
+    DECLARE_ORIGINAL_FUNC(midiOutMessage)
+    DECLARE_ORIGINAL_FUNC(midiOutOpen)
+    DECLARE_ORIGINAL_FUNC(midiOutPrepareHeader)
+    DECLARE_ORIGINAL_FUNC(midiOutReset)
+    DECLARE_ORIGINAL_FUNC(midiOutSetVolume)
+    DECLARE_ORIGINAL_FUNC(midiOutShortMsg)
+    DECLARE_ORIGINAL_FUNC(midiOutUnprepareHeader)
+    DECLARE_ORIGINAL_FUNC(midiStreamClose)
+    DECLARE_ORIGINAL_FUNC(midiStreamOpen)
+    DECLARE_ORIGINAL_FUNC(midiStreamOut)
+    DECLARE_ORIGINAL_FUNC(midiStreamPause)
+    DECLARE_ORIGINAL_FUNC(midiStreamPosition)
+    DECLARE_ORIGINAL_FUNC(midiStreamProperty)
+    DECLARE_ORIGINAL_FUNC(midiStreamRestart)
+    DECLARE_ORIGINAL_FUNC(midiStreamStop)
+    DECLARE_ORIGINAL_FUNC(mixerClose)
+    DECLARE_ORIGINAL_FUNC(mixerGetControlDetailsA)
+    DECLARE_ORIGINAL_FUNC(mixerGetControlDetailsW)
+    DECLARE_ORIGINAL_FUNC(mixerGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(mixerGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(mixerGetID)
+    DECLARE_ORIGINAL_FUNC(mixerGetLineControlsA)
+    DECLARE_ORIGINAL_FUNC(mixerGetLineControlsW)
+    DECLARE_ORIGINAL_FUNC(mixerGetLineInfoA)
+    DECLARE_ORIGINAL_FUNC(mixerGetLineInfoW)
+    DECLARE_ORIGINAL_FUNC(mixerGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(mixerMessage)
+    DECLARE_ORIGINAL_FUNC(mixerOpen)
+    DECLARE_ORIGINAL_FUNC(mixerSetControlDetails)
+    DECLARE_ORIGINAL_FUNC(mmDrvInstall)
+    DECLARE_ORIGINAL_FUNC(mmGetCurrentTask)
+    DECLARE_ORIGINAL_FUNC(mmTaskBlock)
+    DECLARE_ORIGINAL_FUNC(mmTaskCreate)
+    DECLARE_ORIGINAL_FUNC(mmTaskSignal)
+    DECLARE_ORIGINAL_FUNC(mmTaskYield)
+    DECLARE_ORIGINAL_FUNC(mmioAdvance)
+    DECLARE_ORIGINAL_FUNC(mmioAscend)
+    DECLARE_ORIGINAL_FUNC(mmioClose)
+    DECLARE_ORIGINAL_FUNC(mmioCreateChunk)
+    DECLARE_ORIGINAL_FUNC(mmioDescend)
+    DECLARE_ORIGINAL_FUNC(mmioFlush)
+    DECLARE_ORIGINAL_FUNC(mmioGetInfo)
+    DECLARE_ORIGINAL_FUNC(mmioInstallIOProcA)
+    DECLARE_ORIGINAL_FUNC(mmioInstallIOProcW)
+    DECLARE_ORIGINAL_FUNC(mmioOpenA)
+    DECLARE_ORIGINAL_FUNC(mmioOpenW)
+    DECLARE_ORIGINAL_FUNC(mmioRead)
+    DECLARE_ORIGINAL_FUNC(mmioRenameA)
+    DECLARE_ORIGINAL_FUNC(mmioRenameW)
+    DECLARE_ORIGINAL_FUNC(mmioSeek)
+    DECLARE_ORIGINAL_FUNC(mmioSendMessage)
+    DECLARE_ORIGINAL_FUNC(mmioSetBuffer)
+    DECLARE_ORIGINAL_FUNC(mmioSetInfo)
+    DECLARE_ORIGINAL_FUNC(mmioStringToFOURCCA)
+    DECLARE_ORIGINAL_FUNC(mmioStringToFOURCCW)
+    DECLARE_ORIGINAL_FUNC(mmioWrite)
+    DECLARE_ORIGINAL_FUNC(mmsystemGetVersion)
+    DECLARE_ORIGINAL_FUNC(sndPlaySoundA)
+    DECLARE_ORIGINAL_FUNC(sndPlaySoundW)
+    DECLARE_ORIGINAL_FUNC(timeBeginPeriod)
+    DECLARE_ORIGINAL_FUNC(timeEndPeriod)
+    DECLARE_ORIGINAL_FUNC(timeGetDevCaps)
+    DECLARE_ORIGINAL_FUNC(timeGetSystemTime)
+    DECLARE_ORIGINAL_FUNC(timeGetTime)
+    DECLARE_ORIGINAL_FUNC(timeKillEvent)
+    DECLARE_ORIGINAL_FUNC(timeSetEvent)
+    DECLARE_ORIGINAL_FUNC(waveInAddBuffer)
+    DECLARE_ORIGINAL_FUNC(waveInClose)
+    DECLARE_ORIGINAL_FUNC(waveInGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(waveInGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(waveInGetErrorTextA)
+    DECLARE_ORIGINAL_FUNC(waveInGetErrorTextW)
+    DECLARE_ORIGINAL_FUNC(waveInGetID)
+    DECLARE_ORIGINAL_FUNC(waveInGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(waveInGetPosition)
+    DECLARE_ORIGINAL_FUNC(waveInMessage)
+    DECLARE_ORIGINAL_FUNC(waveInOpen)
+    DECLARE_ORIGINAL_FUNC(waveInPrepareHeader)
+    DECLARE_ORIGINAL_FUNC(waveInReset)
+    DECLARE_ORIGINAL_FUNC(waveInStart)
+    DECLARE_ORIGINAL_FUNC(waveInStop)
+    DECLARE_ORIGINAL_FUNC(waveInUnprepareHeader)
+    DECLARE_ORIGINAL_FUNC(waveOutBreakLoop)
+    DECLARE_ORIGINAL_FUNC(waveOutClose)
+    DECLARE_ORIGINAL_FUNC(waveOutGetDevCapsA)
+    DECLARE_ORIGINAL_FUNC(waveOutGetDevCapsW)
+    DECLARE_ORIGINAL_FUNC(waveOutGetErrorTextA)
+    DECLARE_ORIGINAL_FUNC(waveOutGetErrorTextW)
+    DECLARE_ORIGINAL_FUNC(waveOutGetID)
+    DECLARE_ORIGINAL_FUNC(waveOutGetNumDevs)
+    DECLARE_ORIGINAL_FUNC(waveOutGetPitch)
+    DECLARE_ORIGINAL_FUNC(waveOutGetPlaybackRate)
+    DECLARE_ORIGINAL_FUNC(waveOutGetPosition)
+    DECLARE_ORIGINAL_FUNC(waveOutGetVolume)
+    DECLARE_ORIGINAL_FUNC(waveOutMessage)
+    DECLARE_ORIGINAL_FUNC(waveOutOpen)
+    DECLARE_ORIGINAL_FUNC(waveOutPause)
+    DECLARE_ORIGINAL_FUNC(waveOutPrepareHeader)
+    DECLARE_ORIGINAL_FUNC(waveOutReset)
+    DECLARE_ORIGINAL_FUNC(waveOutRestart)
+    DECLARE_ORIGINAL_FUNC(waveOutSetPitch)
+    DECLARE_ORIGINAL_FUNC(waveOutSetPlaybackRate)
+    DECLARE_ORIGINAL_FUNC(waveOutSetVolume)
+    DECLARE_ORIGINAL_FUNC(waveOutUnprepareHeader)
+    DECLARE_ORIGINAL_FUNC(waveOutWrite)
+})
 
 #endif

@@ -1,24 +1,22 @@
 #include "Core.h"
 
-#include <tchar.h>
+#include <wchar.h>
 
-void Core::Hijack(LPCTSTR lpDllName, LPCTSTR lpSrc)
+void Core::Hijack(LPCWSTR lpDllName, LPCWSTR lpSrc)
 {
     if (RealDll != nullptr)
         return;
 
-    TCHAR realDllPath[MAX_PATH];
+    WCHAR realDllPath[MAX_PATH];
     GetSystemDirectory(realDllPath, MAX_PATH);
-    _tcscat_s(realDllPath, _T("\\"));
-    _tcscat_s(realDllPath, lpDllName);
+    wcscat_s(realDllPath, L"\\");
+    wcscat_s(realDllPath, lpDllName);
 
     RealDll = LoadLibrary(realDllPath);
     if (RealDll == nullptr)
     {
-        TCHAR errorMessage[256] = _T("");
-        _tcscat_s(errorMessage, _T("Cannot load Original "));
-        _tcscat_s(errorMessage, lpDllName);
-        _tcscat_s(errorMessage, _T(" library!"));
+        WCHAR errorMessage[256] = L"";
+        swprintf_s(errorMessage, L"Cannot load Original %s library!", lpDllName);
 
         MessageBox(nullptr, errorMessage, lpSrc, MB_ICONERROR);
         ExitProcess(0);

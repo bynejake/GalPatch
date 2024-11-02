@@ -2,192 +2,190 @@
 
 #include "Winmm.h"
 
-#include <tchar.h>
-
-void Hijacker::Hijack(LPCTSTR lpSrc)
+void Hijacker::Hijack(LPCWSTR lpSrc)
 {
-    Core::Hijack(_T("winmm.dll"), lpSrc);
+    Core::Hijack(L"winmm.dll", lpSrc);
 
-    RESOLVE(CloseDriver);
-    RESOLVE(DefDriverProc);
-    RESOLVE(DriverCallback);
-    RESOLVE(DrvGetModuleHandle);
-    RESOLVE(GetDriverModuleHandle);
-    RESOLVE(OpenDriver);
-    RESOLVE(PlaySound);
-    RESOLVE(PlaySoundA);
-    RESOLVE(PlaySoundW);
-    RESOLVE(SendDriverMessage);
-    RESOLVE(WOWAppExit);
-    RESOLVE(auxGetDevCapsA);
-    RESOLVE(auxGetDevCapsW);
-    RESOLVE(auxGetNumDevs);
-    RESOLVE(auxGetVolume);
-    RESOLVE(auxOutMessage);
-    RESOLVE(auxSetVolume);
-    RESOLVE(joyConfigChanged);
-    RESOLVE(joyGetDevCapsA);
-    RESOLVE(joyGetDevCapsW);
-    RESOLVE(joyGetNumDevs);
-    RESOLVE(joyGetPos);
-    RESOLVE(joyGetPosEx);
-    RESOLVE(joyGetThreshold);
-    RESOLVE(joyReleaseCapture);
-    RESOLVE(joySetCapture);
-    RESOLVE(joySetThreshold);
-    RESOLVE(mciDriverNotify);
-    RESOLVE(mciDriverYield);
-    RESOLVE(mciExecute);
-    RESOLVE(mciFreeCommandResource);
-    RESOLVE(mciGetCreatorTask);
-    RESOLVE(mciGetDeviceIDA);
-    RESOLVE(mciGetDeviceIDFromElementIDA);
-    RESOLVE(mciGetDeviceIDFromElementIDW);
-    RESOLVE(mciGetDeviceIDW);
-    RESOLVE(mciGetDriverData);
-    RESOLVE(mciGetErrorStringA);
-    RESOLVE(mciGetErrorStringW);
-    RESOLVE(mciGetYieldProc);
-    RESOLVE(mciLoadCommandResource);
-    RESOLVE(mciSendCommandA);
-    RESOLVE(mciSendCommandW);
-    RESOLVE(mciSendStringA);
-    RESOLVE(mciSendStringW);
-    RESOLVE(mciSetDriverData);
-    RESOLVE(mciSetYieldProc);
-    RESOLVE(midiConnect);
-    RESOLVE(midiDisconnect);
-    RESOLVE(midiInAddBuffer);
-    RESOLVE(midiInClose);
-    RESOLVE(midiInGetDevCapsA);
-    RESOLVE(midiInGetDevCapsW);
-    RESOLVE(midiInGetErrorTextA);
-    RESOLVE(midiInGetErrorTextW);
-    RESOLVE(midiInGetID);
-    RESOLVE(midiInGetNumDevs);
-    RESOLVE(midiInMessage);
-    RESOLVE(midiInOpen);
-    RESOLVE(midiInPrepareHeader);
-    RESOLVE(midiInReset);
-    RESOLVE(midiInStart);
-    RESOLVE(midiInStop);
-    RESOLVE(midiInUnprepareHeader);
-    RESOLVE(midiOutCacheDrumPatches);
-    RESOLVE(midiOutCachePatches);
-    RESOLVE(midiOutClose);
-    RESOLVE(midiOutGetDevCapsA);
-    RESOLVE(midiOutGetDevCapsW);
-    RESOLVE(midiOutGetErrorTextA);
-    RESOLVE(midiOutGetErrorTextW);
-    RESOLVE(midiOutGetID);
-    RESOLVE(midiOutGetNumDevs);
-    RESOLVE(midiOutGetVolume);
-    RESOLVE(midiOutLongMsg);
-    RESOLVE(midiOutMessage);
-    RESOLVE(midiOutOpen);
-    RESOLVE(midiOutPrepareHeader);
-    RESOLVE(midiOutReset);
-    RESOLVE(midiOutSetVolume);
-    RESOLVE(midiOutShortMsg);
-    RESOLVE(midiOutUnprepareHeader);
-    RESOLVE(midiStreamClose);
-    RESOLVE(midiStreamOpen);
-    RESOLVE(midiStreamOut);
-    RESOLVE(midiStreamPause);
-    RESOLVE(midiStreamPosition);
-    RESOLVE(midiStreamProperty);
-    RESOLVE(midiStreamRestart);
-    RESOLVE(midiStreamStop);
-    RESOLVE(mixerClose);
-    RESOLVE(mixerGetControlDetailsA);
-    RESOLVE(mixerGetControlDetailsW);
-    RESOLVE(mixerGetDevCapsA);
-    RESOLVE(mixerGetDevCapsW);
-    RESOLVE(mixerGetID);
-    RESOLVE(mixerGetLineControlsA);
-    RESOLVE(mixerGetLineControlsW);
-    RESOLVE(mixerGetLineInfoA);
-    RESOLVE(mixerGetLineInfoW);
-    RESOLVE(mixerGetNumDevs);
-    RESOLVE(mixerMessage);
-    RESOLVE(mixerOpen);
-    RESOLVE(mixerSetControlDetails);
-    RESOLVE(mmDrvInstall);
-    RESOLVE(mmGetCurrentTask);
-    RESOLVE(mmTaskBlock);
-    RESOLVE(mmTaskCreate);
-    RESOLVE(mmTaskSignal);
-    RESOLVE(mmTaskYield);
-    RESOLVE(mmioAdvance);
-    RESOLVE(mmioAscend);
-    RESOLVE(mmioClose);
-    RESOLVE(mmioCreateChunk);
-    RESOLVE(mmioDescend);
-    RESOLVE(mmioFlush);
-    RESOLVE(mmioGetInfo);
-    RESOLVE(mmioInstallIOProcA);
-    RESOLVE(mmioInstallIOProcW);
-    RESOLVE(mmioOpenA);
-    RESOLVE(mmioOpenW);
-    RESOLVE(mmioRead);
-    RESOLVE(mmioRenameA);
-    RESOLVE(mmioRenameW);
-    RESOLVE(mmioSeek);
-    RESOLVE(mmioSendMessage);
-    RESOLVE(mmioSetBuffer);
-    RESOLVE(mmioSetInfo);
-    RESOLVE(mmioStringToFOURCCA);
-    RESOLVE(mmioStringToFOURCCW);
-    RESOLVE(mmioWrite);
-    RESOLVE(mmsystemGetVersion);
-    RESOLVE(sndPlaySoundA);
-    RESOLVE(sndPlaySoundW);
-    RESOLVE(timeBeginPeriod);
-    RESOLVE(timeEndPeriod);
-    RESOLVE(timeGetDevCaps);
-    RESOLVE(timeGetSystemTime);
-    RESOLVE(timeGetTime);
-    RESOLVE(timeKillEvent);
-    RESOLVE(timeSetEvent);
-    RESOLVE(waveInAddBuffer);
-    RESOLVE(waveInClose);
-    RESOLVE(waveInGetDevCapsA);
-    RESOLVE(waveInGetDevCapsW);
-    RESOLVE(waveInGetErrorTextA);
-    RESOLVE(waveInGetErrorTextW);
-    RESOLVE(waveInGetID);
-    RESOLVE(waveInGetNumDevs);
-    RESOLVE(waveInGetPosition);
-    RESOLVE(waveInMessage);
-    RESOLVE(waveInOpen);
-    RESOLVE(waveInPrepareHeader);
-    RESOLVE(waveInReset);
-    RESOLVE(waveInStart);
-    RESOLVE(waveInStop);
-    RESOLVE(waveInUnprepareHeader);
-    RESOLVE(waveOutBreakLoop);
-    RESOLVE(waveOutClose);
-    RESOLVE(waveOutGetDevCapsA);
-    RESOLVE(waveOutGetDevCapsW);
-    RESOLVE(waveOutGetErrorTextA);
-    RESOLVE(waveOutGetErrorTextW);
-    RESOLVE(waveOutGetID);
-    RESOLVE(waveOutGetNumDevs);
-    RESOLVE(waveOutGetPitch);
-    RESOLVE(waveOutGetPlaybackRate);
-    RESOLVE(waveOutGetPosition);
-    RESOLVE(waveOutGetVolume);
-    RESOLVE(waveOutMessage);
-    RESOLVE(waveOutOpen);
-    RESOLVE(waveOutPause);
-    RESOLVE(waveOutPrepareHeader);
-    RESOLVE(waveOutReset);
-    RESOLVE(waveOutRestart);
-    RESOLVE(waveOutSetPitch);
-    RESOLVE(waveOutSetPlaybackRate);
-    RESOLVE(waveOutSetVolume);
-    RESOLVE(waveOutUnprepareHeader);
-    RESOLVE(waveOutWrite);
+    RESOLVE_ORIGINAL_FUNC(CloseDriver)
+    RESOLVE_ORIGINAL_FUNC(DefDriverProc)
+    RESOLVE_ORIGINAL_FUNC(DriverCallback)
+    RESOLVE_ORIGINAL_FUNC(DrvGetModuleHandle)
+    RESOLVE_ORIGINAL_FUNC(GetDriverModuleHandle)
+    RESOLVE_ORIGINAL_FUNC(OpenDriver)
+    RESOLVE_ORIGINAL_FUNC(PlaySound)
+    RESOLVE_ORIGINAL_FUNC(PlaySoundA)
+    RESOLVE_ORIGINAL_FUNC(PlaySoundW)
+    RESOLVE_ORIGINAL_FUNC(SendDriverMessage)
+    RESOLVE_ORIGINAL_FUNC(WOWAppExit)
+    RESOLVE_ORIGINAL_FUNC(auxGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(auxGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(auxGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(auxGetVolume)
+    RESOLVE_ORIGINAL_FUNC(auxOutMessage)
+    RESOLVE_ORIGINAL_FUNC(auxSetVolume)
+    RESOLVE_ORIGINAL_FUNC(joyConfigChanged)
+    RESOLVE_ORIGINAL_FUNC(joyGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(joyGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(joyGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(joyGetPos)
+    RESOLVE_ORIGINAL_FUNC(joyGetPosEx)
+    RESOLVE_ORIGINAL_FUNC(joyGetThreshold)
+    RESOLVE_ORIGINAL_FUNC(joyReleaseCapture)
+    RESOLVE_ORIGINAL_FUNC(joySetCapture)
+    RESOLVE_ORIGINAL_FUNC(joySetThreshold)
+    RESOLVE_ORIGINAL_FUNC(mciDriverNotify)
+    RESOLVE_ORIGINAL_FUNC(mciDriverYield)
+    RESOLVE_ORIGINAL_FUNC(mciExecute)
+    RESOLVE_ORIGINAL_FUNC(mciFreeCommandResource)
+    RESOLVE_ORIGINAL_FUNC(mciGetCreatorTask)
+    RESOLVE_ORIGINAL_FUNC(mciGetDeviceIDA)
+    RESOLVE_ORIGINAL_FUNC(mciGetDeviceIDFromElementIDA)
+    RESOLVE_ORIGINAL_FUNC(mciGetDeviceIDFromElementIDW)
+    RESOLVE_ORIGINAL_FUNC(mciGetDeviceIDW)
+    RESOLVE_ORIGINAL_FUNC(mciGetDriverData)
+    RESOLVE_ORIGINAL_FUNC(mciGetErrorStringA)
+    RESOLVE_ORIGINAL_FUNC(mciGetErrorStringW)
+    RESOLVE_ORIGINAL_FUNC(mciGetYieldProc)
+    RESOLVE_ORIGINAL_FUNC(mciLoadCommandResource)
+    RESOLVE_ORIGINAL_FUNC(mciSendCommandA)
+    RESOLVE_ORIGINAL_FUNC(mciSendCommandW)
+    RESOLVE_ORIGINAL_FUNC(mciSendStringA)
+    RESOLVE_ORIGINAL_FUNC(mciSendStringW)
+    RESOLVE_ORIGINAL_FUNC(mciSetDriverData)
+    RESOLVE_ORIGINAL_FUNC(mciSetYieldProc)
+    RESOLVE_ORIGINAL_FUNC(midiConnect)
+    RESOLVE_ORIGINAL_FUNC(midiDisconnect)
+    RESOLVE_ORIGINAL_FUNC(midiInAddBuffer)
+    RESOLVE_ORIGINAL_FUNC(midiInClose)
+    RESOLVE_ORIGINAL_FUNC(midiInGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(midiInGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(midiInGetErrorTextA)
+    RESOLVE_ORIGINAL_FUNC(midiInGetErrorTextW)
+    RESOLVE_ORIGINAL_FUNC(midiInGetID)
+    RESOLVE_ORIGINAL_FUNC(midiInGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(midiInMessage)
+    RESOLVE_ORIGINAL_FUNC(midiInOpen)
+    RESOLVE_ORIGINAL_FUNC(midiInPrepareHeader)
+    RESOLVE_ORIGINAL_FUNC(midiInReset)
+    RESOLVE_ORIGINAL_FUNC(midiInStart)
+    RESOLVE_ORIGINAL_FUNC(midiInStop)
+    RESOLVE_ORIGINAL_FUNC(midiInUnprepareHeader)
+    RESOLVE_ORIGINAL_FUNC(midiOutCacheDrumPatches)
+    RESOLVE_ORIGINAL_FUNC(midiOutCachePatches)
+    RESOLVE_ORIGINAL_FUNC(midiOutClose)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetErrorTextA)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetErrorTextW)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetID)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(midiOutGetVolume)
+    RESOLVE_ORIGINAL_FUNC(midiOutLongMsg)
+    RESOLVE_ORIGINAL_FUNC(midiOutMessage)
+    RESOLVE_ORIGINAL_FUNC(midiOutOpen)
+    RESOLVE_ORIGINAL_FUNC(midiOutPrepareHeader)
+    RESOLVE_ORIGINAL_FUNC(midiOutReset)
+    RESOLVE_ORIGINAL_FUNC(midiOutSetVolume)
+    RESOLVE_ORIGINAL_FUNC(midiOutShortMsg)
+    RESOLVE_ORIGINAL_FUNC(midiOutUnprepareHeader)
+    RESOLVE_ORIGINAL_FUNC(midiStreamClose)
+    RESOLVE_ORIGINAL_FUNC(midiStreamOpen)
+    RESOLVE_ORIGINAL_FUNC(midiStreamOut)
+    RESOLVE_ORIGINAL_FUNC(midiStreamPause)
+    RESOLVE_ORIGINAL_FUNC(midiStreamPosition)
+    RESOLVE_ORIGINAL_FUNC(midiStreamProperty)
+    RESOLVE_ORIGINAL_FUNC(midiStreamRestart)
+    RESOLVE_ORIGINAL_FUNC(midiStreamStop)
+    RESOLVE_ORIGINAL_FUNC(mixerClose)
+    RESOLVE_ORIGINAL_FUNC(mixerGetControlDetailsA)
+    RESOLVE_ORIGINAL_FUNC(mixerGetControlDetailsW)
+    RESOLVE_ORIGINAL_FUNC(mixerGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(mixerGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(mixerGetID)
+    RESOLVE_ORIGINAL_FUNC(mixerGetLineControlsA)
+    RESOLVE_ORIGINAL_FUNC(mixerGetLineControlsW)
+    RESOLVE_ORIGINAL_FUNC(mixerGetLineInfoA)
+    RESOLVE_ORIGINAL_FUNC(mixerGetLineInfoW)
+    RESOLVE_ORIGINAL_FUNC(mixerGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(mixerMessage)
+    RESOLVE_ORIGINAL_FUNC(mixerOpen)
+    RESOLVE_ORIGINAL_FUNC(mixerSetControlDetails)
+    RESOLVE_ORIGINAL_FUNC(mmDrvInstall)
+    RESOLVE_ORIGINAL_FUNC(mmGetCurrentTask)
+    RESOLVE_ORIGINAL_FUNC(mmTaskBlock)
+    RESOLVE_ORIGINAL_FUNC(mmTaskCreate)
+    RESOLVE_ORIGINAL_FUNC(mmTaskSignal)
+    RESOLVE_ORIGINAL_FUNC(mmTaskYield)
+    RESOLVE_ORIGINAL_FUNC(mmioAdvance)
+    RESOLVE_ORIGINAL_FUNC(mmioAscend)
+    RESOLVE_ORIGINAL_FUNC(mmioClose)
+    RESOLVE_ORIGINAL_FUNC(mmioCreateChunk)
+    RESOLVE_ORIGINAL_FUNC(mmioDescend)
+    RESOLVE_ORIGINAL_FUNC(mmioFlush)
+    RESOLVE_ORIGINAL_FUNC(mmioGetInfo)
+    RESOLVE_ORIGINAL_FUNC(mmioInstallIOProcA)
+    RESOLVE_ORIGINAL_FUNC(mmioInstallIOProcW)
+    RESOLVE_ORIGINAL_FUNC(mmioOpenA)
+    RESOLVE_ORIGINAL_FUNC(mmioOpenW)
+    RESOLVE_ORIGINAL_FUNC(mmioRead)
+    RESOLVE_ORIGINAL_FUNC(mmioRenameA)
+    RESOLVE_ORIGINAL_FUNC(mmioRenameW)
+    RESOLVE_ORIGINAL_FUNC(mmioSeek)
+    RESOLVE_ORIGINAL_FUNC(mmioSendMessage)
+    RESOLVE_ORIGINAL_FUNC(mmioSetBuffer)
+    RESOLVE_ORIGINAL_FUNC(mmioSetInfo)
+    RESOLVE_ORIGINAL_FUNC(mmioStringToFOURCCA)
+    RESOLVE_ORIGINAL_FUNC(mmioStringToFOURCCW)
+    RESOLVE_ORIGINAL_FUNC(mmioWrite)
+    RESOLVE_ORIGINAL_FUNC(mmsystemGetVersion)
+    RESOLVE_ORIGINAL_FUNC(sndPlaySoundA)
+    RESOLVE_ORIGINAL_FUNC(sndPlaySoundW)
+    RESOLVE_ORIGINAL_FUNC(timeBeginPeriod)
+    RESOLVE_ORIGINAL_FUNC(timeEndPeriod)
+    RESOLVE_ORIGINAL_FUNC(timeGetDevCaps)
+    RESOLVE_ORIGINAL_FUNC(timeGetSystemTime)
+    RESOLVE_ORIGINAL_FUNC(timeGetTime)
+    RESOLVE_ORIGINAL_FUNC(timeKillEvent)
+    RESOLVE_ORIGINAL_FUNC(timeSetEvent)
+    RESOLVE_ORIGINAL_FUNC(waveInAddBuffer)
+    RESOLVE_ORIGINAL_FUNC(waveInClose)
+    RESOLVE_ORIGINAL_FUNC(waveInGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(waveInGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(waveInGetErrorTextA)
+    RESOLVE_ORIGINAL_FUNC(waveInGetErrorTextW)
+    RESOLVE_ORIGINAL_FUNC(waveInGetID)
+    RESOLVE_ORIGINAL_FUNC(waveInGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(waveInGetPosition)
+    RESOLVE_ORIGINAL_FUNC(waveInMessage)
+    RESOLVE_ORIGINAL_FUNC(waveInOpen)
+    RESOLVE_ORIGINAL_FUNC(waveInPrepareHeader)
+    RESOLVE_ORIGINAL_FUNC(waveInReset)
+    RESOLVE_ORIGINAL_FUNC(waveInStart)
+    RESOLVE_ORIGINAL_FUNC(waveInStop)
+    RESOLVE_ORIGINAL_FUNC(waveInUnprepareHeader)
+    RESOLVE_ORIGINAL_FUNC(waveOutBreakLoop)
+    RESOLVE_ORIGINAL_FUNC(waveOutClose)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetDevCapsA)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetDevCapsW)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetErrorTextA)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetErrorTextW)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetID)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetNumDevs)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetPitch)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetPlaybackRate)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetPosition)
+    RESOLVE_ORIGINAL_FUNC(waveOutGetVolume)
+    RESOLVE_ORIGINAL_FUNC(waveOutMessage)
+    RESOLVE_ORIGINAL_FUNC(waveOutOpen)
+    RESOLVE_ORIGINAL_FUNC(waveOutPause)
+    RESOLVE_ORIGINAL_FUNC(waveOutPrepareHeader)
+    RESOLVE_ORIGINAL_FUNC(waveOutReset)
+    RESOLVE_ORIGINAL_FUNC(waveOutRestart)
+    RESOLVE_ORIGINAL_FUNC(waveOutSetPitch)
+    RESOLVE_ORIGINAL_FUNC(waveOutSetPlaybackRate)
+    RESOLVE_ORIGINAL_FUNC(waveOutSetVolume)
+    RESOLVE_ORIGINAL_FUNC(waveOutUnprepareHeader)
+    RESOLVE_ORIGINAL_FUNC(waveOutWrite)
 }
 
 void Hijacker::Release()
@@ -195,366 +193,366 @@ void Hijacker::Release()
     Core::Release();
 }
 
-EXTERN_C __declspec(naked) void FakeCloseDriver()                   { __asm { jmp[Hijacker::OriginalCloseDriver] } }
-EXTERN_C __declspec(naked) void FakeDefDriverProc()                 { __asm { jmp[Hijacker::OriginalDefDriverProc] } }
-EXTERN_C __declspec(naked) void FakeDriverCallback()                { __asm { jmp[Hijacker::OriginalDriverCallback] } }
-EXTERN_C __declspec(naked) void FakeDrvGetModuleHandle()            { __asm { jmp[Hijacker::OriginalDrvGetModuleHandle] } }
-EXTERN_C __declspec(naked) void FakeGetDriverModuleHandle()         { __asm { jmp[Hijacker::OriginalGetDriverModuleHandle] } }
-EXTERN_C __declspec(naked) void FakeOpenDriver()                    { __asm { jmp[Hijacker::OriginalOpenDriver] } }
-EXTERN_C __declspec(naked) void FakePlaySound()                     { __asm { jmp[Hijacker::OriginalPlaySound] } }
-EXTERN_C __declspec(naked) void FakePlaySoundA()                    { __asm { jmp[Hijacker::OriginalPlaySoundA] } }
-EXTERN_C __declspec(naked) void FakePlaySoundW()                    { __asm { jmp[Hijacker::OriginalPlaySoundW] } }
-EXTERN_C __declspec(naked) void FakeSendDriverMessage()             { __asm { jmp[Hijacker::OriginalSendDriverMessage] } }
-EXTERN_C __declspec(naked) void FakeWOWAppExit()                    { __asm { jmp[Hijacker::OriginalWOWAppExit] } }
-EXTERN_C __declspec(naked) void FakeauxGetDevCapsA()                { __asm { jmp[Hijacker::OriginalauxGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakeauxGetDevCapsW()                { __asm { jmp[Hijacker::OriginalauxGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakeauxGetNumDevs()                 { __asm { jmp[Hijacker::OriginalauxGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakeauxGetVolume()                  { __asm { jmp[Hijacker::OriginalauxGetVolume] } }
-EXTERN_C __declspec(naked) void FakeauxOutMessage()                 { __asm { jmp[Hijacker::OriginalauxOutMessage] } }
-EXTERN_C __declspec(naked) void FakeauxSetVolume()                  { __asm { jmp[Hijacker::OriginalauxSetVolume] } }
-EXTERN_C __declspec(naked) void FakejoyConfigChanged()              { __asm { jmp[Hijacker::OriginaljoyConfigChanged] } }
-EXTERN_C __declspec(naked) void FakejoyGetDevCapsA()                { __asm { jmp[Hijacker::OriginaljoyGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakejoyGetDevCapsW()                { __asm { jmp[Hijacker::OriginaljoyGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakejoyGetNumDevs()                 { __asm { jmp[Hijacker::OriginaljoyGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakejoyGetPos()                     { __asm { jmp[Hijacker::OriginaljoyGetPos] } }
-EXTERN_C __declspec(naked) void FakejoyGetPosEx()                   { __asm { jmp[Hijacker::OriginaljoyGetPosEx] } }
-EXTERN_C __declspec(naked) void FakejoyGetThreshold()               { __asm { jmp[Hijacker::OriginaljoyGetThreshold] } }
-EXTERN_C __declspec(naked) void FakejoyReleaseCapture()             { __asm { jmp[Hijacker::OriginaljoyReleaseCapture] } }
-EXTERN_C __declspec(naked) void FakejoySetCapture()                 { __asm { jmp[Hijacker::OriginaljoySetCapture] } }
-EXTERN_C __declspec(naked) void FakejoySetThreshold()               { __asm { jmp[Hijacker::OriginaljoySetThreshold] } }
-EXTERN_C __declspec(naked) void FakemciDriverNotify()               { __asm { jmp[Hijacker::OriginalmciDriverNotify] } }
-EXTERN_C __declspec(naked) void FakemciDriverYield()                { __asm { jmp[Hijacker::OriginalmciDriverYield] } }
-EXTERN_C __declspec(naked) void FakemciExecute()                    { __asm { jmp[Hijacker::OriginalmciExecute] } }
-EXTERN_C __declspec(naked) void FakemciFreeCommandResource()        { __asm { jmp[Hijacker::OriginalmciFreeCommandResource] } }
-EXTERN_C __declspec(naked) void FakemciGetCreatorTask()             { __asm { jmp[Hijacker::OriginalmciGetCreatorTask] } }
-EXTERN_C __declspec(naked) void FakemciGetDeviceIDA()               { __asm { jmp[Hijacker::OriginalmciGetDeviceIDA] } }
-EXTERN_C __declspec(naked) void FakemciGetDeviceIDFromElementIDA()  { __asm { jmp[Hijacker::OriginalmciGetDeviceIDFromElementIDA] } }
-EXTERN_C __declspec(naked) void FakemciGetDeviceIDFromElementIDW()  { __asm { jmp[Hijacker::OriginalmciGetDeviceIDFromElementIDW] } }
-EXTERN_C __declspec(naked) void FakemciGetDeviceIDW()               { __asm { jmp[Hijacker::OriginalmciGetDeviceIDW] } }
-EXTERN_C __declspec(naked) void FakemciGetDriverData()              { __asm { jmp[Hijacker::OriginalmciGetDriverData] } }
-EXTERN_C __declspec(naked) void FakemciGetErrorStringA()            { __asm { jmp[Hijacker::OriginalmciGetErrorStringA] } }
-EXTERN_C __declspec(naked) void FakemciGetErrorStringW()            { __asm { jmp[Hijacker::OriginalmciGetErrorStringW] } }
-EXTERN_C __declspec(naked) void FakemciGetYieldProc()               { __asm { jmp[Hijacker::OriginalmciGetYieldProc] } }
-EXTERN_C __declspec(naked) void FakemciLoadCommandResource()        { __asm { jmp[Hijacker::OriginalmciLoadCommandResource] } }
-EXTERN_C __declspec(naked) void FakemciSendCommandA()               { __asm { jmp[Hijacker::OriginalmciSendCommandA] } }
-EXTERN_C __declspec(naked) void FakemciSendCommandW()               { __asm { jmp[Hijacker::OriginalmciSendCommandW] } }
-EXTERN_C __declspec(naked) void FakemciSendStringA()                { __asm { jmp[Hijacker::OriginalmciSendStringA] } }
-EXTERN_C __declspec(naked) void FakemciSendStringW()                { __asm { jmp[Hijacker::OriginalmciSendStringW] } }
-EXTERN_C __declspec(naked) void FakemciSetDriverData()              { __asm { jmp[Hijacker::OriginalmciSetDriverData] } }
-EXTERN_C __declspec(naked) void FakemciSetYieldProc()               { __asm { jmp[Hijacker::OriginalmciSetYieldProc] } }
-EXTERN_C __declspec(naked) void FakemidiConnect()                   { __asm { jmp[Hijacker::OriginalmidiConnect] } }
-EXTERN_C __declspec(naked) void FakemidiDisconnect()                { __asm { jmp[Hijacker::OriginalmidiDisconnect] } }
-EXTERN_C __declspec(naked) void FakemidiInAddBuffer()               { __asm { jmp[Hijacker::OriginalmidiInAddBuffer] } }
-EXTERN_C __declspec(naked) void FakemidiInClose()                   { __asm { jmp[Hijacker::OriginalmidiInClose] } }
-EXTERN_C __declspec(naked) void FakemidiInGetDevCapsA()             { __asm { jmp[Hijacker::OriginalmidiInGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakemidiInGetDevCapsW()             { __asm { jmp[Hijacker::OriginalmidiInGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakemidiInGetErrorTextA()           { __asm { jmp[Hijacker::OriginalmidiInGetErrorTextA] } }
-EXTERN_C __declspec(naked) void FakemidiInGetErrorTextW()           { __asm { jmp[Hijacker::OriginalmidiInGetErrorTextW] } }
-EXTERN_C __declspec(naked) void FakemidiInGetID()                   { __asm { jmp[Hijacker::OriginalmidiInGetID] } }
-EXTERN_C __declspec(naked) void FakemidiInGetNumDevs()              { __asm { jmp[Hijacker::OriginalmidiInGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakemidiInMessage()                 { __asm { jmp[Hijacker::OriginalmidiInMessage] } }
-EXTERN_C __declspec(naked) void FakemidiInOpen()                    { __asm { jmp[Hijacker::OriginalmidiInOpen] } }
-EXTERN_C __declspec(naked) void FakemidiInPrepareHeader()           { __asm { jmp[Hijacker::OriginalmidiInPrepareHeader] } }
-EXTERN_C __declspec(naked) void FakemidiInReset()                   { __asm { jmp[Hijacker::OriginalmidiInReset] } }
-EXTERN_C __declspec(naked) void FakemidiInStart()                   { __asm { jmp[Hijacker::OriginalmidiInStart] } }
-EXTERN_C __declspec(naked) void FakemidiInStop()                    { __asm { jmp[Hijacker::OriginalmidiInStop] } }
-EXTERN_C __declspec(naked) void FakemidiInUnprepareHeader()         { __asm { jmp[Hijacker::OriginalmidiInUnprepareHeader] } }
-EXTERN_C __declspec(naked) void FakemidiOutCacheDrumPatches()       { __asm { jmp[Hijacker::OriginalmidiOutCacheDrumPatches] } }
-EXTERN_C __declspec(naked) void FakemidiOutCachePatches()           { __asm { jmp[Hijacker::OriginalmidiOutCachePatches] } }
-EXTERN_C __declspec(naked) void FakemidiOutClose()                  { __asm { jmp[Hijacker::OriginalmidiOutClose] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetDevCapsA()            { __asm { jmp[Hijacker::OriginalmidiOutGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetDevCapsW()            { __asm { jmp[Hijacker::OriginalmidiOutGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetErrorTextA()          { __asm { jmp[Hijacker::OriginalmidiOutGetErrorTextA] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetErrorTextW()          { __asm { jmp[Hijacker::OriginalmidiOutGetErrorTextW] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetID()                  { __asm { jmp[Hijacker::OriginalmidiOutGetID] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetNumDevs()             { __asm { jmp[Hijacker::OriginalmidiOutGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakemidiOutGetVolume()              { __asm { jmp[Hijacker::OriginalmidiOutGetVolume] } }
-EXTERN_C __declspec(naked) void FakemidiOutLongMsg()                { __asm { jmp[Hijacker::OriginalmidiOutLongMsg] } }
-EXTERN_C __declspec(naked) void FakemidiOutMessage()                { __asm { jmp[Hijacker::OriginalmidiOutMessage] } }
-EXTERN_C __declspec(naked) void FakemidiOutOpen()                   { __asm { jmp[Hijacker::OriginalmidiOutOpen] } }
-EXTERN_C __declspec(naked) void FakemidiOutPrepareHeader()          { __asm { jmp[Hijacker::OriginalmidiOutPrepareHeader] } }
-EXTERN_C __declspec(naked) void FakemidiOutReset()                  { __asm { jmp[Hijacker::OriginalmidiOutReset] } }
-EXTERN_C __declspec(naked) void FakemidiOutSetVolume()              { __asm { jmp[Hijacker::OriginalmidiOutSetVolume] } }
-EXTERN_C __declspec(naked) void FakemidiOutShortMsg()               { __asm { jmp[Hijacker::OriginalmidiOutShortMsg] } }
-EXTERN_C __declspec(naked) void FakemidiOutUnprepareHeader()        { __asm { jmp[Hijacker::OriginalmidiOutUnprepareHeader] } }
-EXTERN_C __declspec(naked) void FakemidiStreamClose()               { __asm { jmp[Hijacker::OriginalmidiStreamClose] } }
-EXTERN_C __declspec(naked) void FakemidiStreamOpen()                { __asm { jmp[Hijacker::OriginalmidiStreamOpen] } }
-EXTERN_C __declspec(naked) void FakemidiStreamOut()                 { __asm { jmp[Hijacker::OriginalmidiStreamOut] } }
-EXTERN_C __declspec(naked) void FakemidiStreamPause()               { __asm { jmp[Hijacker::OriginalmidiStreamPause] } }
-EXTERN_C __declspec(naked) void FakemidiStreamPosition()            { __asm { jmp[Hijacker::OriginalmidiStreamPosition] } }
-EXTERN_C __declspec(naked) void FakemidiStreamProperty()            { __asm { jmp[Hijacker::OriginalmidiStreamProperty] } }
-EXTERN_C __declspec(naked) void FakemidiStreamRestart()             { __asm { jmp[Hijacker::OriginalmidiStreamRestart] } }
-EXTERN_C __declspec(naked) void FakemidiStreamStop()                { __asm { jmp[Hijacker::OriginalmidiStreamStop] } }
-EXTERN_C __declspec(naked) void FakemixerClose()                    { __asm { jmp[Hijacker::OriginalmixerClose] } }
-EXTERN_C __declspec(naked) void FakemixerGetControlDetailsA()       { __asm { jmp[Hijacker::OriginalmixerGetControlDetailsA] } }
-EXTERN_C __declspec(naked) void FakemixerGetControlDetailsW()       { __asm { jmp[Hijacker::OriginalmixerGetControlDetailsW] } }
-EXTERN_C __declspec(naked) void FakemixerGetDevCapsA()              { __asm { jmp[Hijacker::OriginalmixerGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakemixerGetDevCapsW()              { __asm { jmp[Hijacker::OriginalmixerGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakemixerGetID()                    { __asm { jmp[Hijacker::OriginalmixerGetID] } }
-EXTERN_C __declspec(naked) void FakemixerGetLineControlsA()         { __asm { jmp[Hijacker::OriginalmixerGetLineControlsA] } }
-EXTERN_C __declspec(naked) void FakemixerGetLineControlsW()         { __asm { jmp[Hijacker::OriginalmixerGetLineControlsW] } }
-EXTERN_C __declspec(naked) void FakemixerGetLineInfoA()             { __asm { jmp[Hijacker::OriginalmixerGetLineInfoA] } }
-EXTERN_C __declspec(naked) void FakemixerGetLineInfoW()             { __asm { jmp[Hijacker::OriginalmixerGetLineInfoW] } }
-EXTERN_C __declspec(naked) void FakemixerGetNumDevs()               { __asm { jmp[Hijacker::OriginalmixerGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakemixerMessage()                  { __asm { jmp[Hijacker::OriginalmixerMessage] } }
-EXTERN_C __declspec(naked) void FakemixerOpen()                     { __asm { jmp[Hijacker::OriginalmixerOpen] } }
-EXTERN_C __declspec(naked) void FakemixerSetControlDetails()        { __asm { jmp[Hijacker::OriginalmixerSetControlDetails] } }
-EXTERN_C __declspec(naked) void FakemmDrvInstall()                  { __asm { jmp[Hijacker::OriginalmmDrvInstall] } }
-EXTERN_C __declspec(naked) void FakemmGetCurrentTask()              { __asm { jmp[Hijacker::OriginalmmGetCurrentTask] } }
-EXTERN_C __declspec(naked) void FakemmTaskBlock()                   { __asm { jmp[Hijacker::OriginalmmTaskBlock] } }
-EXTERN_C __declspec(naked) void FakemmTaskCreate()                  { __asm { jmp[Hijacker::OriginalmmTaskCreate] } }
-EXTERN_C __declspec(naked) void FakemmTaskSignal()                  { __asm { jmp[Hijacker::OriginalmmTaskSignal] } }
-EXTERN_C __declspec(naked) void FakemmTaskYield()                   { __asm { jmp[Hijacker::OriginalmmTaskYield] } }
-EXTERN_C __declspec(naked) void FakemmioAdvance()                   { __asm { jmp[Hijacker::OriginalmmioAdvance] } }
-EXTERN_C __declspec(naked) void FakemmioAscend()                    { __asm { jmp[Hijacker::OriginalmmioAscend] } }
-EXTERN_C __declspec(naked) void FakemmioClose()                     { __asm { jmp[Hijacker::OriginalmmioClose] } }
-EXTERN_C __declspec(naked) void FakemmioCreateChunk()               { __asm { jmp[Hijacker::OriginalmmioCreateChunk] } }
-EXTERN_C __declspec(naked) void FakemmioDescend()                   { __asm { jmp[Hijacker::OriginalmmioDescend] } }
-EXTERN_C __declspec(naked) void FakemmioFlush()                     { __asm { jmp[Hijacker::OriginalmmioFlush] } }
-EXTERN_C __declspec(naked) void FakemmioGetInfo()                   { __asm { jmp[Hijacker::OriginalmmioGetInfo] } }
-EXTERN_C __declspec(naked) void FakemmioInstallIOProcA()            { __asm { jmp[Hijacker::OriginalmmioInstallIOProcA] } }
-EXTERN_C __declspec(naked) void FakemmioInstallIOProcW()            { __asm { jmp[Hijacker::OriginalmmioInstallIOProcW] } }
-EXTERN_C __declspec(naked) void FakemmioOpenA()                     { __asm { jmp[Hijacker::OriginalmmioOpenA] } }
-EXTERN_C __declspec(naked) void FakemmioOpenW()                     { __asm { jmp[Hijacker::OriginalmmioOpenW] } }
-EXTERN_C __declspec(naked) void FakemmioRead()                      { __asm { jmp[Hijacker::OriginalmmioRead] } }
-EXTERN_C __declspec(naked) void FakemmioRenameA()                   { __asm { jmp[Hijacker::OriginalmmioRenameA] } }
-EXTERN_C __declspec(naked) void FakemmioRenameW()                   { __asm { jmp[Hijacker::OriginalmmioRenameW] } }
-EXTERN_C __declspec(naked) void FakemmioSeek()                      { __asm { jmp[Hijacker::OriginalmmioSeek] } }
-EXTERN_C __declspec(naked) void FakemmioSendMessage()               { __asm { jmp[Hijacker::OriginalmmioSendMessage] } }
-EXTERN_C __declspec(naked) void FakemmioSetBuffer()                 { __asm { jmp[Hijacker::OriginalmmioSetBuffer] } }
-EXTERN_C __declspec(naked) void FakemmioSetInfo()                   { __asm { jmp[Hijacker::OriginalmmioSetInfo] } }
-EXTERN_C __declspec(naked) void FakemmioStringToFOURCCA()           { __asm { jmp[Hijacker::OriginalmmioStringToFOURCCA] } }
-EXTERN_C __declspec(naked) void FakemmioStringToFOURCCW()           { __asm { jmp[Hijacker::OriginalmmioStringToFOURCCW] } }
-EXTERN_C __declspec(naked) void FakemmioWrite()                     { __asm { jmp[Hijacker::OriginalmmioWrite] } }
-EXTERN_C __declspec(naked) void FakemmsystemGetVersion()            { __asm { jmp[Hijacker::OriginalmmsystemGetVersion] } }
-EXTERN_C __declspec(naked) void FakesndPlaySoundA()                 { __asm { jmp[Hijacker::OriginalsndPlaySoundA] } }
-EXTERN_C __declspec(naked) void FakesndPlaySoundW()                 { __asm { jmp[Hijacker::OriginalsndPlaySoundW] } }
-EXTERN_C __declspec(naked) void FaketimeBeginPeriod()               { __asm { jmp[Hijacker::OriginaltimeBeginPeriod] } }
-EXTERN_C __declspec(naked) void FaketimeEndPeriod()                 { __asm { jmp[Hijacker::OriginaltimeEndPeriod] } }
-EXTERN_C __declspec(naked) void FaketimeGetDevCaps()                { __asm { jmp[Hijacker::OriginaltimeGetDevCaps] } }
-EXTERN_C __declspec(naked) void FaketimeGetSystemTime()             { __asm { jmp[Hijacker::OriginaltimeGetSystemTime] } }
-EXTERN_C __declspec(naked) void FaketimeGetTime()                   { __asm { jmp[Hijacker::OriginaltimeGetTime] } }
-EXTERN_C __declspec(naked) void FaketimeKillEvent()                 { __asm { jmp[Hijacker::OriginaltimeKillEvent] } }
-EXTERN_C __declspec(naked) void FaketimeSetEvent()                  { __asm { jmp[Hijacker::OriginaltimeSetEvent] } }
-EXTERN_C __declspec(naked) void FakewaveInAddBuffer()               { __asm { jmp[Hijacker::OriginalwaveInAddBuffer] } }
-EXTERN_C __declspec(naked) void FakewaveInClose()                   { __asm { jmp[Hijacker::OriginalwaveInClose] } }
-EXTERN_C __declspec(naked) void FakewaveInGetDevCapsA()             { __asm { jmp[Hijacker::OriginalwaveInGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakewaveInGetDevCapsW()             { __asm { jmp[Hijacker::OriginalwaveInGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakewaveInGetErrorTextA()           { __asm { jmp[Hijacker::OriginalwaveInGetErrorTextA] } }
-EXTERN_C __declspec(naked) void FakewaveInGetErrorTextW()           { __asm { jmp[Hijacker::OriginalwaveInGetErrorTextW] } }
-EXTERN_C __declspec(naked) void FakewaveInGetID()                   { __asm { jmp[Hijacker::OriginalwaveInGetID] } }
-EXTERN_C __declspec(naked) void FakewaveInGetNumDevs()              { __asm { jmp[Hijacker::OriginalwaveInGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakewaveInGetPosition()             { __asm { jmp[Hijacker::OriginalwaveInGetPosition] } }
-EXTERN_C __declspec(naked) void FakewaveInMessage()                 { __asm { jmp[Hijacker::OriginalwaveInMessage] } }
-EXTERN_C __declspec(naked) void FakewaveInOpen()                    { __asm { jmp[Hijacker::OriginalwaveInOpen] } }
-EXTERN_C __declspec(naked) void FakewaveInPrepareHeader()           { __asm { jmp[Hijacker::OriginalwaveInPrepareHeader] } }
-EXTERN_C __declspec(naked) void FakewaveInReset()                   { __asm { jmp[Hijacker::OriginalwaveInReset] } }
-EXTERN_C __declspec(naked) void FakewaveInStart()                   { __asm { jmp[Hijacker::OriginalwaveInStart] } }
-EXTERN_C __declspec(naked) void FakewaveInStop()                    { __asm { jmp[Hijacker::OriginalwaveInStop] } }
-EXTERN_C __declspec(naked) void FakewaveInUnprepareHeader()         { __asm { jmp[Hijacker::OriginalwaveInUnprepareHeader] } }
-EXTERN_C __declspec(naked) void FakewaveOutBreakLoop()              { __asm { jmp[Hijacker::OriginalwaveOutBreakLoop] } }
-EXTERN_C __declspec(naked) void FakewaveOutClose()                  { __asm { jmp[Hijacker::OriginalwaveOutClose] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetDevCapsA()            { __asm { jmp[Hijacker::OriginalwaveOutGetDevCapsA] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetDevCapsW()            { __asm { jmp[Hijacker::OriginalwaveOutGetDevCapsW] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetErrorTextA()          { __asm { jmp[Hijacker::OriginalwaveOutGetErrorTextA] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetErrorTextW()          { __asm { jmp[Hijacker::OriginalwaveOutGetErrorTextW] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetID()                  { __asm { jmp[Hijacker::OriginalwaveOutGetID] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetNumDevs()             { __asm { jmp[Hijacker::OriginalwaveOutGetNumDevs] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetPitch()               { __asm { jmp[Hijacker::OriginalwaveOutGetPitch] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetPlaybackRate()        { __asm { jmp[Hijacker::OriginalwaveOutGetPlaybackRate] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetPosition()            { __asm { jmp[Hijacker::OriginalwaveOutGetPosition] } }
-EXTERN_C __declspec(naked) void FakewaveOutGetVolume()              { __asm { jmp[Hijacker::OriginalwaveOutGetVolume] } }
-EXTERN_C __declspec(naked) void FakewaveOutMessage()                { __asm { jmp[Hijacker::OriginalwaveOutMessage] } }
-EXTERN_C __declspec(naked) void FakewaveOutOpen()                   { __asm { jmp[Hijacker::OriginalwaveOutOpen] } }
-EXTERN_C __declspec(naked) void FakewaveOutPause()                  { __asm { jmp[Hijacker::OriginalwaveOutPause] } }
-EXTERN_C __declspec(naked) void FakewaveOutPrepareHeader()          { __asm { jmp[Hijacker::OriginalwaveOutPrepareHeader] } }
-EXTERN_C __declspec(naked) void FakewaveOutReset()                  { __asm { jmp[Hijacker::OriginalwaveOutReset] } }
-EXTERN_C __declspec(naked) void FakewaveOutRestart()                { __asm { jmp[Hijacker::OriginalwaveOutRestart] } }
-EXTERN_C __declspec(naked) void FakewaveOutSetPitch()               { __asm { jmp[Hijacker::OriginalwaveOutSetPitch] } }
-EXTERN_C __declspec(naked) void FakewaveOutSetPlaybackRate()        { __asm { jmp[Hijacker::OriginalwaveOutSetPlaybackRate] } }
-EXTERN_C __declspec(naked) void FakewaveOutSetVolume()              { __asm { jmp[Hijacker::OriginalwaveOutSetVolume] } }
-EXTERN_C __declspec(naked) void FakewaveOutUnprepareHeader()        { __asm { jmp[Hijacker::OriginalwaveOutUnprepareHeader] } }
-EXTERN_C __declspec(naked) void FakewaveOutWrite()                  { __asm { jmp[Hijacker::OriginalwaveOutWrite] } }
+DECLARE_FAKE_FUNC(CloseDriver)
+DECLARE_FAKE_FUNC(DefDriverProc)
+DECLARE_FAKE_FUNC(DriverCallback)
+DECLARE_FAKE_FUNC(DrvGetModuleHandle)
+DECLARE_FAKE_FUNC(GetDriverModuleHandle)
+DECLARE_FAKE_FUNC(OpenDriver)
+DECLARE_FAKE_FUNC(PlaySound)
+DECLARE_FAKE_FUNC(PlaySoundA)
+DECLARE_FAKE_FUNC(PlaySoundW)
+DECLARE_FAKE_FUNC(SendDriverMessage)
+DECLARE_FAKE_FUNC(WOWAppExit)
+DECLARE_FAKE_FUNC(auxGetDevCapsA)
+DECLARE_FAKE_FUNC(auxGetDevCapsW)
+DECLARE_FAKE_FUNC(auxGetNumDevs)
+DECLARE_FAKE_FUNC(auxGetVolume)
+DECLARE_FAKE_FUNC(auxOutMessage)
+DECLARE_FAKE_FUNC(auxSetVolume)
+DECLARE_FAKE_FUNC(joyConfigChanged)
+DECLARE_FAKE_FUNC(joyGetDevCapsA)
+DECLARE_FAKE_FUNC(joyGetDevCapsW)
+DECLARE_FAKE_FUNC(joyGetNumDevs)
+DECLARE_FAKE_FUNC(joyGetPos)
+DECLARE_FAKE_FUNC(joyGetPosEx)
+DECLARE_FAKE_FUNC(joyGetThreshold)
+DECLARE_FAKE_FUNC(joyReleaseCapture)
+DECLARE_FAKE_FUNC(joySetCapture)
+DECLARE_FAKE_FUNC(joySetThreshold)
+DECLARE_FAKE_FUNC(mciDriverNotify)
+DECLARE_FAKE_FUNC(mciDriverYield)
+DECLARE_FAKE_FUNC(mciExecute)
+DECLARE_FAKE_FUNC(mciFreeCommandResource)
+DECLARE_FAKE_FUNC(mciGetCreatorTask)
+DECLARE_FAKE_FUNC(mciGetDeviceIDA)
+DECLARE_FAKE_FUNC(mciGetDeviceIDFromElementIDA)
+DECLARE_FAKE_FUNC(mciGetDeviceIDFromElementIDW)
+DECLARE_FAKE_FUNC(mciGetDeviceIDW)
+DECLARE_FAKE_FUNC(mciGetDriverData)
+DECLARE_FAKE_FUNC(mciGetErrorStringA)
+DECLARE_FAKE_FUNC(mciGetErrorStringW)
+DECLARE_FAKE_FUNC(mciGetYieldProc)
+DECLARE_FAKE_FUNC(mciLoadCommandResource)
+DECLARE_FAKE_FUNC(mciSendCommandA)
+DECLARE_FAKE_FUNC(mciSendCommandW)
+DECLARE_FAKE_FUNC(mciSendStringA)
+DECLARE_FAKE_FUNC(mciSendStringW)
+DECLARE_FAKE_FUNC(mciSetDriverData)
+DECLARE_FAKE_FUNC(mciSetYieldProc)
+DECLARE_FAKE_FUNC(midiConnect)
+DECLARE_FAKE_FUNC(midiDisconnect)
+DECLARE_FAKE_FUNC(midiInAddBuffer)
+DECLARE_FAKE_FUNC(midiInClose)
+DECLARE_FAKE_FUNC(midiInGetDevCapsA)
+DECLARE_FAKE_FUNC(midiInGetDevCapsW)
+DECLARE_FAKE_FUNC(midiInGetErrorTextA)
+DECLARE_FAKE_FUNC(midiInGetErrorTextW)
+DECLARE_FAKE_FUNC(midiInGetID)
+DECLARE_FAKE_FUNC(midiInGetNumDevs)
+DECLARE_FAKE_FUNC(midiInMessage)
+DECLARE_FAKE_FUNC(midiInOpen)
+DECLARE_FAKE_FUNC(midiInPrepareHeader)
+DECLARE_FAKE_FUNC(midiInReset)
+DECLARE_FAKE_FUNC(midiInStart)
+DECLARE_FAKE_FUNC(midiInStop)
+DECLARE_FAKE_FUNC(midiInUnprepareHeader)
+DECLARE_FAKE_FUNC(midiOutCacheDrumPatches)
+DECLARE_FAKE_FUNC(midiOutCachePatches)
+DECLARE_FAKE_FUNC(midiOutClose)
+DECLARE_FAKE_FUNC(midiOutGetDevCapsA)
+DECLARE_FAKE_FUNC(midiOutGetDevCapsW)
+DECLARE_FAKE_FUNC(midiOutGetErrorTextA)
+DECLARE_FAKE_FUNC(midiOutGetErrorTextW)
+DECLARE_FAKE_FUNC(midiOutGetID)
+DECLARE_FAKE_FUNC(midiOutGetNumDevs)
+DECLARE_FAKE_FUNC(midiOutGetVolume)
+DECLARE_FAKE_FUNC(midiOutLongMsg)
+DECLARE_FAKE_FUNC(midiOutMessage)
+DECLARE_FAKE_FUNC(midiOutOpen)
+DECLARE_FAKE_FUNC(midiOutPrepareHeader)
+DECLARE_FAKE_FUNC(midiOutReset)
+DECLARE_FAKE_FUNC(midiOutSetVolume)
+DECLARE_FAKE_FUNC(midiOutShortMsg)
+DECLARE_FAKE_FUNC(midiOutUnprepareHeader)
+DECLARE_FAKE_FUNC(midiStreamClose)
+DECLARE_FAKE_FUNC(midiStreamOpen)
+DECLARE_FAKE_FUNC(midiStreamOut)
+DECLARE_FAKE_FUNC(midiStreamPause)
+DECLARE_FAKE_FUNC(midiStreamPosition)
+DECLARE_FAKE_FUNC(midiStreamProperty)
+DECLARE_FAKE_FUNC(midiStreamRestart)
+DECLARE_FAKE_FUNC(midiStreamStop)
+DECLARE_FAKE_FUNC(mixerClose)
+DECLARE_FAKE_FUNC(mixerGetControlDetailsA)
+DECLARE_FAKE_FUNC(mixerGetControlDetailsW)
+DECLARE_FAKE_FUNC(mixerGetDevCapsA)
+DECLARE_FAKE_FUNC(mixerGetDevCapsW)
+DECLARE_FAKE_FUNC(mixerGetID)
+DECLARE_FAKE_FUNC(mixerGetLineControlsA)
+DECLARE_FAKE_FUNC(mixerGetLineControlsW)
+DECLARE_FAKE_FUNC(mixerGetLineInfoA)
+DECLARE_FAKE_FUNC(mixerGetLineInfoW)
+DECLARE_FAKE_FUNC(mixerGetNumDevs)
+DECLARE_FAKE_FUNC(mixerMessage)
+DECLARE_FAKE_FUNC(mixerOpen)
+DECLARE_FAKE_FUNC(mixerSetControlDetails)
+DECLARE_FAKE_FUNC(mmDrvInstall)
+DECLARE_FAKE_FUNC(mmGetCurrentTask)
+DECLARE_FAKE_FUNC(mmTaskBlock)
+DECLARE_FAKE_FUNC(mmTaskCreate)
+DECLARE_FAKE_FUNC(mmTaskSignal)
+DECLARE_FAKE_FUNC(mmTaskYield)
+DECLARE_FAKE_FUNC(mmioAdvance)
+DECLARE_FAKE_FUNC(mmioAscend)
+DECLARE_FAKE_FUNC(mmioClose)
+DECLARE_FAKE_FUNC(mmioCreateChunk)
+DECLARE_FAKE_FUNC(mmioDescend)
+DECLARE_FAKE_FUNC(mmioFlush)
+DECLARE_FAKE_FUNC(mmioGetInfo)
+DECLARE_FAKE_FUNC(mmioInstallIOProcA)
+DECLARE_FAKE_FUNC(mmioInstallIOProcW)
+DECLARE_FAKE_FUNC(mmioOpenA)
+DECLARE_FAKE_FUNC(mmioOpenW)
+DECLARE_FAKE_FUNC(mmioRead)
+DECLARE_FAKE_FUNC(mmioRenameA)
+DECLARE_FAKE_FUNC(mmioRenameW)
+DECLARE_FAKE_FUNC(mmioSeek)
+DECLARE_FAKE_FUNC(mmioSendMessage)
+DECLARE_FAKE_FUNC(mmioSetBuffer)
+DECLARE_FAKE_FUNC(mmioSetInfo)
+DECLARE_FAKE_FUNC(mmioStringToFOURCCA)
+DECLARE_FAKE_FUNC(mmioStringToFOURCCW)
+DECLARE_FAKE_FUNC(mmioWrite)
+DECLARE_FAKE_FUNC(mmsystemGetVersion)
+DECLARE_FAKE_FUNC(sndPlaySoundA)
+DECLARE_FAKE_FUNC(sndPlaySoundW)
+DECLARE_FAKE_FUNC(timeBeginPeriod)
+DECLARE_FAKE_FUNC(timeEndPeriod)
+DECLARE_FAKE_FUNC(timeGetDevCaps)
+DECLARE_FAKE_FUNC(timeGetSystemTime)
+DECLARE_FAKE_FUNC(timeGetTime)
+DECLARE_FAKE_FUNC(timeKillEvent)
+DECLARE_FAKE_FUNC(timeSetEvent)
+DECLARE_FAKE_FUNC(waveInAddBuffer)
+DECLARE_FAKE_FUNC(waveInClose)
+DECLARE_FAKE_FUNC(waveInGetDevCapsA)
+DECLARE_FAKE_FUNC(waveInGetDevCapsW)
+DECLARE_FAKE_FUNC(waveInGetErrorTextA)
+DECLARE_FAKE_FUNC(waveInGetErrorTextW)
+DECLARE_FAKE_FUNC(waveInGetID)
+DECLARE_FAKE_FUNC(waveInGetNumDevs)
+DECLARE_FAKE_FUNC(waveInGetPosition)
+DECLARE_FAKE_FUNC(waveInMessage)
+DECLARE_FAKE_FUNC(waveInOpen)
+DECLARE_FAKE_FUNC(waveInPrepareHeader)
+DECLARE_FAKE_FUNC(waveInReset)
+DECLARE_FAKE_FUNC(waveInStart)
+DECLARE_FAKE_FUNC(waveInStop)
+DECLARE_FAKE_FUNC(waveInUnprepareHeader)
+DECLARE_FAKE_FUNC(waveOutBreakLoop)
+DECLARE_FAKE_FUNC(waveOutClose)
+DECLARE_FAKE_FUNC(waveOutGetDevCapsA)
+DECLARE_FAKE_FUNC(waveOutGetDevCapsW)
+DECLARE_FAKE_FUNC(waveOutGetErrorTextA)
+DECLARE_FAKE_FUNC(waveOutGetErrorTextW)
+DECLARE_FAKE_FUNC(waveOutGetID)
+DECLARE_FAKE_FUNC(waveOutGetNumDevs)
+DECLARE_FAKE_FUNC(waveOutGetPitch)
+DECLARE_FAKE_FUNC(waveOutGetPlaybackRate)
+DECLARE_FAKE_FUNC(waveOutGetPosition)
+DECLARE_FAKE_FUNC(waveOutGetVolume)
+DECLARE_FAKE_FUNC(waveOutMessage)
+DECLARE_FAKE_FUNC(waveOutOpen)
+DECLARE_FAKE_FUNC(waveOutPause)
+DECLARE_FAKE_FUNC(waveOutPrepareHeader)
+DECLARE_FAKE_FUNC(waveOutReset)
+DECLARE_FAKE_FUNC(waveOutRestart)
+DECLARE_FAKE_FUNC(waveOutSetPitch)
+DECLARE_FAKE_FUNC(waveOutSetPlaybackRate)
+DECLARE_FAKE_FUNC(waveOutSetVolume)
+DECLARE_FAKE_FUNC(waveOutUnprepareHeader)
+DECLARE_FAKE_FUNC(waveOutWrite)
 
-#pragma comment(linker, "/EXPORT:CloseDriver=_FakeCloseDriver,@1")
-#pragma comment(linker, "/EXPORT:DefDriverProc=_FakeDefDriverProc,@2")
-#pragma comment(linker, "/EXPORT:DriverCallback=_FakeDriverCallback,@3")
-#pragma comment(linker, "/EXPORT:DrvGetModuleHandle=_FakeDrvGetModuleHandle,@4")
-#pragma comment(linker, "/EXPORT:GetDriverModuleHandle=_FakeGetDriverModuleHandle,@5")
-#pragma comment(linker, "/EXPORT:OpenDriver=_FakeOpenDriver,@6")
-#pragma comment(linker, "/EXPORT:PlaySound=_FakePlaySound,@7")
-#pragma comment(linker, "/EXPORT:PlaySoundA=_FakePlaySoundA,@8")
-#pragma comment(linker, "/EXPORT:PlaySoundW=_FakePlaySoundW,@9")
-#pragma comment(linker, "/EXPORT:SendDriverMessage=_FakeSendDriverMessage,@10")
-#pragma comment(linker, "/EXPORT:WOWAppExit=_FakeWOWAppExit,@11")
-#pragma comment(linker, "/EXPORT:auxGetDevCapsA=_FakeauxGetDevCapsA,@12")
-#pragma comment(linker, "/EXPORT:auxGetDevCapsW=_FakeauxGetDevCapsW,@13")
-#pragma comment(linker, "/EXPORT:auxGetNumDevs=_FakeauxGetNumDevs,@14")
-#pragma comment(linker, "/EXPORT:auxGetVolume=_FakeauxGetVolume,@15")
-#pragma comment(linker, "/EXPORT:auxOutMessage=_FakeauxOutMessage,@16")
-#pragma comment(linker, "/EXPORT:auxSetVolume=_FakeauxSetVolume,@17")
-#pragma comment(linker, "/EXPORT:joyConfigChanged=_FakejoyConfigChanged,@18")
-#pragma comment(linker, "/EXPORT:joyGetDevCapsA=_FakejoyGetDevCapsA,@19")
-#pragma comment(linker, "/EXPORT:joyGetDevCapsW=_FakejoyGetDevCapsW,@20")
-#pragma comment(linker, "/EXPORT:joyGetNumDevs=_FakejoyGetNumDevs,@21")
-#pragma comment(linker, "/EXPORT:joyGetPos=_FakejoyGetPos,@22")
-#pragma comment(linker, "/EXPORT:joyGetPosEx=_FakejoyGetPosEx,@23")
-#pragma comment(linker, "/EXPORT:joyGetThreshold=_FakejoyGetThreshold,@24")
-#pragma comment(linker, "/EXPORT:joyReleaseCapture=_FakejoyReleaseCapture,@25")
-#pragma comment(linker, "/EXPORT:joySetCapture=_FakejoySetCapture,@26")
-#pragma comment(linker, "/EXPORT:joySetThreshold=_FakejoySetThreshold,@27")
-#pragma comment(linker, "/EXPORT:mciDriverNotify=_FakemciDriverNotify,@28")
-#pragma comment(linker, "/EXPORT:mciDriverYield=_FakemciDriverYield,@29")
-#pragma comment(linker, "/EXPORT:mciExecute=_FakemciExecute,@30")
-#pragma comment(linker, "/EXPORT:mciFreeCommandResource=_FakemciFreeCommandResource,@31")
-#pragma comment(linker, "/EXPORT:mciGetCreatorTask=_FakemciGetCreatorTask,@32")
-#pragma comment(linker, "/EXPORT:mciGetDeviceIDA=_FakemciGetDeviceIDA,@33")
-#pragma comment(linker, "/EXPORT:mciGetDeviceIDFromElementIDA=_FakemciGetDeviceIDFromElementIDA,@34")
-#pragma comment(linker, "/EXPORT:mciGetDeviceIDFromElementIDW=_FakemciGetDeviceIDFromElementIDW,@35")
-#pragma comment(linker, "/EXPORT:mciGetDeviceIDW=_FakemciGetDeviceIDW,@36")
-#pragma comment(linker, "/EXPORT:mciGetDriverData=_FakemciGetDriverData,@37")
-#pragma comment(linker, "/EXPORT:mciGetErrorStringA=_FakemciGetErrorStringA,@38")
-#pragma comment(linker, "/EXPORT:mciGetErrorStringW=_FakemciGetErrorStringW,@39")
-#pragma comment(linker, "/EXPORT:mciGetYieldProc=_FakemciGetYieldProc,@40")
-#pragma comment(linker, "/EXPORT:mciLoadCommandResource=_FakemciLoadCommandResource,@41")
-#pragma comment(linker, "/EXPORT:mciSendCommandA=_FakemciSendCommandA,@42")
-#pragma comment(linker, "/EXPORT:mciSendCommandW=_FakemciSendCommandW,@43")
-#pragma comment(linker, "/EXPORT:mciSendStringA=_FakemciSendStringA,@44")
-#pragma comment(linker, "/EXPORT:mciSendStringW=_FakemciSendStringW,@45")
-#pragma comment(linker, "/EXPORT:mciSetDriverData=_FakemciSetDriverData,@46")
-#pragma comment(linker, "/EXPORT:mciSetYieldProc=_FakemciSetYieldProc,@47")
-#pragma comment(linker, "/EXPORT:midiConnect=_FakemidiConnect,@48")
-#pragma comment(linker, "/EXPORT:midiDisconnect=_FakemidiDisconnect,@49")
-#pragma comment(linker, "/EXPORT:midiInAddBuffer=_FakemidiInAddBuffer,@50")
-#pragma comment(linker, "/EXPORT:midiInClose=_FakemidiInClose,@51")
-#pragma comment(linker, "/EXPORT:midiInGetDevCapsA=_FakemidiInGetDevCapsA,@52")
-#pragma comment(linker, "/EXPORT:midiInGetDevCapsW=_FakemidiInGetDevCapsW,@53")
-#pragma comment(linker, "/EXPORT:midiInGetErrorTextA=_FakemidiInGetErrorTextA,@54")
-#pragma comment(linker, "/EXPORT:midiInGetErrorTextW=_FakemidiInGetErrorTextW,@55")
-#pragma comment(linker, "/EXPORT:midiInGetID=_FakemidiInGetID,@56")
-#pragma comment(linker, "/EXPORT:midiInGetNumDevs=_FakemidiInGetNumDevs,@57")
-#pragma comment(linker, "/EXPORT:midiInMessage=_FakemidiInMessage,@58")
-#pragma comment(linker, "/EXPORT:midiInOpen=_FakemidiInOpen,@59")
-#pragma comment(linker, "/EXPORT:midiInPrepareHeader=_FakemidiInPrepareHeader,@60")
-#pragma comment(linker, "/EXPORT:midiInReset=_FakemidiInReset,@61")
-#pragma comment(linker, "/EXPORT:midiInStart=_FakemidiInStart,@62")
-#pragma comment(linker, "/EXPORT:midiInStop=_FakemidiInStop,@63")
-#pragma comment(linker, "/EXPORT:midiInUnprepareHeader=_FakemidiInUnprepareHeader,@64")
-#pragma comment(linker, "/EXPORT:midiOutCacheDrumPatches=_FakemidiOutCacheDrumPatches,@65")
-#pragma comment(linker, "/EXPORT:midiOutCachePatches=_FakemidiOutCachePatches,@66")
-#pragma comment(linker, "/EXPORT:midiOutClose=_FakemidiOutClose,@67")
-#pragma comment(linker, "/EXPORT:midiOutGetDevCapsA=_FakemidiOutGetDevCapsA,@68")
-#pragma comment(linker, "/EXPORT:midiOutGetDevCapsW=_FakemidiOutGetDevCapsW,@69")
-#pragma comment(linker, "/EXPORT:midiOutGetErrorTextA=_FakemidiOutGetErrorTextA,@70")
-#pragma comment(linker, "/EXPORT:midiOutGetErrorTextW=_FakemidiOutGetErrorTextW,@71")
-#pragma comment(linker, "/EXPORT:midiOutGetID=_FakemidiOutGetID,@72")
-#pragma comment(linker, "/EXPORT:midiOutGetNumDevs=_FakemidiOutGetNumDevs,@73")
-#pragma comment(linker, "/EXPORT:midiOutGetVolume=_FakemidiOutGetVolume,@74")
-#pragma comment(linker, "/EXPORT:midiOutLongMsg=_FakemidiOutLongMsg,@75")
-#pragma comment(linker, "/EXPORT:midiOutMessage=_FakemidiOutMessage,@76")
-#pragma comment(linker, "/EXPORT:midiOutOpen=_FakemidiOutOpen,@77")
-#pragma comment(linker, "/EXPORT:midiOutPrepareHeader=_FakemidiOutPrepareHeader,@78")
-#pragma comment(linker, "/EXPORT:midiOutReset=_FakemidiOutReset,@79")
-#pragma comment(linker, "/EXPORT:midiOutSetVolume=_FakemidiOutSetVolume,@80")
-#pragma comment(linker, "/EXPORT:midiOutShortMsg=_FakemidiOutShortMsg,@81")
-#pragma comment(linker, "/EXPORT:midiOutUnprepareHeader=_FakemidiOutUnprepareHeader,@82")
-#pragma comment(linker, "/EXPORT:midiStreamClose=_FakemidiStreamClose,@83")
-#pragma comment(linker, "/EXPORT:midiStreamOpen=_FakemidiStreamOpen,@84")
-#pragma comment(linker, "/EXPORT:midiStreamOut=_FakemidiStreamOut,@85")
-#pragma comment(linker, "/EXPORT:midiStreamPause=_FakemidiStreamPause,@86")
-#pragma comment(linker, "/EXPORT:midiStreamPosition=_FakemidiStreamPosition,@87")
-#pragma comment(linker, "/EXPORT:midiStreamProperty=_FakemidiStreamProperty,@88")
-#pragma comment(linker, "/EXPORT:midiStreamRestart=_FakemidiStreamRestart,@89")
-#pragma comment(linker, "/EXPORT:midiStreamStop=_FakemidiStreamStop,@90")
-#pragma comment(linker, "/EXPORT:mixerClose=_FakemixerClose,@91")
-#pragma comment(linker, "/EXPORT:mixerGetControlDetailsA=_FakemixerGetControlDetailsA,@92")
-#pragma comment(linker, "/EXPORT:mixerGetControlDetailsW=_FakemixerGetControlDetailsW,@93")
-#pragma comment(linker, "/EXPORT:mixerGetDevCapsA=_FakemixerGetDevCapsA,@94")
-#pragma comment(linker, "/EXPORT:mixerGetDevCapsW=_FakemixerGetDevCapsW,@95")
-#pragma comment(linker, "/EXPORT:mixerGetID=_FakemixerGetID,@96")
-#pragma comment(linker, "/EXPORT:mixerGetLineControlsA=_FakemixerGetLineControlsA,@97")
-#pragma comment(linker, "/EXPORT:mixerGetLineControlsW=_FakemixerGetLineControlsW,@98")
-#pragma comment(linker, "/EXPORT:mixerGetLineInfoA=_FakemixerGetLineInfoA,@99")
-#pragma comment(linker, "/EXPORT:mixerGetLineInfoW=_FakemixerGetLineInfoW,@100")
-#pragma comment(linker, "/EXPORT:mixerGetNumDevs=_FakemixerGetNumDevs,@101")
-#pragma comment(linker, "/EXPORT:mixerMessage=_FakemixerMessage,@102")
-#pragma comment(linker, "/EXPORT:mixerOpen=_FakemixerOpen,@103")
-#pragma comment(linker, "/EXPORT:mixerSetControlDetails=_FakemixerSetControlDetails,@104")
-#pragma comment(linker, "/EXPORT:mmDrvInstall=_FakemmDrvInstall,@105")
-#pragma comment(linker, "/EXPORT:mmGetCurrentTask=_FakemmGetCurrentTask,@106")
-#pragma comment(linker, "/EXPORT:mmTaskBlock=_FakemmTaskBlock,@107")
-#pragma comment(linker, "/EXPORT:mmTaskCreate=_FakemmTaskCreate,@108")
-#pragma comment(linker, "/EXPORT:mmTaskSignal=_FakemmTaskSignal,@109")
-#pragma comment(linker, "/EXPORT:mmTaskYield=_FakemmTaskYield,@110")
-#pragma comment(linker, "/EXPORT:mmioAdvance=_FakemmioAdvance,@111")
-#pragma comment(linker, "/EXPORT:mmioAscend=_FakemmioAscend,@112")
-#pragma comment(linker, "/EXPORT:mmioClose=_FakemmioClose,@113")
-#pragma comment(linker, "/EXPORT:mmioCreateChunk=_FakemmioCreateChunk,@114")
-#pragma comment(linker, "/EXPORT:mmioDescend=_FakemmioDescend,@115")
-#pragma comment(linker, "/EXPORT:mmioFlush=_FakemmioFlush,@116")
-#pragma comment(linker, "/EXPORT:mmioGetInfo=_FakemmioGetInfo,@117")
-#pragma comment(linker, "/EXPORT:mmioInstallIOProcA=_FakemmioInstallIOProcA,@118")
-#pragma comment(linker, "/EXPORT:mmioInstallIOProcW=_FakemmioInstallIOProcW,@119")
-#pragma comment(linker, "/EXPORT:mmioOpenA=_FakemmioOpenA,@120")
-#pragma comment(linker, "/EXPORT:mmioOpenW=_FakemmioOpenW,@121")
-#pragma comment(linker, "/EXPORT:mmioRead=_FakemmioRead,@122")
-#pragma comment(linker, "/EXPORT:mmioRenameA=_FakemmioRenameA,@123")
-#pragma comment(linker, "/EXPORT:mmioRenameW=_FakemmioRenameW,@124")
-#pragma comment(linker, "/EXPORT:mmioSeek=_FakemmioSeek,@125")
-#pragma comment(linker, "/EXPORT:mmioSendMessage=_FakemmioSendMessage,@126")
-#pragma comment(linker, "/EXPORT:mmioSetBuffer=_FakemmioSetBuffer,@127")
-#pragma comment(linker, "/EXPORT:mmioSetInfo=_FakemmioSetInfo,@128")
-#pragma comment(linker, "/EXPORT:mmioStringToFOURCCA=_FakemmioStringToFOURCCA,@129")
-#pragma comment(linker, "/EXPORT:mmioStringToFOURCCW=_FakemmioStringToFOURCCW,@130")
-#pragma comment(linker, "/EXPORT:mmioWrite=_FakemmioWrite,@131")
-#pragma comment(linker, "/EXPORT:mmsystemGetVersion=_FakemmsystemGetVersion,@132")
-#pragma comment(linker, "/EXPORT:sndPlaySoundA=_FakesndPlaySoundA,@133")
-#pragma comment(linker, "/EXPORT:sndPlaySoundW=_FakesndPlaySoundW,@134")
-#pragma comment(linker, "/EXPORT:timeBeginPeriod=_FaketimeBeginPeriod,@135")
-#pragma comment(linker, "/EXPORT:timeEndPeriod=_FaketimeEndPeriod,@136")
-#pragma comment(linker, "/EXPORT:timeGetDevCaps=_FaketimeGetDevCaps,@137")
-#pragma comment(linker, "/EXPORT:timeGetSystemTime=_FaketimeGetSystemTime,@138")
-#pragma comment(linker, "/EXPORT:timeGetTime=_FaketimeGetTime,@139")
-#pragma comment(linker, "/EXPORT:timeKillEvent=_FaketimeKillEvent,@140")
-#pragma comment(linker, "/EXPORT:timeSetEvent=_FaketimeSetEvent,@141")
-#pragma comment(linker, "/EXPORT:waveInAddBuffer=_FakewaveInAddBuffer,@142")
-#pragma comment(linker, "/EXPORT:waveInClose=_FakewaveInClose,@143")
-#pragma comment(linker, "/EXPORT:waveInGetDevCapsA=_FakewaveInGetDevCapsA,@144")
-#pragma comment(linker, "/EXPORT:waveInGetDevCapsW=_FakewaveInGetDevCapsW,@145")
-#pragma comment(linker, "/EXPORT:waveInGetErrorTextA=_FakewaveInGetErrorTextA,@146")
-#pragma comment(linker, "/EXPORT:waveInGetErrorTextW=_FakewaveInGetErrorTextW,@147")
-#pragma comment(linker, "/EXPORT:waveInGetID=_FakewaveInGetID,@148")
-#pragma comment(linker, "/EXPORT:waveInGetNumDevs=_FakewaveInGetNumDevs,@149")
-#pragma comment(linker, "/EXPORT:waveInGetPosition=_FakewaveInGetPosition,@150")
-#pragma comment(linker, "/EXPORT:waveInMessage=_FakewaveInMessage,@151")
-#pragma comment(linker, "/EXPORT:waveInOpen=_FakewaveInOpen,@152")
-#pragma comment(linker, "/EXPORT:waveInPrepareHeader=_FakewaveInPrepareHeader,@153")
-#pragma comment(linker, "/EXPORT:waveInReset=_FakewaveInReset,@154")
-#pragma comment(linker, "/EXPORT:waveInStart=_FakewaveInStart,@155")
-#pragma comment(linker, "/EXPORT:waveInStop=_FakewaveInStop,@156")
-#pragma comment(linker, "/EXPORT:waveInUnprepareHeader=_FakewaveInUnprepareHeader,@157")
-#pragma comment(linker, "/EXPORT:waveOutBreakLoop=_FakewaveOutBreakLoop,@158")
-#pragma comment(linker, "/EXPORT:waveOutClose=_FakewaveOutClose,@159")
-#pragma comment(linker, "/EXPORT:waveOutGetDevCapsA=_FakewaveOutGetDevCapsA,@160")
-#pragma comment(linker, "/EXPORT:waveOutGetDevCapsW=_FakewaveOutGetDevCapsW,@161")
-#pragma comment(linker, "/EXPORT:waveOutGetErrorTextA=_FakewaveOutGetErrorTextA,@162")
-#pragma comment(linker, "/EXPORT:waveOutGetErrorTextW=_FakewaveOutGetErrorTextW,@163")
-#pragma comment(linker, "/EXPORT:waveOutGetID=_FakewaveOutGetID,@164")
-#pragma comment(linker, "/EXPORT:waveOutGetNumDevs=_FakewaveOutGetNumDevs,@165")
-#pragma comment(linker, "/EXPORT:waveOutGetPitch=_FakewaveOutGetPitch,@166")
-#pragma comment(linker, "/EXPORT:waveOutGetPlaybackRate=_FakewaveOutGetPlaybackRate,@167")
-#pragma comment(linker, "/EXPORT:waveOutGetPosition=_FakewaveOutGetPosition,@168")
-#pragma comment(linker, "/EXPORT:waveOutGetVolume=_FakewaveOutGetVolume,@169")
-#pragma comment(linker, "/EXPORT:waveOutMessage=_FakewaveOutMessage,@170")
-#pragma comment(linker, "/EXPORT:waveOutOpen=_FakewaveOutOpen,@171")
-#pragma comment(linker, "/EXPORT:waveOutPause=_FakewaveOutPause,@172")
-#pragma comment(linker, "/EXPORT:waveOutPrepareHeader=_FakewaveOutPrepareHeader,@173")
-#pragma comment(linker, "/EXPORT:waveOutReset=_FakewaveOutReset,@174")
-#pragma comment(linker, "/EXPORT:waveOutRestart=_FakewaveOutRestart,@175")
-#pragma comment(linker, "/EXPORT:waveOutSetPitch=_FakewaveOutSetPitch,@176")
-#pragma comment(linker, "/EXPORT:waveOutSetPlaybackRate=_FakewaveOutSetPlaybackRate,@177")
-#pragma comment(linker, "/EXPORT:waveOutSetVolume=_FakewaveOutSetVolume,@178")
-#pragma comment(linker, "/EXPORT:waveOutUnprepareHeader=_FakewaveOutUnprepareHeader,@179")
-#pragma comment(linker, "/EXPORT:waveOutWrite=_FakewaveOutWrite,@180")
+EXPORT_FAKE_FUNC(CloseDriver, 1)
+EXPORT_FAKE_FUNC(DefDriverProc, 2)
+EXPORT_FAKE_FUNC(DriverCallback, 3)
+EXPORT_FAKE_FUNC(DrvGetModuleHandle, 4)
+EXPORT_FAKE_FUNC(GetDriverModuleHandle, 5)
+EXPORT_FAKE_FUNC(OpenDriver, 6)
+EXPORT_FAKE_FUNC(PlaySound, 7)
+EXPORT_FAKE_FUNC(PlaySoundA, 8)
+EXPORT_FAKE_FUNC(PlaySoundW, 9)
+EXPORT_FAKE_FUNC(SendDriverMessage, 10)
+EXPORT_FAKE_FUNC(WOWAppExit, 11)
+EXPORT_FAKE_FUNC(auxGetDevCapsA, 12)
+EXPORT_FAKE_FUNC(auxGetDevCapsW, 13)
+EXPORT_FAKE_FUNC(auxGetNumDevs, 14)
+EXPORT_FAKE_FUNC(auxGetVolume, 15)
+EXPORT_FAKE_FUNC(auxOutMessage, 16)
+EXPORT_FAKE_FUNC(auxSetVolume, 17)
+EXPORT_FAKE_FUNC(joyConfigChanged, 18)
+EXPORT_FAKE_FUNC(joyGetDevCapsA, 19)
+EXPORT_FAKE_FUNC(joyGetDevCapsW, 20)
+EXPORT_FAKE_FUNC(joyGetNumDevs, 21)
+EXPORT_FAKE_FUNC(joyGetPos, 22)
+EXPORT_FAKE_FUNC(joyGetPosEx, 23)
+EXPORT_FAKE_FUNC(joyGetThreshold, 24)
+EXPORT_FAKE_FUNC(joyReleaseCapture, 25)
+EXPORT_FAKE_FUNC(joySetCapture, 26)
+EXPORT_FAKE_FUNC(joySetThreshold, 27)
+EXPORT_FAKE_FUNC(mciDriverNotify, 28)
+EXPORT_FAKE_FUNC(mciDriverYield, 29)
+EXPORT_FAKE_FUNC(mciExecute, 30)
+EXPORT_FAKE_FUNC(mciFreeCommandResource, 31)
+EXPORT_FAKE_FUNC(mciGetCreatorTask, 32)
+EXPORT_FAKE_FUNC(mciGetDeviceIDA, 33)
+EXPORT_FAKE_FUNC(mciGetDeviceIDFromElementIDA, 34)
+EXPORT_FAKE_FUNC(mciGetDeviceIDFromElementIDW, 35)
+EXPORT_FAKE_FUNC(mciGetDeviceIDW, 36)
+EXPORT_FAKE_FUNC(mciGetDriverData, 37)
+EXPORT_FAKE_FUNC(mciGetErrorStringA, 38)
+EXPORT_FAKE_FUNC(mciGetErrorStringW, 39)
+EXPORT_FAKE_FUNC(mciGetYieldProc, 40)
+EXPORT_FAKE_FUNC(mciLoadCommandResource, 41)
+EXPORT_FAKE_FUNC(mciSendCommandA, 42)
+EXPORT_FAKE_FUNC(mciSendCommandW, 43)
+EXPORT_FAKE_FUNC(mciSendStringA, 44)
+EXPORT_FAKE_FUNC(mciSendStringW, 45)
+EXPORT_FAKE_FUNC(mciSetDriverData, 46)
+EXPORT_FAKE_FUNC(mciSetYieldProc, 47)
+EXPORT_FAKE_FUNC(midiConnect, 48)
+EXPORT_FAKE_FUNC(midiDisconnect, 49)
+EXPORT_FAKE_FUNC(midiInAddBuffer, 50)
+EXPORT_FAKE_FUNC(midiInClose, 51)
+EXPORT_FAKE_FUNC(midiInGetDevCapsA, 52)
+EXPORT_FAKE_FUNC(midiInGetDevCapsW, 53)
+EXPORT_FAKE_FUNC(midiInGetErrorTextA, 54)
+EXPORT_FAKE_FUNC(midiInGetErrorTextW, 55)
+EXPORT_FAKE_FUNC(midiInGetID, 56)
+EXPORT_FAKE_FUNC(midiInGetNumDevs, 57)
+EXPORT_FAKE_FUNC(midiInMessage, 58)
+EXPORT_FAKE_FUNC(midiInOpen, 59)
+EXPORT_FAKE_FUNC(midiInPrepareHeader, 60)
+EXPORT_FAKE_FUNC(midiInReset, 61)
+EXPORT_FAKE_FUNC(midiInStart, 62)
+EXPORT_FAKE_FUNC(midiInStop, 63)
+EXPORT_FAKE_FUNC(midiInUnprepareHeader, 64)
+EXPORT_FAKE_FUNC(midiOutCacheDrumPatches, 65)
+EXPORT_FAKE_FUNC(midiOutCachePatches, 66)
+EXPORT_FAKE_FUNC(midiOutClose, 67)
+EXPORT_FAKE_FUNC(midiOutGetDevCapsA, 68)
+EXPORT_FAKE_FUNC(midiOutGetDevCapsW, 69)
+EXPORT_FAKE_FUNC(midiOutGetErrorTextA, 70)
+EXPORT_FAKE_FUNC(midiOutGetErrorTextW, 71)
+EXPORT_FAKE_FUNC(midiOutGetID, 72)
+EXPORT_FAKE_FUNC(midiOutGetNumDevs, 73)
+EXPORT_FAKE_FUNC(midiOutGetVolume, 74)
+EXPORT_FAKE_FUNC(midiOutLongMsg, 75)
+EXPORT_FAKE_FUNC(midiOutMessage, 76)
+EXPORT_FAKE_FUNC(midiOutOpen, 77)
+EXPORT_FAKE_FUNC(midiOutPrepareHeader, 78)
+EXPORT_FAKE_FUNC(midiOutReset, 79)
+EXPORT_FAKE_FUNC(midiOutSetVolume, 80)
+EXPORT_FAKE_FUNC(midiOutShortMsg, 81)
+EXPORT_FAKE_FUNC(midiOutUnprepareHeader, 82)
+EXPORT_FAKE_FUNC(midiStreamClose, 83)
+EXPORT_FAKE_FUNC(midiStreamOpen, 84)
+EXPORT_FAKE_FUNC(midiStreamOut, 85)
+EXPORT_FAKE_FUNC(midiStreamPause, 86)
+EXPORT_FAKE_FUNC(midiStreamPosition, 87)
+EXPORT_FAKE_FUNC(midiStreamProperty, 88)
+EXPORT_FAKE_FUNC(midiStreamRestart, 89)
+EXPORT_FAKE_FUNC(midiStreamStop, 90)
+EXPORT_FAKE_FUNC(mixerClose, 91)
+EXPORT_FAKE_FUNC(mixerGetControlDetailsA, 92)
+EXPORT_FAKE_FUNC(mixerGetControlDetailsW, 93)
+EXPORT_FAKE_FUNC(mixerGetDevCapsA, 94)
+EXPORT_FAKE_FUNC(mixerGetDevCapsW, 95)
+EXPORT_FAKE_FUNC(mixerGetID, 96)
+EXPORT_FAKE_FUNC(mixerGetLineControlsA, 97)
+EXPORT_FAKE_FUNC(mixerGetLineControlsW, 98)
+EXPORT_FAKE_FUNC(mixerGetLineInfoA, 99)
+EXPORT_FAKE_FUNC(mixerGetLineInfoW, 100)
+EXPORT_FAKE_FUNC(mixerGetNumDevs, 101)
+EXPORT_FAKE_FUNC(mixerMessage, 102)
+EXPORT_FAKE_FUNC(mixerOpen, 103)
+EXPORT_FAKE_FUNC(mixerSetControlDetails, 104)
+EXPORT_FAKE_FUNC(mmDrvInstall, 105)
+EXPORT_FAKE_FUNC(mmGetCurrentTask, 106)
+EXPORT_FAKE_FUNC(mmTaskBlock, 107)
+EXPORT_FAKE_FUNC(mmTaskCreate, 108)
+EXPORT_FAKE_FUNC(mmTaskSignal, 109)
+EXPORT_FAKE_FUNC(mmTaskYield, 110)
+EXPORT_FAKE_FUNC(mmioAdvance, 111)
+EXPORT_FAKE_FUNC(mmioAscend, 112)
+EXPORT_FAKE_FUNC(mmioClose, 113)
+EXPORT_FAKE_FUNC(mmioCreateChunk, 114)
+EXPORT_FAKE_FUNC(mmioDescend, 115)
+EXPORT_FAKE_FUNC(mmioFlush, 116)
+EXPORT_FAKE_FUNC(mmioGetInfo, 117)
+EXPORT_FAKE_FUNC(mmioInstallIOProcA, 118)
+EXPORT_FAKE_FUNC(mmioInstallIOProcW, 119)
+EXPORT_FAKE_FUNC(mmioOpenA, 120)
+EXPORT_FAKE_FUNC(mmioOpenW, 121)
+EXPORT_FAKE_FUNC(mmioRead, 122)
+EXPORT_FAKE_FUNC(mmioRenameA, 123)
+EXPORT_FAKE_FUNC(mmioRenameW, 124)
+EXPORT_FAKE_FUNC(mmioSeek, 125)
+EXPORT_FAKE_FUNC(mmioSendMessage, 126)
+EXPORT_FAKE_FUNC(mmioSetBuffer, 127)
+EXPORT_FAKE_FUNC(mmioSetInfo, 128)
+EXPORT_FAKE_FUNC(mmioStringToFOURCCA, 129)
+EXPORT_FAKE_FUNC(mmioStringToFOURCCW, 130)
+EXPORT_FAKE_FUNC(mmioWrite, 131)
+EXPORT_FAKE_FUNC(mmsystemGetVersion, 132)
+EXPORT_FAKE_FUNC(sndPlaySoundA, 133)
+EXPORT_FAKE_FUNC(sndPlaySoundW, 134)
+EXPORT_FAKE_FUNC(timeBeginPeriod, 135)
+EXPORT_FAKE_FUNC(timeEndPeriod, 136)
+EXPORT_FAKE_FUNC(timeGetDevCaps, 137)
+EXPORT_FAKE_FUNC(timeGetSystemTime, 138)
+EXPORT_FAKE_FUNC(timeGetTime, 139)
+EXPORT_FAKE_FUNC(timeKillEvent, 140)
+EXPORT_FAKE_FUNC(timeSetEvent, 141)
+EXPORT_FAKE_FUNC(waveInAddBuffer, 142)
+EXPORT_FAKE_FUNC(waveInClose, 143)
+EXPORT_FAKE_FUNC(waveInGetDevCapsA, 144)
+EXPORT_FAKE_FUNC(waveInGetDevCapsW, 145)
+EXPORT_FAKE_FUNC(waveInGetErrorTextA, 146)
+EXPORT_FAKE_FUNC(waveInGetErrorTextW, 147)
+EXPORT_FAKE_FUNC(waveInGetID, 148)
+EXPORT_FAKE_FUNC(waveInGetNumDevs, 149)
+EXPORT_FAKE_FUNC(waveInGetPosition, 150)
+EXPORT_FAKE_FUNC(waveInMessage, 151)
+EXPORT_FAKE_FUNC(waveInOpen, 152)
+EXPORT_FAKE_FUNC(waveInPrepareHeader, 153)
+EXPORT_FAKE_FUNC(waveInReset, 154)
+EXPORT_FAKE_FUNC(waveInStart, 155)
+EXPORT_FAKE_FUNC(waveInStop, 156)
+EXPORT_FAKE_FUNC(waveInUnprepareHeader, 157)
+EXPORT_FAKE_FUNC(waveOutBreakLoop, 158)
+EXPORT_FAKE_FUNC(waveOutClose, 159)
+EXPORT_FAKE_FUNC(waveOutGetDevCapsA, 160)
+EXPORT_FAKE_FUNC(waveOutGetDevCapsW, 161)
+EXPORT_FAKE_FUNC(waveOutGetErrorTextA, 162)
+EXPORT_FAKE_FUNC(waveOutGetErrorTextW, 163)
+EXPORT_FAKE_FUNC(waveOutGetID, 164)
+EXPORT_FAKE_FUNC(waveOutGetNumDevs, 165)
+EXPORT_FAKE_FUNC(waveOutGetPitch, 166)
+EXPORT_FAKE_FUNC(waveOutGetPlaybackRate, 167)
+EXPORT_FAKE_FUNC(waveOutGetPosition, 168)
+EXPORT_FAKE_FUNC(waveOutGetVolume, 169)
+EXPORT_FAKE_FUNC(waveOutMessage, 170)
+EXPORT_FAKE_FUNC(waveOutOpen, 171)
+EXPORT_FAKE_FUNC(waveOutPause, 172)
+EXPORT_FAKE_FUNC(waveOutPrepareHeader, 173)
+EXPORT_FAKE_FUNC(waveOutReset, 174)
+EXPORT_FAKE_FUNC(waveOutRestart, 175)
+EXPORT_FAKE_FUNC(waveOutSetPitch, 176)
+EXPORT_FAKE_FUNC(waveOutSetPlaybackRate, 177)
+EXPORT_FAKE_FUNC(waveOutSetVolume, 178)
+EXPORT_FAKE_FUNC(waveOutUnprepareHeader, 179)
+EXPORT_FAKE_FUNC(waveOutWrite, 180)
 
 #endif

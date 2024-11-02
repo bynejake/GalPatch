@@ -2,29 +2,27 @@
 
 #include "Version.h"
 
-#include <tchar.h>
-
-void Hijacker::Hijack(LPCTSTR lpSrc)
+void Hijacker::Hijack(LPCWSTR lpSrc)
 {
-    Core::Hijack(_T("version.dll"), lpSrc);
+    Core::Hijack(L"version.dll", lpSrc);
 
-    RESOLVE(GetFileVersionInfoA);
-    RESOLVE(GetFileVersionInfoByHandle);
-    RESOLVE(GetFileVersionInfoExA);
-    RESOLVE(GetFileVersionInfoExW);
-    RESOLVE(GetFileVersionInfoSizeA);
-    RESOLVE(GetFileVersionInfoSizeExA);
-    RESOLVE(GetFileVersionInfoSizeExW);
-    RESOLVE(GetFileVersionInfoSizeW);
-    RESOLVE(GetFileVersionInfoW);
-    RESOLVE(VerFindFileA);
-    RESOLVE(VerFindFileW);
-    RESOLVE(VerInstallFileA);
-    RESOLVE(VerInstallFileW);
-    RESOLVE(VerLanguageNameA);
-    RESOLVE(VerLanguageNameW);
-    RESOLVE(VerQueryValueA);
-    RESOLVE(VerQueryValueW);
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoA)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoByHandle)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoExA)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoExW)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoSizeA)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoSizeExA)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoSizeExW)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoSizeW)
+    RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoW)
+    RESOLVE_ORIGINAL_FUNC(VerFindFileA)
+    RESOLVE_ORIGINAL_FUNC(VerFindFileW)
+    RESOLVE_ORIGINAL_FUNC(VerInstallFileA)
+    RESOLVE_ORIGINAL_FUNC(VerInstallFileW)
+    RESOLVE_ORIGINAL_FUNC(VerLanguageNameA)
+    RESOLVE_ORIGINAL_FUNC(VerLanguageNameW)
+    RESOLVE_ORIGINAL_FUNC(VerQueryValueA)
+    RESOLVE_ORIGINAL_FUNC(VerQueryValueW)
 }
 
 void Hijacker::Release()
@@ -32,40 +30,40 @@ void Hijacker::Release()
     Core::Release();
 }
 
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoA()        { __asm { jmp[Hijacker::OriginalGetFileVersionInfoA] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoByHandle() { __asm { jmp[Hijacker::OriginalGetFileVersionInfoByHandle] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoExA()      { __asm { jmp[Hijacker::OriginalGetFileVersionInfoExA] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoExW()      { __asm { jmp[Hijacker::OriginalGetFileVersionInfoExW] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoSizeA()    { __asm { jmp[Hijacker::OriginalGetFileVersionInfoSizeA] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoSizeExA()  { __asm { jmp[Hijacker::OriginalGetFileVersionInfoSizeExA] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoSizeExW()  { __asm { jmp[Hijacker::OriginalGetFileVersionInfoSizeExW] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoSizeW()    { __asm { jmp[Hijacker::OriginalGetFileVersionInfoSizeW] } }
-EXTERN_C _declspec(naked) void FakeGetFileVersionInfoW()        { __asm { jmp[Hijacker::OriginalGetFileVersionInfoW] } }
-EXTERN_C _declspec(naked) void FakeVerFindFileA()               { __asm { jmp[Hijacker::OriginalVerFindFileA] } }
-EXTERN_C _declspec(naked) void FakeVerFindFileW()               { __asm { jmp[Hijacker::OriginalVerFindFileW] } }
-EXTERN_C _declspec(naked) void FakeVerInstallFileA()            { __asm { jmp[Hijacker::OriginalVerInstallFileA] } }
-EXTERN_C _declspec(naked) void FakeVerInstallFileW()            { __asm { jmp[Hijacker::OriginalVerInstallFileW] } }
-EXTERN_C _declspec(naked) void FakeVerLanguageNameA()           { __asm { jmp[Hijacker::OriginalVerLanguageNameA] } }
-EXTERN_C _declspec(naked) void FakeVerLanguageNameW()           { __asm { jmp[Hijacker::OriginalVerLanguageNameW] } }
-EXTERN_C _declspec(naked) void FakeVerQueryValueA()             { __asm { jmp[Hijacker::OriginalVerQueryValueA] } }
-EXTERN_C _declspec(naked) void FakeVerQueryValueW()             { __asm { jmp[Hijacker::OriginalVerQueryValueW] } }
+DECLARE_FAKE_FUNC(GetFileVersionInfoA)
+DECLARE_FAKE_FUNC(GetFileVersionInfoByHandle)
+DECLARE_FAKE_FUNC(GetFileVersionInfoExA)
+DECLARE_FAKE_FUNC(GetFileVersionInfoExW)
+DECLARE_FAKE_FUNC(GetFileVersionInfoSizeA)
+DECLARE_FAKE_FUNC(GetFileVersionInfoSizeExA)
+DECLARE_FAKE_FUNC(GetFileVersionInfoSizeExW)
+DECLARE_FAKE_FUNC(GetFileVersionInfoSizeW)
+DECLARE_FAKE_FUNC(GetFileVersionInfoW)
+DECLARE_FAKE_FUNC(VerFindFileA)
+DECLARE_FAKE_FUNC(VerFindFileW)
+DECLARE_FAKE_FUNC(VerInstallFileA)
+DECLARE_FAKE_FUNC(VerInstallFileW)
+DECLARE_FAKE_FUNC(VerLanguageNameA)
+DECLARE_FAKE_FUNC(VerLanguageNameW)
+DECLARE_FAKE_FUNC(VerQueryValueA)
+DECLARE_FAKE_FUNC(VerQueryValueW)
 
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoA=_FakeGetFileVersionInfoA,@1")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoByHandle=_FakeGetFileVersionInfoByHandle,@2")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoExA=_FakeGetFileVersionInfoExA,@3")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoExW=_FakeGetFileVersionInfoExW,@4")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeA=_FakeGetFileVersionInfoSizeA,@5")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeExA=_FakeGetFileVersionInfoSizeExA,@6")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeExW=_FakeGetFileVersionInfoSizeExW,@7")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeW=_FakeGetFileVersionInfoSizeW,@8")
-#pragma comment(linker, "/EXPORT:GetFileVersionInfoW=_FakeGetFileVersionInfoW,@9")
-#pragma comment(linker, "/EXPORT:VerFindFileA=_FakeVerFindFileA,@10")
-#pragma comment(linker, "/EXPORT:VerFindFileW=_FakeVerFindFileW,@11")
-#pragma comment(linker, "/EXPORT:VerInstallFileA=_FakeVerInstallFileA,@12")
-#pragma comment(linker, "/EXPORT:VerInstallFileW=_FakeVerInstallFileW,@13")
-#pragma comment(linker, "/EXPORT:VerLanguageNameA=_FakeVerLanguageNameA,@14")
-#pragma comment(linker, "/EXPORT:VerLanguageNameW=_FakeVerLanguageNameW,@15")
-#pragma comment(linker, "/EXPORT:VerQueryValueA=_FakeVerQueryValueA,@16")
-#pragma comment(linker, "/EXPORT:VerQueryValueW=_FakeVerQueryValueW,@17")
+EXPORT_FAKE_FUNC(GetFileVersionInfoA, 1)
+EXPORT_FAKE_FUNC(GetFileVersionInfoByHandle, 2)
+EXPORT_FAKE_FUNC(GetFileVersionInfoExA, 3)
+EXPORT_FAKE_FUNC(GetFileVersionInfoExW, 4)
+EXPORT_FAKE_FUNC(GetFileVersionInfoSizeA, 5)
+EXPORT_FAKE_FUNC(GetFileVersionInfoSizeExA, 6)
+EXPORT_FAKE_FUNC(GetFileVersionInfoSizeExW, 7)
+EXPORT_FAKE_FUNC(GetFileVersionInfoSizeW, 8)
+EXPORT_FAKE_FUNC(GetFileVersionInfoW, 9)
+EXPORT_FAKE_FUNC(VerFindFileA, 10)
+EXPORT_FAKE_FUNC(VerFindFileW, 11)
+EXPORT_FAKE_FUNC(VerInstallFileA, 12)
+EXPORT_FAKE_FUNC(VerInstallFileW, 13)
+EXPORT_FAKE_FUNC(VerLanguageNameA, 14)
+EXPORT_FAKE_FUNC(VerLanguageNameW, 15)
+EXPORT_FAKE_FUNC(VerQueryValueA, 16)
+EXPORT_FAKE_FUNC(VerQueryValueW, 17)
 
 #endif
