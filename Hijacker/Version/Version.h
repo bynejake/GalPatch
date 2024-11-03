@@ -11,7 +11,7 @@
 class Hijacker final : Core
 {
 public:
-    static void Hijack  (LPCWSTR lpSrc);
+    static void Hijack  (LPCTSTR lpSrc);
     static void Release ();
 
 private:

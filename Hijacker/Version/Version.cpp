@@ -1,10 +1,12 @@
 #ifdef VERSION
 
+#include <tchar.h>
+
 #include "Version.h"
 
-void Hijacker::Hijack(LPCWSTR lpSrc)
+void Hijacker::Hijack(LPCTSTR lpSrc)
 {
-    Core::Hijack(L"version.dll", lpSrc);
+    Core::Hijack(_T("version.dll"), lpSrc);
 
     RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoA)
     RESOLVE_ORIGINAL_FUNC(GetFileVersionInfoByHandle)
@@ -30,23 +32,25 @@ void Hijacker::Release()
     Core::Release();
 }
 
-DECLARE_FAKE_FUNC(GetFileVersionInfoA)
-DECLARE_FAKE_FUNC(GetFileVersionInfoByHandle)
-DECLARE_FAKE_FUNC(GetFileVersionInfoExA)
-DECLARE_FAKE_FUNC(GetFileVersionInfoExW)
-DECLARE_FAKE_FUNC(GetFileVersionInfoSizeA)
-DECLARE_FAKE_FUNC(GetFileVersionInfoSizeExA)
-DECLARE_FAKE_FUNC(GetFileVersionInfoSizeExW)
-DECLARE_FAKE_FUNC(GetFileVersionInfoSizeW)
-DECLARE_FAKE_FUNC(GetFileVersionInfoW)
-DECLARE_FAKE_FUNC(VerFindFileA)
-DECLARE_FAKE_FUNC(VerFindFileW)
-DECLARE_FAKE_FUNC(VerInstallFileA)
-DECLARE_FAKE_FUNC(VerInstallFileW)
-DECLARE_FAKE_FUNC(VerLanguageNameA)
-DECLARE_FAKE_FUNC(VerLanguageNameW)
-DECLARE_FAKE_FUNC(VerQueryValueA)
-DECLARE_FAKE_FUNC(VerQueryValueW)
+#define DECLARE_FAKE_FUNC_SIMPLIFY(fn) DECLARE_FAKE_FUNC(fn, Hijacker)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoA)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoByHandle)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoExA)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoExW)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoSizeA)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoSizeExA)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoSizeExW)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoSizeW)
+DECLARE_FAKE_FUNC_SIMPLIFY(GetFileVersionInfoW)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerFindFileA)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerFindFileW)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerInstallFileA)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerInstallFileW)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerLanguageNameA)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerLanguageNameW)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerQueryValueA)
+DECLARE_FAKE_FUNC_SIMPLIFY(VerQueryValueW)
+#undef DECLARE_FAKE_FUNC_SIMPLIFY
 
 EXPORT_FAKE_FUNC(GetFileVersionInfoA, 1)
 EXPORT_FAKE_FUNC(GetFileVersionInfoByHandle, 2)
