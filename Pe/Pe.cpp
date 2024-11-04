@@ -7,7 +7,7 @@ PVOID Pe::FindData(LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 
 PVOID Pe::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 {
-    for (const auto sections = GetSections(hModule); const auto& section : sections)
+    for (const auto& section : GetSections(hModule))
     {
         if (const auto found = FindData(section, lpPattern, patternLen); found != nullptr)
             return found;
