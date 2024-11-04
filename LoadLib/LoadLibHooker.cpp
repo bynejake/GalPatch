@@ -29,7 +29,7 @@ void LoadLibHooker::Unhook(const std::function<void(HMODULE)>& callback)
         return;
 
     if (callback != nullptr)
-        std::erase_if(Callbacks, [callback](std::function<void(HMODULE)>& it)
+        std::erase_if(Callbacks, [callback](const std::function<void(HMODULE)>& it)
         {
             return *it.target<void(*)(HMODULE)>() == *callback.target<void(*)(HMODULE)>();
         });
