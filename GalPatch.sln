@@ -52,6 +52,7 @@ Global
 		Detours\Detours.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
 		Hijacker\Hijacker.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
 		LoadLib\LoadLib.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
+		Pe\Pe.vcxitems*{9ca7b27f-eded-4eca-bede-e7865facccd1}*SharedItemsImports = 4
 		LoadLib\LoadLib.vcxitems*{a59b30bd-a94d-4f62-8c81-52d8fdfcde91}*SharedItemsImports = 9
 		Detours\Detours.vcxitems*{aa355a01-4e65-420d-96dc-2497033c5fe2}*SharedItemsImports = 9
 		Common\Common.vcxitems*{bf6dd8ef-c0ab-449c-b58e-a66bf73e300c}*SharedItemsImports = 9

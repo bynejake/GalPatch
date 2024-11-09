@@ -16,26 +16,27 @@ void WafflePatcher::Patch()
 //{
 //    struct MemoryPatch
 //    {
-//        DWORD* addr;
+//        DWORD               rva;
 //        DWORD               check;
 //        std::vector<BYTE>   patch;
 //    };
 //
 //    static const MemoryPatch MemoryPatches[] = {
 //        // encoding
-//        {reinterpret_cast<DWORD*>(0x004D6D24), 0x00008068, {0x68, 0x86}},
+//        {0x000D6D24, 0x00008068, {0x68, 0x86}},
 //        // boundary
-//        {reinterpret_cast<DWORD*>(0x0045BB6A), 0x06769F3C, {0x3C, 0xFE}},
+//        {0x0005BB6A, 0x06769F3C, {0x3C, 0xFE}},
 //        // font
 //        {
-//            reinterpret_cast<DWORD*>(0x0067EE34), 0X72826c82,
+//            0x0027EE34, 0X72826c82,
 //            {0x55, 0x6E, 0x69, 0x66, 0x6F, 0x6E, 0x74, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
 //        }
 //    };
 //
-//    for (const auto& [addr, check, patch] : MemoryPatches)
+//    static const auto ImageBase = Pe::GetOptionalHeader()->ImageBase;
+//    for (const auto& [rva, check, patch] : MemoryPatches)
 //    {
-//        if (*addr == check)
+//        if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + rva); *addr == check)
 //            std::memcpy(addr, patch.data(), patch.size());
 //    }
 //}
