@@ -1,5 +1,21 @@
 #include "Pe.h"
 
+PIMAGE_DOS_HEADER Pe::GetDosHeader()
+{
+    return reinterpret_cast<PIMAGE_DOS_HEADER>(GetModuleHandle(nullptr));
+}
+
+PIMAGE_NT_HEADERS Pe::GetNtHeaders()
+{
+    const auto pDosHeader = GetDosHeader();
+    return reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<DWORD>(pDosHeader) + pDosHeader->e_lfanew);
+}
+
+PIMAGE_OPTIONAL_HEADER Pe::GetOptionalHeader()
+{
+    return &GetNtHeaders()->OptionalHeader;
+}
+
 PVOID Pe::FindData(LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce)
 {
     return FindData(GetModuleHandle(nullptr), lpPattern, patternLen, onlyOnce);
@@ -20,8 +36,7 @@ PVOID Pe::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL on
 
 std::vector<Pe::Section> Pe::GetSections(HMODULE hModule)
 {
-    const auto pDosHeader       = reinterpret_cast<PIMAGE_DOS_HEADER>(hModule);
-    const auto pNtHeaders       = reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<DWORD>(hModule) + pDosHeader->e_lfanew);
+    const auto pNtHeaders = GetNtHeaders();
     const auto pSectionHeaders  = IMAGE_FIRST_SECTION(pNtHeaders);
 
     std::vector<Section> sections;

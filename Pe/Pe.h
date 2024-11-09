@@ -8,8 +8,12 @@
 class Pe final
 {
 public:
-    static PVOID                FindData    (                           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
-    static PVOID                FindData    (HMODULE hModule,           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
+    static PIMAGE_DOS_HEADER        GetDosHeader        ();
+    static PIMAGE_NT_HEADERS        GetNtHeaders        ();
+    static PIMAGE_OPTIONAL_HEADER   GetOptionalHeader   ();
+
+    static PVOID                    FindData            (                           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
+    static PVOID                    FindData            (HMODULE hModule,           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
 
 private:
     struct Section
@@ -20,6 +24,6 @@ private:
         DWORD   characteristics;
     };
 
-    static std::vector<Section> GetSections (HMODULE hModule);
-    static PVOID                FindData    (const Section& section,    LPCSTR lpPattern, size_t patternLen);
+    static std::vector<Section>     GetSections         (HMODULE hModule);
+    static PVOID                    FindData            (const Section& section,    LPCSTR lpPattern, size_t patternLen);
 };
