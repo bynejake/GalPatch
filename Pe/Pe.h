@@ -8,9 +8,9 @@
 class Pe final
 {
 public:
-    static PIMAGE_DOS_HEADER        GetDosHeader        ();
-    static PIMAGE_NT_HEADERS        GetNtHeaders        ();
-    static PIMAGE_OPTIONAL_HEADER   GetOptionalHeader   ();
+    static PIMAGE_DOS_HEADER        GetDosHeader        (HMODULE hModule = GetModuleHandle(nullptr));
+    static PIMAGE_NT_HEADERS        GetNtHeaders        (HMODULE hModule = GetModuleHandle(nullptr));
+    static PIMAGE_OPTIONAL_HEADER   GetOptionalHeader   (HMODULE hModule = GetModuleHandle(nullptr));
 
     static PVOID                    FindData            (                           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);
     static PVOID                    FindData            (HMODULE hModule,           LPCSTR lpPattern, size_t patternLen, BOOL onlyOnce = FALSE);

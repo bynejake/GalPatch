@@ -21,7 +21,8 @@ void WafflePatcher::Patch()
 //        std::vector<BYTE>   patch;
 //    };
 //
-//    static const MemoryPatch MemoryPatches[] = {
+//    static const MemoryPatch MemoryPatches[] =
+//    {
 //        // encoding
 //        {0x000D6D24, 0x00008068, {0x68, 0x86}},
 //        // boundary
