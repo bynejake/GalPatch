@@ -1,27 +1,16 @@
 #include "pch.h"
 
-void WafflePatcher::Patch()
-{
-    //PatchProtectedExeEncode();
-
-    if (OriginalGetTextExtentPoint32A != nullptr)
-        return;
-
-    OriginalGetTextExtentPoint32A = GetTextExtentPoint32A;
-    DetoursHelper::Hook(std::pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
-}
-
-// Now only applicable to game : „Éä„Ç§„Ç∑„Éß„ÅÆÂß¶Ê∑´ÔΩûÁúüÂ§è„ÅÆÊ±ó„Å†„Åè‰∫§Â∞æÔΩû 
+// Now only applicable to game : • •§•∑•Á§Œä¶“˘°´’Êœƒ§Œ∫π§¿§ØΩªŒ≤°´
 //void WafflePatcher::PatchProtectedExeEncode()
 //{
 //    struct MemoryPatch
 //    {
 //        DWORD               rva;
 //        DWORD               check;
-//        std::vector<BYTE>   patch;
+//        std::vector<BYTE>   val;
 //    };
 //
-//    static const MemoryPatch MemoryPatches[] =
+//    static std::vector<MemoryPatch> patches =
 //    {
 //        // encoding
 //        {0x000D6D24, 0x00008068, {0x68, 0x86}},
@@ -35,12 +24,25 @@ void WafflePatcher::Patch()
 //    };
 //
 //    static const auto ImageBase = Pe::GetOptionalHeader()->ImageBase;
-//    for (const auto& [rva, check, patch] : MemoryPatches)
+//    std::erase_if(patches, [](const MemoryPatch& patch)
 //    {
-//        if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + rva); *addr == check)
-//            std::memcpy(addr, patch.data(), patch.size());
-//    }
+//        if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + patch.rva); *addr == patch.check)
+//        {
+//            std::memcpy(addr, patch.val.data(), patch.val.size());
+//            return true;
+//        }
+//        return false;
+//    });
 //}
+
+void WafflePatcher::PatchGetTextCrash()
+{
+    if (OriginalGetTextExtentPoint32A != nullptr)
+        return;
+
+    OriginalGetTextExtentPoint32A = GetTextExtentPoint32A;
+    DetoursHelper::Hook(std::pair(&OriginalGetTextExtentPoint32A, PatchGetTextExtentPoint32A));
+}
 
 void WafflePatcher::Unpatch()
 {
