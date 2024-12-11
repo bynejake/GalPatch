@@ -8,9 +8,9 @@
 //{
 //    struct MemoryPatch
 //    {
-//        std::string         type;
+//        std::string         cmt;
 //        DWORD               rva;
-//        DWORD               check;
+//        DWORD               chk;
 //        std::vector<BYTE>   val;
 //    };
 //
@@ -19,14 +19,14 @@
 //        std::vector<MemoryPatch> patches;
 //        if (std::ifstream jFile(PathUtil::GetAppPath() + L"version.json"); jFile.is_open())
 //        {
-//#define Str2Hex(str) (std::stoul(str, nullptr, 16))
+//#define Str2Hex(str) std::stoul(str, nullptr, 16)
 //            for (const auto jConfig = nlohmann::json::parse(jFile); const auto& jPatch : jConfig["MemoryPatch"])
 //            {
 //                MemoryPatch patch
 //                {
-//                    .type   =           jPatch["type"]. get<std::string>(),
-//                    .rva    = Str2Hex(  jPatch["rva"].  get<std::string>()),
-//                    .check  = Str2Hex(  jPatch["check"].get<std::string>())
+//                    .cmt =          jPatch["cmt"].get<std::string>(),
+//                    .rva = Str2Hex( jPatch["rva"].get<std::string>()),
+//                    .chk = Str2Hex( jPatch["chk"].get<std::string>())
 //                };
 //
 //                for (const auto& jValElem : jPatch["val"])
@@ -44,7 +44,7 @@
 //    static const auto ImageBase = Pe::GetOptionalHeader()->ImageBase;
 //    std::erase_if(sPatches, [](const MemoryPatch& patch)
 //    {
-//        if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + patch.rva); *addr == patch.check)
+//        if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + patch.rva); *addr == patch.chk)
 //        {
 //            std::memcpy(addr, patch.val.data(), patch.val.size());
 //            return true;
