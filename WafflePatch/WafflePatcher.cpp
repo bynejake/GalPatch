@@ -4,39 +4,40 @@
 //
 //#include "nlohmann/json.hpp"
 //
+//struct MemoryPatch
+//{
+//    std::string         cmt;
+//    DWORD               rva;
+//    DWORD               chk;
+//    std::vector<BYTE>   val;
+//
+//    static DWORD Str2Hex(const std::string& str)
+//    {
+//        return std::stoul(str, nullptr, 16);
+//    }
+//
+//    friend void from_json(const nlohmann::json& jPatch, MemoryPatch& patch)
+//    {
+//        patch.cmt =         jPatch["cmt"];
+//        patch.rva = Str2Hex(jPatch["rva"]);
+//        patch.chk = Str2Hex(jPatch["chk"]);
+//
+//        for (const auto& jValElem : jPatch["val"])
+//        {
+//            patch.val.emplace_back(static_cast<BYTE>(Str2Hex(jValElem)));
+//        }
+//    }
+//};
+//
 //void WafflePatcher::PatchProtectedExeEncode()
 //{
-//    struct MemoryPatch
-//    {
-//        std::string         cmt;
-//        DWORD               rva;
-//        DWORD               chk;
-//        std::vector<BYTE>   val;
-//    };
-//
 //    static std::vector<MemoryPatch> sPatches = []
 //    {
 //        std::vector<MemoryPatch> patches;
 //        if (std::ifstream jFile(PathUtil::GetAppPath() + L"version.json"); jFile.is_open())
 //        {
-//#define Str2Hex(str) std::stoul(str, nullptr, 16)
-//            for (const auto jConfig = nlohmann::json::parse(jFile); const auto& jPatch : jConfig["MemoryPatch"])
-//            {
-//                MemoryPatch patch
-//                {
-//                    .cmt =          jPatch["cmt"].get<std::string>(),
-//                    .rva = Str2Hex( jPatch["rva"].get<std::string>()),
-//                    .chk = Str2Hex( jPatch["chk"].get<std::string>())
-//                };
-//
-//                for (const auto& jValElem : jPatch["val"])
-//                {
-//                    patch.val.emplace_back(static_cast<BYTE>(Str2Hex(jValElem.get<std::string>())));
-//                }
-//
-//                patches.emplace_back(patch);
-//            }
-//#undef Str2Hex
+//            const auto jConfig = nlohmann::json::parse(jFile);
+//            patches = jConfig["MemoryPatch"];
 //        }
 //        return patches;
 //    }();
