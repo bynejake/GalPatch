@@ -17,7 +17,11 @@ private:
     static HMODULE WINAPI   HookLoadLibraryExA  (LPCSTR     lpLibFileName, HANDLE hFile, DWORD dwFlags);
     static HMODULE WINAPI   HookLoadLibraryExW  (LPCWSTR    lpLibFileName, HANDLE hFile, DWORD dwFlags);
 
-    static void             InvokeCallbacks     (HMODULE hModule);
+    static void             InvokeCallbacks     (HMODULE hModule)
+    {
+        for (const auto& callback : Callbacks)
+            callback(hModule);
+    }
 
     static inline decltype(LoadLibraryA)*                   OriginalLoadLibraryA;
     static inline decltype(LoadLibraryW)*                   OriginalLoadLibraryW;
