@@ -8,16 +8,16 @@
 class LoadLibHooker final
 {
 public:
-    static void                     Hook                (const std::function<void(HMODULE)>& callback = nullptr);
-    static void                     Unhook              (const std::function<void(HMODULE)>& callback = nullptr);
+    static void             Hook                (const std::function<void(HMODULE)>& callback = nullptr);
+    static void             Unhook              (const std::function<void(HMODULE)>& callback = nullptr);
 
 private:
-    static inline HMODULE   WINAPI  HookLoadLibraryA    (LPCSTR  lpLibFileName);
-    static inline HMODULE   WINAPI  HookLoadLibraryW    (LPCWSTR lpLibFileName);
-    static inline HMODULE   WINAPI  HookLoadLibraryExA  (LPCSTR  lpLibFileName, HANDLE hFile, DWORD dwFlags);
-    static inline HMODULE   WINAPI  HookLoadLibraryExW  (LPCWSTR lpLibFileName, HANDLE hFile, DWORD dwFlags);
+    static HMODULE WINAPI   HookLoadLibraryA    (LPCSTR     lpLibFileName);
+    static HMODULE WINAPI   HookLoadLibraryW    (LPCWSTR    lpLibFileName);
+    static HMODULE WINAPI   HookLoadLibraryExA  (LPCSTR     lpLibFileName, HANDLE hFile, DWORD dwFlags);
+    static HMODULE WINAPI   HookLoadLibraryExW  (LPCWSTR    lpLibFileName, HANDLE hFile, DWORD dwFlags);
 
-    static inline void              InvokeCallbacks     (HMODULE hModule);
+    static void             InvokeCallbacks     (HMODULE hModule);
 
     static inline decltype(LoadLibraryA)*                   OriginalLoadLibraryA;
     static inline decltype(LoadLibraryW)*                   OriginalLoadLibraryW;

@@ -113,7 +113,7 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 f
         if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
             segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(patchUrlStream)->CurSegment;
         else if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
-            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>(patchUrlStream)->CurSegment;
+            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>   (patchUrlStream)->CurSegment;
         else
             throw std::exception("Unsupported CompilerType!");
 

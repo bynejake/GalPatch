@@ -3,8 +3,8 @@
 class KrkrPatchArcStream final : public tTJSBinaryStream
 {
 public:
-    KrkrPatchArcStream(const std::wstring& patchArc, const XP3ArchiveSegment* segment);
-    ~KrkrPatchArcStream() override = default;
+    KrkrPatchArcStream  (const std::wstring& patchArc, const XP3ArchiveSegment* segment);
+    ~KrkrPatchArcStream () override = default;
 
     tjs_uint64  TJS_INTF_METHOD Seek            (tjs_int64 offset, tjs_int whence) override;
     tjs_uint    TJS_INTF_METHOD Read            (void* buffer, tjs_uint read_size) override;

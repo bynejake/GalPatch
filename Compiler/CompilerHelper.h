@@ -100,17 +100,17 @@ private:
     };
 
 public:
-    struct VirFuncTypeNoChange final : VirFuncType
+    struct VirFuncTypeNoChange      final : VirFuncType
     {
     };
 
-    struct VirFuncTypeDestructor final : VirFuncType
+    struct VirFuncTypeDestructor    final : VirFuncType
     {
     };
 
 private:
     template <auto* TVirFuncTypePtr>
-    static void                 AssertVirFuncType     ()
+    static void                 AssertVirFuncType   ()
     {
         static_assert(dynamic_cast<VirFuncTypeNoChange*>(TVirFuncTypePtr) || dynamic_cast<VirFuncTypeDestructor*>(TVirFuncTypePtr));
     }
@@ -161,7 +161,7 @@ private:
     public:
         static constexpr PVOID AdaptThiscallToBorland(auto* pVirFuncType)
         {
-            if (dynamic_cast<VirFuncTypeNoChange*>(pVirFuncType))
+            if (dynamic_cast<VirFuncTypeNoChange*>  (pVirFuncType))
                 return *(TFuncPtrPtr + TFuncPtrIndex);
 
             if (dynamic_cast<VirFuncTypeDestructor*>(pVirFuncType))

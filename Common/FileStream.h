@@ -8,10 +8,10 @@
 class FileStream final
 {
 public:
-    FileStream(const std::string&   path, const char*    mode);
-    FileStream(const std::wstring&  path, const wchar_t* mode);
+    FileStream  (const std::string&   path, const char*    mode);
+    FileStream  (const std::wstring&  path, const wchar_t* mode);
 
-    ~FileStream();
+    ~FileStream ();
 
     void    Seek        (INT64 offset) const;
     void    SetPos      (INT64 pos) const;
