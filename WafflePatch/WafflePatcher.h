@@ -3,7 +3,7 @@
 class WafflePatcher
 {
 public:
-    //static void             PatchProtectedExeEncode     ();
+    static void             PatchProtectedExeEncoding   ();
     static void             PatchGetTextCrash           ();
     static void             Unpatch                     ();
 
