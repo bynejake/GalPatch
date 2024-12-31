@@ -3,7 +3,7 @@
 class KrkrInjector
 {
 public:
-    static void             Inject          (const std::function<BOOL(HMODULE)>& foundV2Callback, const std::function<void()>& handleV2Callback);
+    static void             Inject          (const std::function<BOOL(HMODULE)>& foundV2Callback, const std::function<void()>& injectV2Callback);
     static void             Eject           ();
 
 private:
@@ -14,5 +14,5 @@ private:
     static inline decltype(InjectV2Link)*       OriginalV2Link;
 
     static inline std::function<BOOL(HMODULE)>  FoundV2Callback;
-    static inline std::function<void()>         HandleV2Callback;
+    static inline std::function<void()>         InjectV2Callback;
 };
