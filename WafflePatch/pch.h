@@ -5,8 +5,10 @@
 #include "Hijacker.h"
 #include "DetoursHelper.h"
 #include "LoadLibHooker.h"
-#include "Pe.h"
 #include "Common.h"
+#ifdef PROTECTED_EXE
+#include "Pe.h"
+#endif // PROTECTED_EXE
 
 #include "WaffleInjector.h"
 #include "WafflePatcher.h"

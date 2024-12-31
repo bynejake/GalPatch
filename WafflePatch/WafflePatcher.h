@@ -3,7 +3,9 @@
 class WafflePatcher
 {
 public:
-    static void             PatchProtectedExeEncoding   ();
+#ifdef PROTECTED_EXE
+    static void             PatchProtectedExeEncoding();
+#endif // PROTECTED_EXE
     static void             PatchGetTextCrash           ();
     static void             Unpatch                     ();
 

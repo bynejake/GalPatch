@@ -10,7 +10,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         WaffleInjector::Inject(
             []
             {
+#ifdef PROTECTED_EXE
                 WafflePatcher::PatchProtectedExeEncoding();
+#endif // PROTECTED_EXE
                 WafflePatcher::PatchGetTextCrash();
             });
         break;

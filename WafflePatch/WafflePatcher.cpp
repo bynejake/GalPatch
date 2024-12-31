@@ -1,5 +1,6 @@
 #include "pch.h"
 
+#ifdef PROTECTED_EXE
 #include <fstream>
 
 #include "nlohmann/json.hpp"
@@ -52,6 +53,7 @@ void WafflePatcher::PatchProtectedExeEncoding()
         return false;
     });
 }
+#endif // PROTECTED_EXE
 
 void WafflePatcher::PatchGetTextCrash()
 {
