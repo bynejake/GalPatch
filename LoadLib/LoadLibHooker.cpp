@@ -80,3 +80,9 @@ HMODULE LoadLibHooker::HookLoadLibraryExW(LPCWSTR lpLibFileName, HANDLE hFile, D
     InvokeCallbacks(hModule);
     return hModule;
 }
+
+void LoadLibHooker::InvokeCallbacks(HMODULE hModule)
+{
+    for (const auto& callback : Callbacks)
+        callback(hModule);
+}
