@@ -13,7 +13,7 @@ Auto load patch for krkr game.
 
     - (Optional) Pack **`unencrypted`** folder to **`unencrypted.xp3`** archive **`(priority : folder > archive)`**.
 
-        - use [GARbro](https://github.com/morkt/GARbro) or [Xp3Pack](https://github.com/arcusmaximus/KirikiriTools)
+        - use [**`GARbro`**](https://github.com/morkt/GARbro) or [**`Xp3Pack`**](https://github.com/arcusmaximus/KirikiriTools)
 
 # WafflePatch
 
@@ -23,6 +23,12 @@ Patch for waffle game to prevent crashes.
 
 - Rename **`waffle-version.dll`** to **`version.dll`** then put into game root dir.
 
+- (Optional) **`waffle-version-protected.dll`** & [**`version.json`**](https://github.com/bynejake/GalPatch/blob/main/WafflePatch/version.json)
+
+    - For **`ProtectedExe (EnigmaProtector etc.)`** if memory patch needed.
+
+    - Json sample for **`game : kanin, encoding : zh, font : Unifont`**.
+
 # Merged
-- [KrkrPatch](https://github.com/bynejake/KrkrPatch)
-- [WafflePatch](https://github.com/bynejake/WafflePatch)
+- [**`KrkrPatch`**](https://github.com/bynejake/KrkrPatch)
+- [**`WafflePatch`**](https://github.com/bynejake/WafflePatch)
