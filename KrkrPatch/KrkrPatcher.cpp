@@ -109,15 +109,7 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 f
 
     if (!patchArc.empty())
     {
-        XP3ArchiveSegment* segment;
-        if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamBorland>)
-            segment = reinterpret_cast<tTVPXP3ArchiveStreamBorland*>(patchUrlStream)->CurSegment;
-        else if (std::is_same_v<TArcStream, tTVPXP3ArchiveStreamMsvc>)
-            segment = reinterpret_cast<tTVPXP3ArchiveStreamMsvc*>   (patchUrlStream)->CurSegment;
-        else
-            throw std::exception("Unsupported CompilerType!");
-
-        const auto patchArcStream = new KrkrPatchArcStream(patchArc, segment);
+        const auto patchArcStream = new KrkrPatchArcStream(patchArc, reinterpret_cast<TArcStream*>(patchUrlStream)->CurSegment);
         tTJSBinaryStream::ApplyWrapVTable(patchArcStream);
         return patchArcStream;
     }
@@ -133,7 +125,7 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
 
         if (const auto patchName = PatchName(name); !patchName.empty())
         {
-            static const auto [PatchDirs, PatchArcs] = PatchPathes();
+            static const auto [PatchDirs, PatchArcs] = ListPatches();
 
             for (auto& patchDir : PatchDirs)
             {
@@ -335,7 +327,7 @@ std::wstring KrkrPatcher::PatchName(const ttstr& name)
     return patchName;
 }
 
-std::pair<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::PatchPathes()
+std::tuple<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::ListPatches()
 {
     const auto appPath = PathUtil::GetAppPath();
 
@@ -345,12 +337,12 @@ std::pair<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::Pat
     static constexpr auto PATCH_COUNT = 9;
     for (int num = PATCH_COUNT; num > 0; --num)
     {
-        const auto patchPathPrefix = appPath + L"unencrypted" + (num == 1 ? L"" : std::to_wstring(num));
+        const auto patchPrefix = appPath + L"unencrypted" + (num == 1 ? L"" : std::to_wstring(num));
 
-        if (const auto patchDir = patchPathPrefix; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+        if (const auto patchDir = patchPrefix; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
             patchDirs.emplace_back(patchDir);
 
-        if (const auto patchArc = patchPathPrefix + L".xp3"; GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
+        if (const auto patchArc = patchPrefix + L".xp3"; GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)
             patchArcs.emplace_back(patchArc);
     }
 

@@ -10,7 +10,8 @@ class PathUtil final
 {
 public:
     template <typename T>
-    static std::enable_if_t<std::is_same_v<T, std::wstring> || std::is_same_v<T, std::string>, T> GetAppPathTpl()
+        requires std::is_same_v<T, std::wstring> || std::is_same_v<T, std::string>
+    static T GetAppPathTpl()
     {
         TCHAR pathBuffer[MAX_PATH];
         GetModuleFileName(nullptr, pathBuffer, MAX_PATH);

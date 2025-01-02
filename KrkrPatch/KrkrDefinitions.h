@@ -14,17 +14,17 @@ public:
     static void ApplyWrapVTable(tTJSBinaryStream* pStream)
     {
         CompilerHelper::ApplyWrapVTable
-            <&NoChange,
-             &NoChange,
-             &NoChange,
-             &NoChange,
-             &NoChange,
+            <&Member,
+             &Member,
+             &Member,
+             &Member,
+             &Member,
              &Destructor>
             (pStream);
     }
 
-    static inline CompilerHelper::VirFuncTypeNoChange   NoChange;
-    static inline CompilerHelper::VirFuncTypeDestructor Destructor;
+    static inline CompilerHelper::VFuncTypeMember       Member;
+    static inline CompilerHelper::VFuncTypeDestructor   Destructor;
 };
 
 struct XP3ArchiveSegment

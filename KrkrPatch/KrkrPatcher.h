@@ -17,7 +17,8 @@ private:
 
     static std::pair<std::wstring, std::wstring>                            PatchUrl                (const ttstr& name, tjs_uint32 flags);
     static std::wstring                                                     PatchName               (const ttstr& name);
-    static std::pair<std::vector<std::wstring>, std::vector<std::wstring>>  PatchPathes             ();
+
+    static std::tuple<std::vector<std::wstring>, std::vector<std::wstring>> ListPatches             ();
 
     // temp for test
     //static void decrypt(tTJSBinaryStream* stream, std::vector<BYTE>& output);

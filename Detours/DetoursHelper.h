@@ -27,8 +27,8 @@ public:
     static PVOID*           FindImportEx    (HMODULE hModule, LPCSTR pszName);
 
 private:
-    template <typename D, typename... T>
-    static void             InvokeDetourFunc(D pDetourFunc, const std::pair<T**, T*>... pairFucs)
+    template <typename F, typename... T>
+    static void             InvokeDetourFunc(F pDetourFunc, const std::pair<T**, T*>... pairFucs)
     {
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());

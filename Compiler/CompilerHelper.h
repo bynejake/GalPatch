@@ -63,7 +63,7 @@ public:
             return BorlandToCdeclAdapter<TResult(TArgs...), TFuncPtrPtr>::Call(args...);
 
         case CompilerType::Msvc:
-            return (static_cast<decltype(*TFuncPtrPtr)>(*TFuncPtrPtr))(args...);
+            return (*TFuncPtrPtr)(args...);
 
         default:
             throw std::exception("Unsupported compiler type!");
@@ -86,42 +86,30 @@ public:
         }
     }
 
-    template <auto*... TVirFuncTypePtrs>
-    static void                 ApplyWrapVTable     (PVOID pObj)
-    {
-        (..., AssertVirFuncType<TVirFuncTypePtrs>());
-        *static_cast<PVOID*>(pObj) = WrapVTable<TVirFuncTypePtrs...>(*static_cast<PVOID*>(pObj));
-    }
-
 private:
-    struct VirFuncType
-    {
-        virtual ~VirFuncType() = default;
-    };
+    struct VFuncType{};
 
 public:
-    struct VirFuncTypeNoChange      final : VirFuncType
-    {
-    };
+    struct VFuncTypeMember      final : VFuncType{};
+    struct VFuncTypeDestructor  final : VFuncType{};
 
-    struct VirFuncTypeDestructor    final : VirFuncType
+    template <auto*... TVFuncTypePtrs>
+        requires(std::conjunction_v<std::disjunction<
+            std::is_same<decltype(TVFuncTypePtrs), VFuncTypeMember*>,
+            std::is_same<decltype(TVFuncTypePtrs), VFuncTypeDestructor*>>...>)
+    static void                 ApplyWrapVTable     (PVOID pObj)
     {
-    };
-
-private:
-    template <auto* TVirFuncTypePtr>
-    static void                 AssertVirFuncType   ()
-    {
-        static_assert(dynamic_cast<VirFuncTypeNoChange*>(TVirFuncTypePtr) || dynamic_cast<VirFuncTypeDestructor*>(TVirFuncTypePtr));
+        *static_cast<PVOID*>(pObj) = WrapVTable<TVFuncTypePtrs...>(*static_cast<PVOID*>(pObj));
     }
 
-    template <auto*... TVirFuncTypePtrs>
+private:
+    template <auto*... TVFuncTypePtrs>
     static PVOID                WrapVTable          (PVOID pVTable)
     {
         switch (CompilerType)
         {
         case CompilerType::Borland:
-            return VTableAdapter<TVirFuncTypePtrs...>::AdaptToBorland(pVTable);
+            return VTableAdapter<TVFuncTypePtrs...>::AdaptThiscallToBorland(pVTable);
 
         case CompilerType::Msvc:
             return pVTable;
@@ -131,41 +119,42 @@ private:
         }
     }
 
-    template <auto*... TVirFuncTypePtrs>
+    template <auto*... TVFuncTypePtrs>
     class VTableAdapter
     {
     public:
-        static PVOID AdaptToBorland         (PVOID pVTable)
+        static PVOID AdaptThiscallToBorland(PVOID pVTable)
         {
-            return AdaptThiscallToBorland(pVTable, std::make_index_sequence<sizeof...(TVirFuncTypePtrs)>());
+            return AdaptThiscallToBorland(pVTable, std::make_index_sequence<sizeof...(TVFuncTypePtrs)>());
         }
 
     private:
-        template <size_t... TIndexes>
-        static PVOID AdaptThiscallToBorland (PVOID pVTable, std::index_sequence<TIndexes...> indexes)
+        template <size_t... TVFuncIndexes>
+        static PVOID AdaptThiscallToBorland(PVOID pVTable, std::index_sequence<TVFuncIndexes...>)
         {
-            static PVOID pCopyVTable[sizeof...(TVirFuncTypePtrs)];
+            static PVOID pCopyVTable[sizeof...(TVFuncTypePtrs)];
             if (pCopyVTable[0] == nullptr)
-                memcpy(pCopyVTable, pVTable, sizeof pCopyVTable);
+                memcpy(pCopyVTable, pVTable, sizeof(pCopyVTable));
 
-            static PVOID pNewVTable[] = {
-                CallingConventionAdapter<pCopyVTable, TIndexes>::AdaptThiscallToBorland(TVirFuncTypePtrs)...
+            static PVOID pNewVTable[] =
+            {
+                CallingAdapter<pCopyVTable, TVFuncIndexes, decltype(TVFuncTypePtrs)>::AdaptThiscallToBorland()...
             };
             return pNewVTable;
         }
     };
 
-    template <auto** TFuncPtrPtr, size_t TFuncPtrIndex>
-    class CallingConventionAdapter
+    template <auto** TVTable, size_t TVFuncIndex, typename TVFuncType>
+    class CallingAdapter
     {
     public:
-        static constexpr PVOID AdaptThiscallToBorland(auto* pVirFuncType)
+        static constexpr PVOID AdaptThiscallToBorland()
         {
-            if (dynamic_cast<VirFuncTypeNoChange*>  (pVirFuncType))
-                return *(TFuncPtrPtr + TFuncPtrIndex);
+            if constexpr (std::is_same_v<TVFuncType, VFuncTypeMember*>)
+                return *(TVTable + TVFuncIndex);
 
-            if (dynamic_cast<VirFuncTypeDestructor*>(pVirFuncType))
-                return reinterpret_cast<PVOID>(ThiscallToBorlandAdapter<void(PVOID, size_t), TFuncPtrPtr, TFuncPtrIndex>::Call);
+            if constexpr (std::is_same_v<TVFuncType, VFuncTypeDestructor*>)
+                return reinterpret_cast<PVOID>(ThiscallToBorlandAdapter<void(PVOID, size_t), TVTable, TVFuncIndex>::Call);
 
             throw std::exception("Unsupported virtual function type!");
         }
