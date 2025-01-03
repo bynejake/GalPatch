@@ -11,20 +11,18 @@ public:
 
     virtual ~tTJSBinaryStream() = default;
 
+    using VType = CompilerHelper::VType;
     static void ApplyWrapVTable(tTJSBinaryStream* pStream)
     {
         CompilerHelper::ApplyWrapVTable
-            <&Member,
-             &Member,
-             &Member,
-             &Member,
-             &Member,
-             &Destructor>
+            <VType::Member,
+             VType::Member,
+             VType::Member,
+             VType::Member,
+             VType::Member,
+             VType::Destructor>
             (pStream);
     }
-
-    static inline CompilerHelper::VFuncTypeMember       Member;
-    static inline CompilerHelper::VFuncTypeDestructor   Destructor;
 };
 
 struct XP3ArchiveSegment

@@ -86,30 +86,26 @@ public:
         }
     }
 
-private:
-    struct VFuncType{};
-
-public:
-    struct VFuncTypeMember      final : VFuncType{};
-    struct VFuncTypeDestructor  final : VFuncType{};
-
-    template <auto*... TVFuncTypePtrs>
-        requires(std::conjunction_v<std::disjunction<
-            std::is_same<decltype(TVFuncTypePtrs), VFuncTypeMember*>,
-            std::is_same<decltype(TVFuncTypePtrs), VFuncTypeDestructor*>>...>)
-    static void                 ApplyWrapVTable     (PVOID pObj)
+    enum class VType
     {
-        *static_cast<PVOID*>(pObj) = WrapVTable<TVFuncTypePtrs...>(*static_cast<PVOID*>(pObj));
+        Member,
+        Destructor
+    };
+
+    template <VType... VTypes, typename T>
+    static void                 ApplyWrapVTable     (T* pObj)
+    {
+        *reinterpret_cast<PVOID*>(pObj) = WrapVTable<T, VTypes...>(*reinterpret_cast<PVOID*>(pObj));
     }
 
 private:
-    template <auto*... TVFuncTypePtrs>
+    template <typename T, VType... VTypes>
     static PVOID                WrapVTable          (PVOID pVTable)
     {
         switch (CompilerType)
         {
         case CompilerType::Borland:
-            return VTableAdapter<TVFuncTypePtrs...>::AdaptThiscallToBorland(pVTable);
+            return VTableAdapter<T, VTypes...>::AdaptThiscallToBorland(pVTable);
 
         case CompilerType::Msvc:
             return pVTable;
@@ -119,42 +115,42 @@ private:
         }
     }
 
-    template <auto*... TVFuncTypePtrs>
+    template <typename, VType... VTypes>
     class VTableAdapter
     {
     public:
         static PVOID AdaptThiscallToBorland(PVOID pVTable)
         {
-            return AdaptThiscallToBorland(pVTable, std::make_index_sequence<sizeof...(TVFuncTypePtrs)>());
+            return AdaptThiscallToBorland(pVTable, std::make_index_sequence<sizeof...(VTypes)>());
         }
 
     private:
-        template <size_t... TVFuncIndexes>
-        static PVOID AdaptThiscallToBorland(PVOID pVTable, std::index_sequence<TVFuncIndexes...>)
+        template <size_t... VIndexes>
+        static PVOID AdaptThiscallToBorland(PVOID pVTable, std::index_sequence<VIndexes...>)
         {
-            static PVOID pCopyVTable[sizeof...(TVFuncTypePtrs)];
+            static PVOID pCopyVTable[sizeof...(VTypes)];
             if (pCopyVTable[0] == nullptr)
                 memcpy(pCopyVTable, pVTable, sizeof(pCopyVTable));
 
             static PVOID pNewVTable[] =
             {
-                CallingAdapter<pCopyVTable, TVFuncIndexes, decltype(TVFuncTypePtrs)>::AdaptThiscallToBorland()...
+                CallingAdapter<pCopyVTable, VIndexes, VTypes>::AdaptThiscallToBorland()...
             };
             return pNewVTable;
         }
     };
 
-    template <auto** TVTable, size_t TVFuncIndex, typename TVFuncType>
+    template <PVOID* PPVTable, size_t VIndex, VType VType>
     class CallingAdapter
     {
     public:
         static constexpr PVOID AdaptThiscallToBorland()
         {
-            if constexpr (std::is_same_v<TVFuncType, VFuncTypeMember*>)
-                return *(TVTable + TVFuncIndex);
+            if constexpr (VType == VType::Member)
+                return *(PPVTable + VIndex);
 
-            if constexpr (std::is_same_v<TVFuncType, VFuncTypeDestructor*>)
-                return reinterpret_cast<PVOID>(ThiscallToBorlandAdapter<void(PVOID, size_t), TVTable, TVFuncIndex>::Call);
+            if constexpr (VType == VType::Destructor)
+                return reinterpret_cast<PVOID>(ThiscallToBorlandAdapter<void(PVOID, size_t), PPVTable, VIndex>::Call);
 
             throw std::exception("Unsupported virtual function type!");
         }
