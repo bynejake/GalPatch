@@ -38,7 +38,7 @@ PVOID* DetoursHelper::FindImportEx(HMODULE hModule, LPCSTR pszName)
     return findImportContext.ppvFunc;
 }
 
-BOOL DetoursHelper::CheckExport(PVOID pContext, DWORD nOrdinal, LPCSTR pszName, PVOID pvFunc)
+BOOL DetoursHelper::CheckExport(PVOID pContext, DWORD, LPCSTR pszName, PVOID pvFunc)
 {
     if (const auto pFindExportContext = static_cast<FindExportContext*>(pContext); pszName != nullptr && strcmp(pFindExportContext->pszName, pszName) == 0)
     {
@@ -48,7 +48,7 @@ BOOL DetoursHelper::CheckExport(PVOID pContext, DWORD nOrdinal, LPCSTR pszName, 
     return TRUE;
 }
 
-BOOL DetoursHelper::CheckImport(PVOID pContext, DWORD nOrdinal, LPCSTR pszName, PVOID* ppvFunc)
+BOOL DetoursHelper::CheckImport(PVOID pContext, DWORD, LPCSTR pszName, PVOID* ppvFunc)
 {
     if (const auto pFindImportContext = static_cast<FindImportContext*>(pContext); pszName != nullptr && strcmp(pFindImportContext->pszName, pszName) == 0)
     {
