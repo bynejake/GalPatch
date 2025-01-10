@@ -1,15 +1,15 @@
 #include "pch.h"
 
 #ifdef PROTECTED_EXE
+struct MemoryPatch
+{
+    DWORD               rva;
+    DWORD               chk;
+    std::vector<BYTE>   val;
+};
+
 void WafflePatcher::PatchProtectedExeEncoding()
 {
-    struct MemoryPatch
-    {
-        DWORD               rva;
-        DWORD               chk;
-        std::vector<BYTE>   val;
-    };
-
     static std::vector<MemoryPatch> sPatches =
     {
 #ifdef KANIN
