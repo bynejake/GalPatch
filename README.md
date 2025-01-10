@@ -23,12 +23,6 @@ Patch for waffle game to prevent crashes.
 
 - Rename **`waffle-version.dll`** to **`version.dll`** then put into game root dir.
 
-- (Optional) **`waffle-version-protected.dll`** & [**`version.json`**](https://github.com/bynejake/GalPatch/blob/main/WafflePatch/version.json)
-
-    - For **`ProtectedExe (EnigmaProtector etc.)`** if memory patch needed.
-
-    - Json sample for **`game : kanin, encoding : zh, font : Unifont`**.
-
 # Merged
 - [**`KrkrPatch`**](https://github.com/bynejake/KrkrPatch)
 - [**`WafflePatch`**](https://github.com/bynejake/WafflePatch)

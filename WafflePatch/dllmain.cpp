@@ -12,7 +12,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
             {
 #ifdef PROTECTED_EXE
                 WafflePatcher::PatchProtectedExeEncoding();
-#endif // PROTECTED_EXE
+#endif
                 WafflePatcher::PatchGetTextCrash();
             });
         break;

@@ -1,6 +1,5 @@
 {
   "dependencies": [
-    "detours",
-    "nlohmann-json"
+    "detours"
   ]
 }

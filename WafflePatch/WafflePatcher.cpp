@@ -1,10 +1,6 @@
 #include "pch.h"
 
 #ifdef PROTECTED_EXE
-#include <fstream>
-
-#include "nlohmann/json.hpp"
-
 void WafflePatcher::PatchProtectedExeEncoding()
 {
     struct MemoryPatch
@@ -14,46 +10,30 @@ void WafflePatcher::PatchProtectedExeEncoding()
         std::vector<BYTE>   val;
     };
 
-    static std::vector<MemoryPatch> sPatches = []
+    static std::vector<MemoryPatch> sPatches =
     {
-        std::vector<MemoryPatch> patches;
-        if (std::ifstream jFile(PathUtil::GetAppPath() + L"version.json"); jFile.is_open())
-        {
-            const auto str2Hex = [](const std::string& str)
-            {
-                return std::stoul(str, nullptr, 16);
-            };
-
-            using json = nlohmann::json;
-            for (json jConfig = json::parse(jFile); const auto& jPatch : jConfig[jConfig["Current"]]["MemoryPatch"])
-            {
-                MemoryPatch patch
-                {
-                    .rva = str2Hex(jPatch["rva"]),
-                    .chk = str2Hex(jPatch["chk"])
-                };
-
-                for (const auto& jValElem : jPatch["val"])
-                    patch.val.emplace_back(static_cast<BYTE>(str2Hex(jValElem)));
-
-                patches.emplace_back(patch);
-            }
-        }
-        return patches;
-    }();
+#ifdef KANIN
+        // encoding
+        {0x000D6D24, 0x00008068, {0x68, 0x86}},
+        // boundary
+        {0x0005BB6A, 0x06769F3C, {0x3C, 0xFE}},
+        // font
+        {0x0027EE34, 0x72826C82, {0x4C, 0x58, 0x47, 0x57, 0x20, 0x57, 0x4B, 0x20, 0x4C, 0x69, 0x74, 0x65, 0x00}}
+#endif
+    };
 
     static const auto ImageBase = Pe::GetOptionalHeader()->ImageBase;
     std::erase_if(sPatches, [](const MemoryPatch& patch)
     {
         if (const auto addr = reinterpret_cast<DWORD*>(ImageBase + patch.rva); *addr == patch.chk)
         {
-            std::memcpy(addr, patch.val.data(), patch.val.size());
+            MemoryUtil::Write(addr, patch.val);
             return true;
         }
         return false;
     });
 }
-#endif // PROTECTED_EXE
+#endif
 
 void WafflePatcher::PatchGetTextCrash()
 {
