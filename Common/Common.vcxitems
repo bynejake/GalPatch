@@ -22,6 +22,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Common.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileStream.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Log.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MemoryUtil.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PathUtil.h" />
   </ItemGroup>
 </Project>
