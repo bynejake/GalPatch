@@ -195,6 +195,6 @@ private:
     DECLARE_ORIGINAL_FUNC(waveOutSetVolume)
     DECLARE_ORIGINAL_FUNC(waveOutUnprepareHeader)
     DECLARE_ORIGINAL_FUNC(waveOutWrite)
-})
+};
 
 #endif

@@ -36,7 +36,7 @@ PVOID Pe::FindData(HMODULE hModule, LPCSTR lpPattern, size_t patternLen, BOOL on
 
 std::vector<Pe::Section> Pe::GetSections(HMODULE hModule)
 {
-    const auto pNtHeaders = GetNtHeaders(hModule);
+    const auto pNtHeaders       = GetNtHeaders(hModule);
     const auto pSectionHeaders  = IMAGE_FIRST_SECTION(pNtHeaders);
 
     std::vector<Section> sections;

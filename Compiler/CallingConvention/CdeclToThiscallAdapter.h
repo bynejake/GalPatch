@@ -65,6 +65,4 @@ template <typename TSign, auto** TFuncPtrPtr, size_t TFuncPtrIndex = 0>
 class CdeclToThiscallAdapter;
 
 template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
-class CdeclToThiscallAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public CdeclToThiscallAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>
-{
-};
+class CdeclToThiscallAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public CdeclToThiscallAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...> {};

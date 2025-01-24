@@ -7,16 +7,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     case DLL_PROCESS_ATTACH:
         Hijacker::Hijack(L"Waffle");
         LoadLibHooker::Hook();
-        WaffleInjector::Inject
-        (
-            []
-            {
+        WaffleInjector::Inject([]
+        {
 #ifdef PROTECTED_EXE
-                WafflePatcher::PatchProtectedExeEncoding();
+            WafflePatcher::PatchProtectedExeEncoding();
 #endif
-                WafflePatcher::PatchGetTextCrash();
-            }
-        );
+            WafflePatcher::PatchGetTextCrash();
+        });
         break;
     case DLL_PROCESS_DETACH:
         WafflePatcher::Unpatch();

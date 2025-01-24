@@ -86,6 +86,4 @@ template <typename TSign, auto** TFuncPtrPtr, size_t TFuncPtrIndex = 0>
 class CdeclToBorlandAdapter;
 
 template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
-class CdeclToBorlandAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public CdeclToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>
-{
-};
+class CdeclToBorlandAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public CdeclToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...> {};

@@ -20,7 +20,7 @@ BOOL KrkrPatcher::PatchSignVerify(HMODULE hModule)
             }
         }
     }
-    return FALSE;
+        return FALSE;
     default:
         return TRUE;
     }

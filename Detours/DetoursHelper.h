@@ -48,6 +48,6 @@ private:
         PVOID*  ppvFunc;
     };
 
-    static BOOL CALLBACK    CheckExport     (PVOID pContext, DWORD, LPCSTR pszName, PVOID  pvFunc);
-    static BOOL CALLBACK    CheckImport     (PVOID pContext, DWORD, LPCSTR pszName, PVOID* ppvFunc);
+    static BOOL CALLBACK    CheckExport     (PVOID pContext, DWORD, LPCSTR pszName, PVOID   pvFunc);
+    static BOOL CALLBACK    CheckImport     (PVOID pContext, DWORD, LPCSTR pszName, PVOID*  ppvFunc);
 };

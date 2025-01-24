@@ -16,10 +16,10 @@ void LoadLibHooker::Hook(const std::function<void(HMODULE)>& callback)
 
     DetoursHelper::Hook
     (
-        std::pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
-        std::pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
-        std::pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
-        std::pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
+        std::pair(&OriginalLoadLibraryA,    HookLoadLibraryA),
+        std::pair(&OriginalLoadLibraryW,    HookLoadLibraryW),
+        std::pair(&OriginalLoadLibraryExA,  HookLoadLibraryExA),
+        std::pair(&OriginalLoadLibraryExW,  HookLoadLibraryExW)
     );
 }
 
@@ -41,10 +41,10 @@ void LoadLibHooker::Unhook(const std::function<void(HMODULE)>& callback)
 
     DetoursHelper::Unhook
     (
-        std::pair(&OriginalLoadLibraryA,     HookLoadLibraryA),
-        std::pair(&OriginalLoadLibraryW,     HookLoadLibraryW),
-        std::pair(&OriginalLoadLibraryExA,   HookLoadLibraryExA),
-        std::pair(&OriginalLoadLibraryExW,   HookLoadLibraryExW)
+        std::pair(&OriginalLoadLibraryA,    HookLoadLibraryA),
+        std::pair(&OriginalLoadLibraryW,    HookLoadLibraryW),
+        std::pair(&OriginalLoadLibraryExA,  HookLoadLibraryExA),
+        std::pair(&OriginalLoadLibraryExW,  HookLoadLibraryExW)
     );
 
     OriginalLoadLibraryA    = nullptr;

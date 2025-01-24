@@ -12,9 +12,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         LOG(L"KrkrPatch: CompilerType {}.", CompilerHelper::CompilerType == CompilerType::Borland ? L"Borland" : L"Msvc");
 
         KrkrInjector::Inject(
-            [](HMODULE hModule)
+            [](HMODULE lhModule)
             {
-                return KrkrPatcher::PatchSignVerify(hModule);
+                return KrkrPatcher::PatchSignVerify(lhModule);
             },
             []
             {

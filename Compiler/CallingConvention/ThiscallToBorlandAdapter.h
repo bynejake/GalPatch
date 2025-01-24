@@ -78,6 +78,4 @@ template <typename TSign, auto** TFuncPtrPtr, size_t TFuncPtrIndex = 0>
 class ThiscallToBorlandAdapter;
 
 template <typename TResult, auto** TFuncPtrPtr, size_t TFuncPtrIndex, typename... TArgs>
-class ThiscallToBorlandAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public ThiscallToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...>
-{
-};
+class ThiscallToBorlandAdapter<TResult(TArgs...), TFuncPtrPtr, TFuncPtrIndex> : public ThiscallToBorlandAdapterBase<TResult, TFuncPtrPtr, TFuncPtrIndex, TArgs...> {};
