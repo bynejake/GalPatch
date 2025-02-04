@@ -1,19 +1,19 @@
 #ifndef PCH_H
 #define PCH_H
 
-//#define KANIN
-
-#if defined(KANIN)
-#define PROTECTED_EXE
-#endif
+//#define PROTECTED_EXE
 
 #include "framework.h"
 #include "Hijacker.h"
 #include "DetoursHelper.h"
 #include "LoadLibHooker.h"
-#include "Common.h"
 #ifdef PROTECTED_EXE
 #include "Pe.h"
+#endif
+
+#include "Log.h"
+#ifdef PROTECTED_EXE
+#include "MemoryUtil.h"
 #endif
 
 #include "WaffleInjector.h"

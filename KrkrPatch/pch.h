@@ -7,7 +7,10 @@
 #include "LoadLibHooker.h"
 #include "Pe.h"
 #include "CompilerHelper.h"
-#include "Common.h"
+
+#include "FileStream.h"
+#include "Log.h"
+#include "PathUtil.h"
 
 #include "KrkrPlugin/tp_stub.h"
 #include "KrkrInjector.h"

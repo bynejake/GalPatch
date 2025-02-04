@@ -14,7 +14,7 @@ public:
         const auto size = val.size() * sizeof(T);
 
         PageUnprotector unprotector{addr, size};
-        std::memcpy(addr, val.data(), size);
+        memcpy(addr, val.data(), size);
     }
 
 private:

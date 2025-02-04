@@ -10,9 +10,9 @@ struct MemoryPatch
 
 void WafflePatcher::PatchProtectedExeEncoding()
 {
+    // TODO Replace specific addresses with signature.
     static std::vector<MemoryPatch> sPatches =
     {
-#ifdef KANIN
         // encoding
         {0x000D6D24, 0x00008068, {0x68, 0x86}},
         // boundary
@@ -21,7 +21,6 @@ void WafflePatcher::PatchProtectedExeEncoding()
         {0x0027EE34, 0x72826C82, {0x4C, 0x58, 0x47, 0x57, 0x20, 0x57, 0x65, 0x6E, 0x4B, 0x61, 0x69, 0x00, 0x00}},
         // heart
         {0x002836E4, 0x00009F81, {0xA1, 0xF4}}
-#endif
     };
 
     static const auto ImageBase = Pe::GetOptionalHeader()->ImageBase;
