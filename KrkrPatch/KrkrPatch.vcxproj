@@ -111,7 +111,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="KrkrDefinitions.h" />
     <ClInclude Include="KrkrInjector.h" />
-    <ClInclude Include="KrkrPatchArcStream.h" />
+    <ClInclude Include="KrkrPatchStream.h" />
     <ClInclude Include="KrkrPatcher.h" />
     <ClInclude Include="KrkrPlugin\tp_stub.h" />
     <ClInclude Include="pch.h" />
@@ -119,7 +119,7 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="KrkrInjector.cpp" />
-    <ClCompile Include="KrkrPatchArcStream.cpp" />
+    <ClCompile Include="KrkrPatchStream.cpp" />
     <ClCompile Include="KrkrPatcher.cpp" />
     <ClCompile Include="KrkrPlugin\tp_stub.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>

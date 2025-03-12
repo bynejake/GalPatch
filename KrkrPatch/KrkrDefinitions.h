@@ -12,7 +12,7 @@ public:
     virtual ~tTJSBinaryStream() = default;
 
     using VType = CompilerHelper::VType;
-    static void ApplyWrapVTable(tTJSBinaryStream* pStream)
+    static tTJSBinaryStream* ApplyWrapVTable(tTJSBinaryStream* pStream)
     {
         CompilerHelper::ApplyWrapVTable
             <VType::Member,
@@ -22,6 +22,7 @@ public:
              VType::Member,
              VType::Destructor>
             (pStream);
+        return pStream;
     }
 };
 

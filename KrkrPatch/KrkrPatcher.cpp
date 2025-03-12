@@ -86,7 +86,7 @@ void KrkrPatcher::Unpatch()
     }
 }
 
-BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE hModule)
+BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE)
 {
     return TRUE;
 }
@@ -104,15 +104,14 @@ tTJSBinaryStream* KrkrPatcher::PatchCreateStreamMsvc(const ttstr& name, tjs_uint
 template <typename TArcStream, auto** TOriginalCreateStream>
 tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 flags)
 {
+    if (std::wstring(name.c_str()).ends_with(L".sig"))
+        return tTJSBinaryStream::ApplyWrapVTable(new KrKrPatchSigStream());
+
     const auto [patchUrl, patchArc] = PatchUrl(name, flags);
     const auto patchUrlStream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, TOriginalCreateStream, const ttstr&, tjs_uint32>(patchUrl.c_str(), flags);
 
     if (!patchArc.empty())
-    {
-        const auto patchArcStream = new KrkrPatchArcStream(patchArc, reinterpret_cast<TArcStream*>(patchUrlStream)->CurSegment);
-        tTJSBinaryStream::ApplyWrapVTable(patchArcStream);
-        return patchArcStream;
-    }
+        return tTJSBinaryStream::ApplyWrapVTable(new KrkrPatchArcStream(patchArc, reinterpret_cast<TArcStream*>(patchUrlStream)->CurSegment));
 
     return patchUrlStream;
 }

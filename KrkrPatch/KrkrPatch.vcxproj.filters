@@ -27,7 +27,7 @@
     <ClInclude Include="KrkrInjector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KrkrPatchArcStream.h">
+    <ClInclude Include="KrkrPatchStream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KrkrDefinitions.h">
@@ -50,7 +50,7 @@
     <ClCompile Include="KrkrInjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KrkrPatchArcStream.cpp">
+    <ClCompile Include="KrkrPatchStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KrkrPlugin\tp_stub.cpp">

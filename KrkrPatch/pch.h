@@ -15,7 +15,7 @@
 #include "KrkrPlugin/tp_stub.h"
 #include "KrkrInjector.h"
 #include "KrkrDefinitions.h"
-#include "KrkrPatchArcStream.h"
+#include "KrkrPatchStream.h"
 #include "KrkrPatcher.h"
 
 #endif //PCH_H
