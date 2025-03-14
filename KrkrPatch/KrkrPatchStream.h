@@ -18,10 +18,10 @@ private:
     tjs_uint64 pos = 0;
 };
 
-class KrKrPatchSigStream final : public KrkrPatchStream
+class KrkrPatchSigStream final : public KrkrPatchStream
 {
 public:
-    KrKrPatchSigStream();
+    KrkrPatchSigStream();
 };
 
 class KrkrPatchArcStream final : public KrkrPatchStream

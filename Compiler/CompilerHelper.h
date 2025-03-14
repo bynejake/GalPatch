@@ -93,9 +93,10 @@ public:
     };
 
     template <VType... VTypes, typename T>
-    static void                 ApplyWrapVTable     (T* pObj)
+    static T*                   ApplyWrapVTable     (T* pObj)
     {
         *reinterpret_cast<PVOID*>(pObj) = WrapVTable<T, VTypes...>(*reinterpret_cast<PVOID*>(pObj));
+        return pObj;
     }
 
 private:

@@ -48,7 +48,7 @@ tjs_uint64 KrkrPatchStream::GetSize()
     return data.size();
 }
 
-KrKrPatchSigStream::KrKrPatchSigStream()
+KrkrPatchSigStream::KrkrPatchSigStream()
 {
     static constexpr auto SIG_SKIP = "skip!";
     data = std::vector<BYTE>(SIG_SKIP, SIG_SKIP + strlen(SIG_SKIP));

@@ -105,7 +105,7 @@ template <typename TArcStream, auto** TOriginalCreateStream>
 tTJSBinaryStream* KrkrPatcher::PatchCreateStream(const ttstr& name, tjs_uint32 flags)
 {
     if (std::wstring(name.c_str()).ends_with(L".sig"))
-        return tTJSBinaryStream::ApplyWrapVTable(new KrKrPatchSigStream());
+        return tTJSBinaryStream::ApplyWrapVTable(new KrkrPatchSigStream());
 
     const auto [patchUrl, patchArc] = PatchUrl(name, flags);
     const auto patchUrlStream = CompilerHelper::CallStaticFunc<tTJSBinaryStream*, TOriginalCreateStream, const ttstr&, tjs_uint32>(patchUrl.c_str(), flags);
