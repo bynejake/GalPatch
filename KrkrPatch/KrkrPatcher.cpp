@@ -120,9 +120,10 @@ std::pair<std::wstring, std::wstring> KrkrPatcher::PatchUrl(const ttstr& name, t
 {
     if (flags == TJS_BS_READ)
     {
-        LOG(L"KrkrPatch: PatchUrl direct {}", name.c_str());
+        const auto nsname = TVPNormalizeStorageName(name);
+        LOG(L"KrkrPatch: PatchUrl direct {}", nsname.c_str());
 
-        if (const auto patchName = PatchName(name); !patchName.empty())
+        if (const auto patchName = PatchName(nsname); !patchName.empty())
         {
             static const auto [PatchDirs, PatchArcs] = ListPatches();
 
@@ -319,8 +320,6 @@ std::wstring KrkrPatcher::PatchName(const ttstr& name)
         pos = patchName.find_last_of(L'/') + 1;
     else if (patchName.starts_with(L"file://./") && patchName.contains(L".xp3>"))
         pos = patchName.find_last_of(L"/>") + 1;
-    else if (!patchName.contains(L':'))
-        pos = 0;
 
     patchName.erase(0, pos);
     return patchName;
