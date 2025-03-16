@@ -6,8 +6,8 @@ public:
     ~KrkrPatchStream() override = default;
 
     tjs_uint64  TJS_INTF_METHOD Seek            (tjs_int64 offset, tjs_int whence) final;
-    tjs_uint    TJS_INTF_METHOD Read            (void* buffer, tjs_uint read_size) final;
-    tjs_uint    TJS_INTF_METHOD Write           (const void* buffer, tjs_uint write_size) final;
+    tjs_uint    TJS_INTF_METHOD Read            (       void* buffer, tjs_uint read_size) final;
+    tjs_uint    TJS_INTF_METHOD Write           (const  void* buffer, tjs_uint write_size) final;
     void        TJS_INTF_METHOD SetEndOfStorage () final;
     tjs_uint64  TJS_INTF_METHOD GetSize         () final;
 

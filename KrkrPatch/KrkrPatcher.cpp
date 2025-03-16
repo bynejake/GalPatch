@@ -86,7 +86,7 @@ void KrkrPatcher::Unpatch()
     }
 }
 
-BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE)
+BOOL KrkrPatcher::PatchSignVerifyMsvc(HMODULE hModule)
 {
     return TRUE;
 }
@@ -337,7 +337,7 @@ std::tuple<std::vector<std::wstring>, std::vector<std::wstring>> KrkrPatcher::Li
     {
         const auto patchPrefix = appPath + L"unencrypted" + (num == 1 ? L"" : std::to_wstring(num));
 
-        if (const auto patchDir = patchPrefix; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
+        if (const auto patchDir = patchPrefix + L"\\"; GetFileAttributes(patchDir.c_str()) == FILE_ATTRIBUTE_DIRECTORY)
             patchDirs.emplace_back(patchDir);
 
         if (const auto patchArc = patchPrefix + L".xp3"; GetFileAttributes(patchArc.c_str()) == FILE_ATTRIBUTE_ARCHIVE)

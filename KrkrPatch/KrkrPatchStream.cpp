@@ -33,7 +33,7 @@ tjs_uint KrkrPatchStream::Read(void* buffer, tjs_uint read_size)
     return read_size;
 }
 
-tjs_uint KrkrPatchStream::Write(const void*, tjs_uint)
+tjs_uint KrkrPatchStream::Write(const void* buffer, tjs_uint write_size)
 {
     throw std::exception("Not implemented!");
 }

@@ -86,7 +86,7 @@ public:
         }
     }
 
-    enum class VType
+    enum class VType : uint8_t
     {
         Member,
         Destructor
@@ -116,7 +116,7 @@ private:
         }
     }
 
-    template <typename, VType... VTypes>
+    template <typename T, VType... VTypes>
     class VTableAdapter
     {
     public:
@@ -127,7 +127,7 @@ private:
 
     private:
         template <size_t... VIndexes>
-        static PVOID AdaptThiscallToBorland(PVOID pVTable, std::index_sequence<VIndexes...>)
+        static PVOID AdaptThiscallToBorland(PVOID pVTable, std::index_sequence<VIndexes...> indexes)
         {
             static PVOID pCopyVTable[sizeof...(VTypes)];
             if (pCopyVTable[0] == nullptr)
