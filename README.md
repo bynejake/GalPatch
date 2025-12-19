@@ -15,6 +15,10 @@ Auto load patch for krkr game.
 
         - use [**`GARbro`**](https://github.com/morkt/GARbro) or [**`Xp3Pack`**](https://github.com/arcusmaximus/KirikiriTools)
 
+### Credits
+
+* [**`KirikiriTools`**](https://github.com/arcusmaximus/KirikiriTools)
+
 # WafflePatch
 
 Patch for waffle game to prevent crashes.
